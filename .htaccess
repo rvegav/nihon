@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule (.*) /nihon/index.php/$1 [L,QSA]
+</IfModule>
+<IfModule !mod_rewrite.c>
+    ErrorDocument 404 /nihon/index.php
+</IfModule>
+<FilesMatch "\.(ttf|otf|eot|woff|woff2|png)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>

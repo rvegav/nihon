@@ -20,6 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->templates = new League\Plates\Engine(APPPATH.'views');
+		
 		$this->load->view('welcome_message');
 	}
 }
