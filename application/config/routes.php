@@ -53,6 +53,7 @@ $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//mantenimiento
 $route['ciudades'] = 'ciudades/Ciudades';
 $route['add_ciudad'] = 'ciudades/Ciudades/add';
 $route['edit_ciudad/(:num)'] = 'ciudades/Ciudades/edit/$1';
@@ -80,6 +81,16 @@ $route['edit_tipo_producto/(:num)'] = 'tipo_productos/Tipos_Productos/edit/$1';
 $route['delete_tipo_producto/(:num)'] = 'tipo_productos/Tipos_Productos/delete/$1';
 $route['update_tipo_producto'] = 'tipo_productos/Tipos_Productos/update';
 $route['store_tipo_producto'] = 'tipo_productos/Tipos_Productos/store';
+
+//control de stock
+
+$route['stock'] = 'control_stock/Control_Stock';
+$route['add_producto_stock'] = 'control_stock/Control_Stock/add';
+$route['edit_producto_stock/(:num)'] = 'control_stock/Control_Stock/edit/$1';
+$route['update_producto_stock'] = 'control_stock/Control_Stock/update';
+$route['store_producto_stock'] = 'control_stock/Control_Stock/store';
+
+//seguridad
 
 $route['roles'] = 'roles/Roles';
 $route['add_roles'] = 'roles/Roles/add';

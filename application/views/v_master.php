@@ -166,7 +166,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url()?>load_editemb" class="nav-link">
+                <a href="<?php echo base_url()?>stock" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Stock de Productos</p>
                 </a>
@@ -275,7 +275,7 @@
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
-    <strong>Copyright &copy; <?php echo date('Y')?>.</strong>Desarrollado por Rolando Vega.
+    <strong>Copyright &copy; <?php echo date('Y')?>.</strong>Desarrollado por Gabriel y Murilo.
   </footer>
 
   <!-- Control Sidebar -->
