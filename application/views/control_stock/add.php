@@ -9,15 +9,24 @@
 		<form id="frm_producto" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="NumCiudad">Código Producto<span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" class="form-control" id="NumCiudad" name="NumCiudad" readonly value="<?php echo $maximo->MAXIMO;?>">
-					</div>	
+					<label class="" for="desCiudad">Producto <span class="required">*</span></label>
+					<div id="custom-search-input">
+						<div class="input-group">
+							<input type="hidden" name="prod_id" id="prod_id">	
+							<input type="text" name="producto" id="producto" class="form-control" placeholder="Buscar Producto" disabled="disabled" required="required"/>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#producto_select">
+									<span class="fa fa-search" aria-hidden="true">
+									</span>
+								</button>
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Descripcion <span class="required">*</span></label>
+					<label class="" for="desCiudad">Cantidad Inicial <span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" id="desProducto" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desProducto" class="form-control">
 					</div>
@@ -25,7 +34,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Marca <span class="required">*</span></label>
+					<label class="" for="desCiudad">Cantidad Minima <span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
 					</div>
@@ -33,35 +42,17 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Proveedor <span class="required">*</span></label>
-					<div id="custom-search-input">
-						<div class="input-group">
-							<input type="hidden" name="prov_id" id="prov_id">	
-							<input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Buscar Proveedor" disabled="disabled" required="required"/>
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#proveedor_select">
-									<span class="fa fa-search" aria-hidden="true">
-									</span>
-								</button>
-							</span>
-						</div>
+					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Tipo Producto<span class="required">*</span></label>
-					<div id="custom-search-input">
-						<div class="input-group">
-							<input type="hidden" name="tipr_id" id="tipr_id">	
-							<input type="text" name="tipo_producto" id="tipo_producto" class="form-control" placeholder="Buscar Tipo Producto" disabled="disabled" required="required"/>
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo_producto_select">
-									<span class="fa fa-search" aria-hidden="true">
-									</span>
-								</button>
-							</span>
-						</div>
+					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -90,7 +81,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Lista de Proveedores</h4>
+				<h4 class="modal-title">Lista de Productos</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -99,52 +90,20 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Descripcion</th>
+							<th class="text-center">Proveedor</th>
+							<th class="text-center">Tipo Producto</th>
 							<th class="text-center">Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php if(!empty($proveedores)):?>
+						<?php if(!empty($productos)):?>
 							<?php
-							foreach($proveedores as $proveedor):?>
+							foreach($productos as $productos):?>
 								<tr>
-									<td><?php echo $proveedor->prov_id; ?></td>
-									<td><?php echo $proveedor->prov_descripcion;?></td>
-									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
-								</tr>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</tbody>
-				</table>
-			</div>
-			<!-- <div class="modal-footer">
-				<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
-			</div> -->
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="tipo_producto_select">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Lista de Tipo de Producto</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<div class="modal-body">
-				<table class="table table-bordered" id="tablaTipoProducto" width="100%">
-					<thead>
-						<tr>
-							<th class="text-center">Codigo</th>
-							<th class="text-center">Descripcion</th>
-							<th class="text-center">Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php if(!empty($tipo_productos)):?>
-							<?php
-							foreach($tipo_productos as $tipo_producto):?>
-								<tr>
-									<td><?php echo $tipo_producto->tipr_id; ?></td>
-									<td><?php echo $tipo_producto->tipr_descripcion;?></td>
+									<td><?php echo $productos->prod_id; ?></td>
+									<td><?php echo $productos->prod_descripcion;?></td>
+									<td><?php echo $productos->prov_descripcion;?></td>
+									<td><?php echo $productos->prov_descripcion;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
