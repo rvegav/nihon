@@ -3,10 +3,10 @@
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
-		<h4>Agregar Ciudad</h4>
+		<h4>Agregar Proveedores</h4>
 	</div>
 	<div class="card-body">
-		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
+		<form id="frm_proveedor" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-3">
 					<label for="NumCiudad">Código Proveedor<span class="required">*</span></label>
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3 offset-1">
+				<div class="col-md-3">
 					<label class="" for="correo">Correo <span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" id="correo" placeholder="Correo" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="correo" class="form-control">
@@ -47,12 +47,18 @@
 							<input type="hidden" name="ciudad_id" id="ciudad_id">	
 							<input type="text" name="Ciudad" id="Ciudad" class="form-control" placeholder="Buscar Ciudad" disabled="disabled" required="required"/>
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default2">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ciudad_select">
 									<span class="fa fa-search" aria-hidden="true">
 									</span>
 								</button>
 							</span>
 						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label class="" for="correo">Direccion<span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" id="direccion" placeholder="Direccion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="direccion" class="form-control">
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -67,13 +73,13 @@
 			<div class="row">
 				<div class="col-md-3 offset-5">
 					<button type="reset" class="btn btn-primary">Resetear</button>
-					<button type="submit" class="btn btn-success">Guardar</button>
+					<button type="submit" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
 		</form>
 	</div>
 </div>
-<div class="modal fade" id="modal-default2">
+<div class="modal fade" id="ciudad_select">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -148,14 +154,17 @@
 		},
 		
 	});
-	$('#tablaCiudad tbody').on('click', '.select', function (event) {
-		console.log($(this));
+	$('#tablaCiudad tbody').on('click', 'tr', function (event) {
+		var data = tabla.row(this).data();
+		$('#ciudad_id').val(data[0]);
+		$('#Ciudad').val(data[1]);
+		$('#ciudad_select').modal('hide');
 	} );
-	$("#frm_ciudad").submit(function(event) {
+	$("#frm_proveedor").submit(function(event) {
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>store_ciudad",
+			url: "<?php echo base_url()?>store_proveedor",
 			type: 'POST',
 			data: formDato
 		})
@@ -166,25 +175,25 @@
 			if (r['alerta']!="") {
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
-				swal({
+				swal.fire({
 					title: 'Atención!', 
-					content: wrapper,
+					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
 				});
 			}
 			if (r['error']!="") {
 				wrapper.innerHTML = r['error'];
-				swal({
+				swal.fire({
 					icon: "error",
 					columnClass: 'medium',
 					theme: 'modern',
 					title: 'Error!',
-					content: wrapper,
+					html: wrapper,
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>ciudades";
+				window.location = "<?php echo base_url()?>proveedores";
 			}
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");

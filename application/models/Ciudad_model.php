@@ -6,7 +6,7 @@ class Ciudad_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getCiudades($id = false){
-		$this->db->select("c.ciu_id, c.ciu_descripcion, c.ciu_estado, c.ciu_fecha_creacion, c.ciu_fecha_modificacion");
+		$this->db->select('c.ciu_id, c.ciu_descripcion, c.ciu_estado, DATE_FORMAT(c.ciu_fecha_creacion,"%d/%m/%Y")  ciu_fecha_creacion, DATE_FORMAT(c.ciu_fecha_modificacion,"%d/%m/%Y") ciu_fecha_modificacion');
 		$this->db->from("ciudades c");
 		if ($id) {
 			$this->db->where('ciu_id', $id);
@@ -39,11 +39,16 @@ class Ciudad_model extends CI_Model {
 		return $this->db->update("ciudades");
 	}
 
-	public function validarExiste($numCiudad){
-	    $this->db->select("count(*) as cantidad");
-		$this->db->from("ciudad");
+	public function validarExiste($descripcion){
+	    $this->db->select("ciu_id");
+		$this->db->from("ciudades");
+		$this->db->where("ciu_descripcion", $descripcion);
 		$resultados= $this->db->get();
-		return $resultados->result();	
+		if($resultados->num_rows()>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	public function ultimoNumero(){
 	    $this->db->select("(CASE WHEN  max(idciudad) IS NULL THEN '1' ELSE max(idciudad) + 1 END) as MAXIMO");

@@ -52,15 +52,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
 $route['ciudades'] = 'ciudades/Ciudades';
 $route['add_ciudad'] = 'ciudades/Ciudades/add';
 $route['edit_ciudad/(:num)'] = 'ciudades/Ciudades/edit/$1';
 $route['delete_ciudad/(:num)'] = 'ciudades/Ciudades/delete/$1';
 $route['update_ciudad'] = 'ciudades/Ciudades/update';
 $route['store_ciudad'] = 'ciudades/Ciudades/store';
+
 $route['proveedores'] = 'proveedores/Proveedores';
 $route['add_proveedor'] = 'proveedores/Proveedores/add';
 $route['edit_proveedor/(:num)'] = 'proveedores/Proveedores/edit/$1';
 $route['delete_proveedor/(:num)'] = 'proveedores/Proveedores/delete/$1';
 $route['update_proveedor'] = 'proveedores/Proveedores/update';
 $route['store_proveedor'] = 'proveedores/Proveedores/store';
+
+$route['productos'] = 'productos/Productos';
+$route['add_producto'] = 'productos/Productos/add';
+$route['edit_producto/(:num)'] = 'productos/Productos/edit/$1';
+$route['delete_producto/(:num)'] = 'productos/Productos/delete/$1';
+$route['update_producto'] = 'productos/Productos/update';
+$route['store_producto'] = 'productos/Productos/store';
+
+$route['tipo_productos'] = 'tipo_productos/Tipos_Productos';
+$route['add_tipo_producto'] = 'tipo_productos/Tipos_Productos/add';
+$route['edit_tipo_producto/(:num)'] = 'tipo_productos/Tipos_Productos/edit/$1';
+$route['delete_tipo_producto/(:num)'] = 'tipo_productos/Tipos_Productos/delete/$1';
+$route['update_tipo_producto'] = 'tipo_productos/Tipos_Productos/update';
+$route['store_tipo_producto'] = 'tipo_productos/Tipos_Productos/store';
+
+$route['roles'] = 'roles/Roles';
+$route['add_roles'] = 'roles/Roles/add';
+$route['edit_roles/(:num)'] = 'roles/Roles/edit/$1';
+$route['delete_roles/(:num)'] = 'roles/Roles/delete/$1';
+$route['update_roles'] = 'roles/Roles/update';
+$route['store_roles'] = 'roles/Roles/store';
+$route['usuarios'] = 'usuarios/Usuarios';

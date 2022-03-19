@@ -57,14 +57,18 @@ class Ciudades extends CI_Controller
 				'ciu_estado' => $estado
 			);
 			$desCiudad = trim($desCiudad);
-			if($this->Ciudad_model->save($data)){
-				$mensajes['correcto'] = 'correcto';
-				$this->session->set_flashdata('success', 'Ciudad registrado correctamente!');
-					// redirect(base_url()."ciudades/ciudades", "refresh");
+			if($this->Ciudad_model->validarExiste($desCiudad)){
+				$mensajes['error']= 'Ya existe una ciudad con la misma descripcion';
 			}else{
-				$mensajes['error'] = 'Ciudad no registrado!';
-				$this->session->set_flashdata('error', 'Ciudad no registrado!');
-					// redirect(base_url()."ciudades/ciudades/add", "refresh");
+				if($this->Ciudad_model->save($data)){
+					$mensajes['correcto'] = 'correcto';
+					$this->session->set_flashdata('success', 'Ciudad registrado correctamente!');
+						redirect(base_url()."ciudades", "refresh");
+				}else{
+					$mensajes['error'] = 'Ciudad no registrado!';
+					$this->session->set_flashdata('error', 'Ciudad no registrado!');
+						redirect(base_url()."add_ciudad", "refresh");
+				}
 			}
 		}
 		echo json_encode($mensajes);
@@ -92,9 +96,12 @@ class Ciudades extends CI_Controller
 				$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 			}else{
+				$time = time();
+				$fechaActual = date("Y-m-d H:i:s",$time);
 				$data = array(
 					'ciu_descripcion' => $desCiudad,
-					'ciu_estado' => $estado
+					'ciu_estado' => $estado,
+					'ciu_fecha_modificacion'=> $fechaActual
 				);
 				if($this->Ciudad_model->update($idCiudad,$data)){
 					$mensajes['correcto'] = 'correcto';

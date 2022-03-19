@@ -114,13 +114,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url()?>" class="nav-link">
+                <a href="<?= base_url()?>tipo_productos" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tipo Producto</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url()?>" class="nav-link">
+                <a href="<?= base_url()?>productos" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Producto</p>
                 </a>
@@ -137,13 +137,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>load_list_planiemp" class="nav-link">
+                <a href="<?php echo base_url()?>usuarios" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url()?>load_func_jubila" class="nav-link">
+                <a href="<?php echo base_url()?>roles" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Roles</p>
                 </a>

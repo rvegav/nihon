@@ -1,20 +1,3 @@
-<div class="modal fade" id="modal-view">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"><i class='fa fa-eye'></i> Ver Detalles de la Ciudad </h4>
-		  	</div>
-		  	<div class="modal-body">
-		  		<!--en esta parte se carga los datos de la vista view-->
-		  	</div>
-			 	<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-		 		</div>
-		</div>
-	 </div>
-</div>
-
 <?php
 $estado = 1;
 if($estado == 1)
@@ -59,6 +42,11 @@ $date_act = $ciudad->FECGRABACION;
 	<strong>
 		Descripcion:
 	</strong><?php echo $ciudad->DESCIUDAD;?>
+</p>
+<p>
+	<strong>
+		Departamento:
+	</strong><?php echo $ciudad->DESDEPARTAMENTO;?>
 </p>
 <p>
 	<strong>

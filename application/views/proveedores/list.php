@@ -60,9 +60,9 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_ciudad/<?php echo $proveedor->prov_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<a href="<?php echo base_url();?>edit_proveedor/<?php echo $proveedor->prov_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_ciudad/<?php echo $proveedor->prov_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<a href="<?php echo base_url();?>delete_proveedor/<?php echo $proveedor->prov_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
 									<?php endif ?>
 								</td>
 							</tr>
@@ -111,81 +111,6 @@
 			}
 		},
 		
-	});
-	$('#tablaProveedores tbody').on('click', '#btn_actualizar', function (event) {
-		var cedula = $(this).val();
-		$("#contratoEmpleado").modal('toggle');
-		$.ajax({
-			url:'busca_empleado',
-			type:'POST',
-			data:{valorbus:cedula,token:token},
-			beforeSend:function(xhr){
-				var y = '<td class="text-center" colspan="8"><img src="assets/img/loading.gif" style="height:150px;"><p><h4>Buscando...</h4></p></td>';
-				$('#cuerpobuscaempleado').html(y);
-			}
-		}).done(function(res){
-			var valorespuesta=JSON.parse(res);
-			$('#func_name').val(valorespuesta[0].FUNC);
-			$('#func_ci').val(cedula);
-			$('#func_cod').val(valorespuesta[0].PERS_COD);
-			$('#contr_cargo').val(valorespuesta[0].CARG_DESC)
-			$('#contr_cate').val(valorespuesta[0].CATE_DESC)
-		}).fail(function(){
-			Swal.fire({
-				type:'error',
-				title:'Error!',
-				text:'Se produjo un error a nivel del servidor!',
-			});
-		});
-	} );
-	$('#frm_carga').submit(function(event) {
-		event.preventDefault();
-		var formDato = $(this).serialize();
-		console.log(formDato);
-		$.ajax({
-			url: 'registrar_contrato',
-			type: 'POST',
-			data: formDato,
-		}).done(function(data) {
-			var resp = JSON.parse(data);
-			console.log(resp);
-			if (resp['error']) {
-				var html = resp['error'];
-				Swal.fire({
-					type:'error',
-					title:'Error!',
-					html:html,
-				});
-			}else{
-				if (resp['correcto']=='correcto') {
-					Swal.fire({
-						type:'success',
-						title:'Correcto!',
-						text:'Se agrego correctamente',
-					});
-					$('#contratoEmpleado').modal('hide');
-				}else if(resp['correcto']=='Existe'){
-					Swal.fire({
-						type:'error',
-						title:'Error!',
-						html:'<h3>Se detalla los posibles errores</h3><br><ul><li>Ya existe contrato para el periodo seleccionado</li><li>El empleado seleccionado es nombrado</li></ul>',
-						
-					});
-				}else{
-					Swal.fire({
-						type:'error',
-						title:'Error!',
-						text:'Se produjo un error a nivel del servidor!',
-					});
-				}
-			}
-		}).fail(function() {
-			Swal.fire({
-				type:'error',
-				title:'Error!',
-				text:'Se produjo un error a nivel del servidor!',
-			});
-		});;
 	});
 </script>
 <?php $this->end()?>

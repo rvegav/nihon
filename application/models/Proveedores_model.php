@@ -6,7 +6,7 @@ class Proveedores_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getProveedores($id = false){
-		$this->db->select("p.prov_id, p.prov_descripcion, p.prov_documento, p.prov_telefono, p.prov_correo, c.ciu_descripcion ciudad, p.prov_fecha_creacion, p.prov_fecha_modificacion, p.prov_estado");
+		$this->db->select('p.prov_id, p.prov_descripcion, p.prov_documento, p.prov_telefono, p.prov_correo, prov_direccion, c.ciu_descripcion prov_ciudad, p.prov_ciu_id, DATE_FORMAT(p.prov_fecha_creacion,"%d/%m/%Y") prov_fecha_creacion, DATE_FORMAT(p.prov_fecha_modificacion,"%d/%m/%Y") prov_fecha_modificacion, p.prov_estado');
 		$this->db->from("proveedores p");
 		$this->db->join('ciudades c', 'c.ciu_id = p.prov_ciu_id', 'left');
 		if ($id) {
@@ -29,26 +29,31 @@ class Proveedores_model extends CI_Model {
 	
 	//esto es para actualizar los empleado
 	public function update($id, $data){
-		$this->db->where("ciu_id", $id);
+		$this->db->where("prov_id", $id);
 		return $this->db->update("proveedores", $data);
 
 	}
 
 	public function delete($id){
-		$this->db->set('ciu_estado', 2);
-		$this->db->where("ciu_id", $id);
+		$this->db->set('prov_estado', 2);
+		$this->db->where("prov_id", $id);
 		return $this->db->update("proveedores");
 	}
 
-	public function validarExiste($numCiudad){
-	    $this->db->select("count(*) as cantidad");
-		$this->db->from("ciudad");
+	public function validarExiste($descripcion){
+	    $this->db->select("prov_id");
+		$this->db->from("proveedores");
+		$this->db->where("prov_descripcion", $descripcion);
 		$resultados= $this->db->get();
-		return $resultados->result();	
+		if($resultados->num_rows()>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	public function ultimoNumero(){
-	    $this->db->select("(CASE WHEN  max(idciudad) IS NULL THEN '1' ELSE max(idciudad) + 1 END) as MAXIMO");
-		$this->db->from("ciudad");
+	    $this->db->select("(CASE WHEN  max(prov_id) IS NULL THEN '1' ELSE max(prov_id) + 1 END) as MAXIMO");
+		$this->db->from("proveedores");
 		$resultado= $this->db->get();
 		return $resultado->row();
 	}

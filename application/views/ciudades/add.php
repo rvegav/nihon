@@ -65,21 +65,21 @@
 				if (r['alerta']!="") {
 					var mensaje = r['alerta'];
 					wrapper.innerHTML = mensaje;
-					swal({
+					swal.fire({
 						title: 'Atención!', 
-						content: wrapper,
+						html: wrapper,
 						icon: "warning",
 						columnClass: 'medium',
 					});
 				}
 				if (r['error']!="") {
 					wrapper.innerHTML = r['error'];
-					swal({
+					swal.fire({
 						icon: "error",
 						columnClass: 'medium',
 						theme: 'modern',
 						title: 'Error!',
-						content: wrapper,
+						html: wrapper,
 					});
 				}
 				if (r['correcto']!="") {
