@@ -40,18 +40,21 @@ class Tipos_Productos extends CI_Controller
 		$mensajes= $this->data;
 		$this->form_validation->set_rules("desTipo", "Descripcion", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
+		$this->form_validation->set_rules("inventariable", "Inventariable", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
 			$desTipo   = $this->input->post("desTipo");
 			$estado = $this->input->post('estado');
+			$inventriable = $this->input->post('inventariable');
 			$idciudad = $this->Tipo_Productos_model->ObtenerCodigo();
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
 				'tipr_id'  => $idciudad->MAXIMO,
 				'tipr_descripcion'  => trim($desTipo),
+				'tipr_inventariable' => trim($inventriable),
 				'tipr_fecha_creacion' => $fechaActual,
 				'tipr_fecha_modificacion'  => $fechaActual,
 				'tipr_estado' => $estado
@@ -87,23 +90,26 @@ class Tipos_Productos extends CI_Controller
 	public function update()
 	{
 		$mensajes = $this->data;
-		$idCiudad= $this->input->post("NumCiudad");
-		$desTipo= $this->input->post("desTipo");
-		$estado = $this->input->post('estado');
+		$this->form_validation->set_rules("inventariable", "Inventariable", "required");
 		$this->form_validation->set_rules("desTipo", "Descripcion", "required");
-		$desTipo = trim($desTipo);
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
+			$desTipo= $this->input->post("desTipo");
+			$estado = $this->input->post('estado');
+			$tipr_id = $this->input->post('tipr_id');
+			$desTipo = trim($desTipo);
+			$inventriable = $this->input->post('inventariable');
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
 				'tipr_descripcion' => $desTipo,
+				'tipr_inventariable' => trim($inventriable),
 				'tipr_estado' => $estado,
 				'tipr_fecha_modificacion'=> $fechaActual
 			);
-			if($this->Tipo_Productos_model->update($idCiudad,$data)){
+			if($this->Tipo_Productos_model->update($tipr_id,$data)){
 				$mensajes['correcto'] = 'correcto';
 				$this->session->set_flashdata('success', 'Actualizado correctamente!');
 			}else{

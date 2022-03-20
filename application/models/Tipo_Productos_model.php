@@ -6,7 +6,7 @@ class Tipo_Productos_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getTipoProductos($id = false){
-		$this->db->select('tp.tipr_id, tp.tipr_descripcion, tp.tipr_estado, DATE_FORMAT(tp.tipr_fecha_creacion,"%d/%m/%Y")  tipr_fecha_creacion, DATE_FORMAT(tp.tipr_fecha_modificacion,"%d/%m/%Y") tipr_fecha_modificacion');
+		$this->db->select('tp.tipr_id, tp.tipr_descripcion, tp.tipr_estado, tp.tipr_inventariable,DATE_FORMAT(tp.tipr_fecha_creacion,"%d/%m/%Y")  tipr_fecha_creacion, DATE_FORMAT(tp.tipr_fecha_modificacion,"%d/%m/%Y") tipr_fecha_modificacion');
 		$this->db->from("tipo_productos tp");
 		if ($id) {
 			$this->db->where('tp.tipr_id', $id);

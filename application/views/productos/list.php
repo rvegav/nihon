@@ -80,7 +80,7 @@
 		'filter':true,
 		'stateSave':true,
 		'processing':true,
-		'scrollX':true,
+		//'scrollX':true,
 		'searching':true,
 		
 		'language':{

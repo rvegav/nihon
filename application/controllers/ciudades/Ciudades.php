@@ -63,11 +63,11 @@ class Ciudades extends CI_Controller
 				if($this->Ciudad_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
 					$this->session->set_flashdata('success', 'Ciudad registrado correctamente!');
-						redirect(base_url()."ciudades", "refresh");
+						// redirect(base_url()."ciudades", "refresh");
 				}else{
 					$mensajes['error'] = 'Ciudad no registrado!';
 					$this->session->set_flashdata('error', 'Ciudad no registrado!');
-						redirect(base_url()."add_ciudad", "refresh");
+						// redirect(base_url()."add_ciudad", "refresh");
 				}
 			}
 		}

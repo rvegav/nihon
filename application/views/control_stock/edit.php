@@ -7,39 +7,16 @@
 	</div>
 	<div class="card-body">
 		<form id="frm_producto" data-parsley-validate="" class="" action="" method="POST">
+			<input type="hidden" name="inve_id" id="inve_id" value="<?php echo $inventario->inve_id ?>">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="prod_id">Código Producto<span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" class="form-control" id="prod_id" name="prod_id" readonly value="<?php echo $producto->prod_id;?>">
-					</div>	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Descripcion <span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" id="desProducto" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desProducto" class="form-control" value="<?php echo $producto->prov_descripcion ?>">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Marca <span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control"  value="<?php echo $producto->prod_marca ?>">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Proveedor <span class="required">*</span></label>
+					<label class="" for="desCiudad">Producto <span class="required">*</span></label>
 					<div id="custom-search-input">
 						<div class="input-group">
-							<input type="hidden" name="prov_id" id="prov_id" value="<?php echo $producto->prov_id ?>">	
-							<input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Buscar Proveedor" disabled="disabled" required="required" value="<?php echo $producto->prov_descripcion ?>">
+							<input value="<?php echo $inventario->prod_id ?>" type="hidden" name="prod_id" id="prod_id">	
+							<input value="<?php echo $inventario->prod_descripcion ?>" type="text" name="producto" id="producto" class="form-control" placeholder="Buscar Producto" disabled="disabled" required="required"/>
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#proveedor_select">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#producto_select">
 									<span class="fa fa-search" aria-hidden="true">
 									</span>
 								</button>
@@ -50,43 +27,34 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Tipo Producto<span class="required">*</span></label>
-					<div id="custom-search-input">
-						<div class="input-group">
-							<input type="hidden" name="tipr_id" id="tipr_id" value="<?php echo $producto->tipr_id ?>">	
-							<input type="text" name="tipo_producto" id="tipo_producto" class="form-control" placeholder="Buscar Tipo Producto" disabled="disabled" required="required" value="<?php echo $producto->tipr_descripcion ?>">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo_producto_select">
-									<span class="fa fa-search" aria-hidden="true">
-									</span>
-								</button>
-							</span>
-						</div>
+					<label class="" for="desCiudad">Cantidad Inicial <span class="required">*</span></label>
+					<div class="input-group">
+						<input value="<?php echo $inventario->inve_cantidad ?>" type="text" id="desProducto" placeholder="Cantidad Inicial" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="cantidad_inicial" class="form-control">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<?php
-					$estado = $producto->prod_estado;
-					if($estado == 1){
-						$estado2     = "Activo";$label_class = 'label-success';
-					}else{
-						if($estado == 2){
-							$estado2     = "Inactivo";$label_class = 'label-warning';
-						}else{
-							$estado2     = "Anulado";$label_class = 'label-danger';
-						}
-					}
-					;?>
-					<label class="" for="desCiudad">Estado <span class="required">*</span></label>
-					<select class="form-control" name="estado" id="estado">
-						<optgroup label="Estado Actual"></optgroup>
-						<option value="<?php echo $producto->prod_estado ?>"><?php echo $estado2 ?></option>
-						<optgroup label="Estado a Asignar"></optgroup>
-						<option value="1">Activo</option>
-						<option value="2">Inactivo</option>
-					</select>
+					<label class="" for="desCiudad">Cantidad Minima <span class="required">*</span></label>
+					<div class="input-group">
+						<input value="<?php echo $inventario->inve_cantidad_minima ?>" type="text" id="marcaProducto" placeholder="Cantidad Minima" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="cantidad_minima" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
+					<div class="input-group">
+						<input value="<?php echo $inventario->inve_precio_venta ?>" type="text" id="marcaProducto" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
+					<div class="input-group">
+						<input value="<?php echo $inventario->inve_precio_compra ?>" type="text" id="marcaProducto" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
+					</div>
 				</div>
 			</div>
 			<hr>
@@ -101,65 +69,33 @@
 		</form>
 	</div>
 </div>
-<div class="modal fade" id="proveedor_select">
+<div class="modal fade" id="producto_select">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Lista de Proveedores</h4>
+				<h4 class="modal-title">Lista de Productos</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bordered" id="tablaProveedores" width="100%">
+				<table class="table table-bordered" id="tablaProductos" width="100%">
 					<thead>
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Descripcion</th>
+							<th class="text-center">Proveedor</th>
+							<th class="text-center">Tipo Producto</th>
 							<th class="text-center">Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php if(!empty($proveedores)):?>
+						<?php if(!empty($productos)):?>
 							<?php
-							foreach($proveedores as $proveedor):?>
+							foreach($productos as $productos):?>
 								<tr>
-									<td><?php echo $proveedor->prov_id; ?></td>
-									<td><?php echo $proveedor->prov_descripcion;?></td>
-									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
-								</tr>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</tbody>
-				</table>
-			</div>
-			<!-- <div class="modal-footer">
-				<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
-			</div> -->
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="tipo_producto_select">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Lista de Tipo de Producto</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<div class="modal-body">
-				<table class="table table-bordered" id="tablaTipoProducto" width="100%">
-					<thead>
-						<tr>
-							<th class="text-center">Codigo</th>
-							<th class="text-center">Descripcion</th>
-							<th class="text-center">Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php if(!empty($tipo_productos)):?>
-							<?php
-							foreach($tipo_productos as $tipo_producto):?>
-								<tr>
-									<td><?php echo $tipo_producto->tipr_id; ?></td>
-									<td><?php echo $tipo_producto->tipr_descripcion;?></td>
+									<td><?php echo $productos->prod_id; ?></td>
+									<td><?php echo $productos->prod_descripcion;?></td>
+									<td><?php echo $productos->prov_descripcion;?></td>
+									<td><?php echo $productos->tipr_descripcion;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -176,7 +112,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaProveedores").DataTable({
+	var tabla = $("#tablaProductos").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
@@ -211,18 +147,18 @@
 		},
 		
 	});
-
-	$('#tablaProveedores tbody').on('click', 'tr', function (event) {
+	$('#tablaProductos tbody').on('click', 'tr', function (event) {
 		var data = tabla.row(this).data();
-		$('#prov_id').val(data[0]);
-		$('#proveedor').val(data[1]);
-		$('#proveedor_select').modal('hide');
+		$('#prod_id').val(data[0]);
+		$('#producto').val(data[1]);
+		$('#producto_select').modal('hide');
 	} );
+
 	$("#frm_producto").submit(function(event) {
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>update_producto",
+			url: "<?php echo base_url()?>update_producto_stock",
 			type: 'POST',
 			data: formDato
 		})
@@ -251,7 +187,7 @@
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>productos";
+				window.location = "<?php echo base_url()?>stock";
 			}
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");

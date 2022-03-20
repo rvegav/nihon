@@ -41,8 +41,9 @@ class Productos extends CI_Controller
 
 		$mensajes= $this->data;
 		$this->form_validation->set_rules("desProducto", "Descripcion", "required");
-		$this->form_validation->set_rules("marcaProducto", "Marca", "required");
+		// $this->form_validation->set_rules("marcaProducto", "Marca", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
+		$this->form_validation->set_rules("tipr_id", "Tipo Producto", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
@@ -52,6 +53,9 @@ class Productos extends CI_Controller
 			$idProducto = $this->Productos_model->ObtenerCodigo();
 			$prov_id = $this->input->post('prov_id');
 			$tipr_id = $this->input->post('tipr_id');
+			if ($prov_id=='') {
+				$prov_id = NULL;
+			}
 			$marca = $this->input->post('marcaProducto');
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
@@ -97,7 +101,9 @@ class Productos extends CI_Controller
 	{
 		$mensajes = $this->data;
 		$this->form_validation->set_rules("desProducto", "Descripcion", "required");
-		$this->form_validation->set_rules("marcaProducto", "Marca", "required");
+		// $this->form_validation->set_rules("marcaProducto", "Marca", "required");
+		$this->form_validation->set_rules("tipr_id", "Tipo Producto", "required");
+
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
@@ -105,16 +111,19 @@ class Productos extends CI_Controller
 			$desProducto   = $this->input->post("desProducto");
 			$estado = $this->input->post('estado');
 			$idProducto = $this->input->post('prod_id');
-			$idProveedor = $this->input->post('prov_id');
+			$prov_id = $this->input->post('prov_id');
 			$tipr_id = $this->input->post('tipr_id');
 			$marca = $this->input->post('marcaProducto');
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
+			if ($prov_id=='') {
+				$prov_id = NULL;
+			}
 			$data = array(
 				'prod_descripcion'  => trim($desProducto),
 				'prod_marca'=>$marca,
 				'prod_tipr_id' => $tipr_id,
-				'prod_prov_id'=>$idProveedor,
+				'prod_prov_id'=>$prov_id,
 				'prod_fecha_modificacion'  => $fechaActual,
 				'prod_estado' => $estado
 			);

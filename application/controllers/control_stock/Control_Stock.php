@@ -25,7 +25,7 @@
 		public function add(){
 			$data = array(			
 				'maximo' => $this->Control_Stock_model->ObtenerCodigo(), 
-				'productos'=> $this->Productos_model->getProductos() 
+				'productos'=> $this->Productos_model->getProductos(false, true) 
 			);
 			echo $this->templates->render('control_stock::add', $data);
 
@@ -33,6 +33,7 @@
 		public function store(){
 			$mensajes= $this->data;
 			$this->form_validation->set_rules("cantidad_minima", "Cantidad Minima", "required");
+			$this->form_validation->set_rules("prod_id", "Producto", "required");
 			$this->form_validation->set_rules("cantidad_inicial", "Cantidad Inicial", "required");
 			$this->form_validation->set_rules("precio_venta", "Precio Venta", "required");
 			$this->form_validation->set_rules("precio_compra", "Precio Compra", "required");
@@ -44,21 +45,21 @@
 				$cantidad_inicial  = $this->input->post('cantidad_inicial');
 				$precio_venta = $this->input->post('precio_venta');
 				$precio_compra  = $this->input->post('precio_compra');
-				$id_producto = $this->input->post('id_producto');
+				$prod_id = $this->input->post('prod_id');
 				$id_inventario = $this->Control_Stock_model->ObtenerCodigo();
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
 				$data = array(
-					'inve_id'  => $idProveedor->MAXIMO,
-					'inve_prod_id'  => trim($descProveedor),
-					'inve_precio_compra'  => trim($docuProveedor),
-					'inve_precio_venta'  => trim($telProveedor),
-					'inve_cantidad'  => trim($direccion),
-					'inve_cantidad_minima'  => trim($correoProveedor),
+					'inve_id'  => $id_inventario->MAXIMO,
+					'inve_prod_id'  => trim($prod_id),
+					'inve_precio_compra'  => trim($precio_compra),
+					'inve_precio_venta'  => trim($precio_venta),
+					'inve_cantidad'  => trim($cantidad_inicial),
+					'inve_cantidad_minima'  => trim($cantidad_minima),
 					'inve_fecha_creacion' => $fechaActual,
 					'inve_fecha_modificacion'  => $fechaActual
 				);
-				if($this->control_stock_model->save($data)){
+				if($this->Control_Stock_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
 					$this->session->set_flashdata('success', 'Item registrado correctamente!');
 					// redirect(base_url()."ciudades/ciudades", "refresh");
@@ -75,7 +76,7 @@
 		public function edit($id)
 		{
 			$data = array(
-				'inventario'=> $this->control_stock_model->getcontrol_stock($id),
+				'inventario'=> $this->Control_Stock_model->getInventarios($id),
 			);
 			echo $this->templates->render('control_stock::edit', $data);
 
@@ -84,37 +85,33 @@
 		public function update()
 		{
 			$mensajes= $this->data;
-			$this->form_validation->set_rules("description", "Nombre", "required");
-			$this->form_validation->set_rules("estado", "Estado", "required");
+			$this->form_validation->set_rules("cantidad_minima", "Cantidad Minima", "required");
+			$this->form_validation->set_rules("prod_id", "Producto", "required");
+			$this->form_validation->set_rules("cantidad_inicial", "Cantidad Inicial", "required");
+			$this->form_validation->set_rules("precio_venta", "Precio Venta", "required");
+			$this->form_validation->set_rules("precio_compra", "Precio Compra", "required");
 			if ($this->form_validation->run() == FALSE){
 				$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 			}else{
-				$descProveedor = $this->input->post("description");
-				$docuProveedor  = $this->input->post('documento');
-				$telProveedor = $this->input->post('telefono');
-				$correoProveedor  = $this->input->post('correo');
-				$estado = $this->input->post('estado');
-				$idciudad = $this->input->post('ciudad_id');
-				$direccion = $this->input->post('direccion');
-				$idProveedor = $this->input->post('cod_proveedor');
+				$cantidad_minima = $this->input->post("cantidad_minima");
+				$cantidad_inicial  = $this->input->post('cantidad_inicial');
+				$precio_venta = $this->input->post('precio_venta');
+				$precio_compra  = $this->input->post('precio_compra');
+				$prod_id = $this->input->post('prod_id');
+				$inve_id = $this->input->post('inve_id');
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
 				$data = array(
-					'prov_descripcion'  => trim($descProveedor),
-					'prov_documento'  => trim($docuProveedor),
-					'prov_telefono'  => trim($telProveedor),
-					'prov_direccion'  => $direccion,
-					'prov_correo'  => trim($correoProveedor),
-					'prov_ciu_id'  => trim($idciudad),
-					'prov_fecha_modificacion'  => $fechaActual,
-					'prov_estado' => $estado
+					'inve_prod_id'  => trim($prod_id),
+					'inve_precio_compra'  => trim($precio_compra),
+					'inve_precio_venta'  => trim($precio_venta),
+					'inve_cantidad'  => trim($cantidad_inicial),
+					'inve_cantidad_minima'  => trim($cantidad_minima),
+					'inve_fecha_creacion' => $fechaActual,
+					'inve_fecha_modificacion'  => $fechaActual
 				);
-				// echo "<pre>";
-				// print_r($data);
-				// echo "</pre>";
-				// die();
-				if($this->control_stock_model->update($idProveedor,$data)){
+				if($this->Control_Stock_model->update($inve_id,$data)){
 					$mensajes['correcto'] = 'correcto';
 					$this->session->set_flashdata('success', 'Actualizado correctamente!');
 				}else{

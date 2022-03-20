@@ -25,6 +25,15 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
+					<label class="" for="">Inventarible <span class="required">*</span></label>
+					<select class="form-control" name="inventariable" id="inventariable">
+						<option value="S">Si</option>
+						<option value="N">No</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
 					<label class="" for="">Estado <span class="required">*</span></label>
 					<select class="form-control" name="estado" id="estado">
 						<option value="1">Activo</option>

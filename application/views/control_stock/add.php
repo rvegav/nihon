@@ -28,7 +28,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Cantidad Inicial <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="desProducto" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desProducto" class="form-control">
+						<input type="text" id="desProducto" placeholder="Cantidad Inicial" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="cantidad_inicial" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Cantidad Minima <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
+						<input type="text" id="marcaProducto" placeholder="Cantidad Minima" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="cantidad_minima" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
+						<input type="text" id="marcaProducto" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -52,17 +52,8 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
+						<input type="text" id="marcaProducto" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Estado <span class="required">*</span></label>
-					<select class="form-control" name="estado" id="estado">
-						<option value="1">Activo</option>
-						<option value="2">Inactivo</option>
-					</select>
 				</div>
 			</div>
 			<hr>
@@ -77,7 +68,7 @@
 		</form>
 	</div>
 </div>
-<div class="modal fade" id="proveedor_select">
+<div class="modal fade" id="producto_select">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -85,7 +76,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bordered" id="tablaProveedores" width="100%">
+				<table class="table table-bordered" id="tablaProductos" width="100%">
 					<thead>
 						<tr>
 							<th class="text-center">Codigo</th>
@@ -103,7 +94,7 @@
 									<td><?php echo $productos->prod_id; ?></td>
 									<td><?php echo $productos->prod_descripcion;?></td>
 									<td><?php echo $productos->prov_descripcion;?></td>
-									<td><?php echo $productos->prov_descripcion;?></td>
+									<td><?php echo $productos->tipr_descripcion;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -120,7 +111,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaProveedores").DataTable({
+	var tabla = $("#tablaProductos").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
@@ -155,60 +146,18 @@
 		},
 		
 	});
-	$('#tablaProveedores tbody').on('click', 'tr', function (event) {
+	$('#tablaProductos tbody').on('click', 'tr', function (event) {
 		var data = tabla.row(this).data();
-		$('#prov_id').val(data[0]);
-		$('#proveedor').val(data[1]);
-		$('#proveedor_select').modal('hide');
-	} );
-	var tablaTipo = $("#tablaTipoProducto").DataTable({
-		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
-		'paging':true,
-		'info':true,
-		'filter':true,
-		'stateSave':true,
-		'processing':true,
-		'scrollX':false,
-		'searching':true,
-		
-		'language':{
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		},
-		
-	});
-
-	$('#tablaTipoProducto tbody').on('click', 'tr', function (event) {
-		var data = tablaTipo.row(this).data();
-		$('#tipr_id').val(data[0]);
-		$('#tipo_producto').val(data[1]);
-		$('#tipo_producto_select').modal('hide');
+		$('#prod_id').val(data[0]);
+		$('#producto').val(data[1]);
+		$('#producto_select').modal('hide');
 	} );
 
 	$("#frm_producto").submit(function(event) {
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>store_producto",
+			url: "<?php echo base_url()?>store_producto_stock",
 			type: 'POST',
 			data: formDato
 		})
@@ -237,7 +186,7 @@
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>productos";
+				window.location = "<?php echo base_url()?>stock";
 			}
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");

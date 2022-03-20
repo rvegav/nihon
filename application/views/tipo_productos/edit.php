@@ -11,7 +11,7 @@
 				<div class="col-md-4 offset-3">
 					<label for="NumCiudad">Código Tipo<span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="NumCiudad" name="NumCiudad" readonly value="<?php echo $tipo_producto->tipr_id ?>">
+						<input type="text" class="form-control" id="tipr_id" name="tipr_id" readonly value="<?php echo $tipo_producto->tipr_id ?>">
 					</div>	
 				</div>
 			</div>
@@ -21,6 +21,28 @@
 					<div class="input-group">
 						<input type="text" id="desTipo" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desTipo" class="form-control" value="<?php echo $tipo_producto->tipr_descripcion ?>">
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<?php
+								$inventariable = $tipo_producto->tipr_inventariable;
+								if($inventariable == 'S'){
+									$inventariable2     = "Si";$label_class = 'label-success';
+								}else{
+									if($inventariable == 'N'){
+										$inventariable2     = "No";$label_class = 'label-warning';
+									}
+								}
+								;?>
+					<label class="" for="desCiudad">Inventariable <span class="required">*</span></label>
+					<select class="form-control" style="width: 100%;" name="inventariable" id="inventariable">
+						<optgroup label="Actual"></optgroup>
+						<option value="<?php echo $tipo_producto->tipr_inventariable ?>"><?php echo $inventariable2 ?></option>
+						<optgroup label="Asignar"></optgroup>
+						<option value="S">Si</option>
+						<option value="N">No</option>
+					</select>
 				</div>
 			</div>
 			<div class="row">

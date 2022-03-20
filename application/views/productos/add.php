@@ -25,31 +25,6 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Marca <span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Proveedor <span class="required">*</span></label>
-					<div id="custom-search-input">
-						<div class="input-group">
-							<input type="hidden" name="prov_id" id="prov_id">	
-							<input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Buscar Proveedor" disabled="disabled" required="required"/>
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#proveedor_select">
-									<span class="fa fa-search" aria-hidden="true">
-									</span>
-								</button>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Tipo Producto<span class="required">*</span></label>
 					<div id="custom-search-input">
 						<div class="input-group">
@@ -61,6 +36,33 @@
 									</span>
 								</button>
 							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="inventariable">
+				<div class="row">
+					<div class="col-md-4 offset-3">
+						<label class="" for="desCiudad">Marca <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 offset-3">
+						<label class="" for="desCiudad">Proveedor <span class="required">*</span></label>
+						<div id="custom-search-input">
+							<div class="input-group">
+								<input type="hidden" name="prov_id" id="prov_id">	
+								<input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Buscar Proveedor" disabled="disabled" required="required"/>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#proveedor_select">
+										<span class="fa fa-search" aria-hidden="true">
+										</span>
+									</button>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -135,6 +137,7 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Descripcion</th>
+							<th class="text-center">Inventariable</th>
 							<th class="text-center">Opciones</th>
 						</tr>
 					</thead>
@@ -145,6 +148,7 @@
 								<tr>
 									<td><?php echo $tipo_producto->tipr_id; ?></td>
 									<td><?php echo $tipo_producto->tipr_descripcion;?></td>
+									<td><?php echo $tipo_producto->tipr_inventariable;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -161,6 +165,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
+	$('#inventariable').hide();
 	var tabla = $("#tablaProveedores").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
@@ -242,6 +247,11 @@
 		var data = tablaTipo.row(this).data();
 		$('#tipr_id').val(data[0]);
 		$('#tipo_producto').val(data[1]);
+		if (data[2]=='S') {
+			$('#inventariable').show();
+		}else{
+			$('#inventariable').hide();
+		}
 		$('#tipo_producto_select').modal('hide');
 	} );
 

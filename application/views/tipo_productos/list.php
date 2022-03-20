@@ -20,6 +20,7 @@
 					<tr>
 						<th class="text-center">Codigo</th>
 						<th class="text-center">Descripcion</th>
+						<th class="text-center">Inventariable</th>
 						<th class="text-center">Fecha de Creacion</th>
 						<th class="text-center">Ultima Modificacion</th>
 						<th class="text-center">Estado</th>
@@ -33,6 +34,7 @@
 							<tr>
 								<td><?php echo $tipo_producto->tipr_id; ?></td>
 								<td><?php echo $tipo_producto->tipr_descripcion;?></td>
+								<td><?php echo $tipo_producto->tipr_inventariable;?></td>
 								<td><?php echo $tipo_producto->tipr_fecha_creacion;?></td>
 								<td><?php echo $tipo_producto->tipr_fecha_modificacion;?></td>
 
@@ -74,7 +76,7 @@
 		'filter':true,
 		'stateSave':true,
 		'processing':true,
-		'scrollX':true,
+		//'scrollX':true,
 		'searching':true,
 		
 		'language':{
