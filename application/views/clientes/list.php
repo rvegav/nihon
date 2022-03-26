@@ -2,12 +2,12 @@
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
 <div class="card">
-	<h4>Listado de Proveedores</h4>
+	<h4>Listado de Clientes</h4>
 	<br>
 	<div class="row">
 		<div class="col-md-2 offset-10">
-			<a href="<?php echo base_url()?>add_proveedor" class="nav-link">
-				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Proveedor">Agregar Proveedor</button>
+			<a href="<?php echo base_url()?>add_cliente" class="nav-link">
+				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Cliente"><i class="fa fa-plus"></i>Agregar Clientes</button>
 			</a>
 		</div>
 
@@ -15,39 +15,31 @@
 	<br>
 	<div class="row">
 		<div class="col-12">
-			<table class="table table-bordered" id="tablaProveedores" width="100%">
+			<table class="table table-bordered" id="tablaCliente" width="100%">
 				<thead>
 					<tr>
 						<th class="text-center">Codigo</th>
-						<th class="text-center">Descripcion</th>
-						<th class="text-center">Documento</th>
-						<th class="text-center">Telefono</th>
-						<th class="text-center">Direccion</th>
-						<th class="text-center">Ciudad</th>
-						<th class="text-center">Correo</th>
-						<th class="text-center">Fecha Creacion</th>
-						<th class="text-center">Fecha Modificacion</th>
+						<th class="text-center">Nombre</th>
+						<th class="text-center">Fecha de Incorporacion</th>
+						<th class="text-center">Fecha de Creacion</th>
+						<th class="text-center">Ultima Modificacion</th>
 						<th class="text-center">Estado</th>
 						<th class="text-center">Opciones</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php if(!empty($proveedores)):?>
+					<?php if(!empty($clientes)):?>
 						<?php
-						foreach($proveedores as $proveedor):?>
+						foreach($clientes as $cliente):?>
 							<tr>
-								<td><?php echo $proveedor->prov_id; ?></td>
-								<td><?php echo $proveedor->prov_descripcion;?></td>
-								<td><?php echo $proveedor->prov_documento;?></td>
-								<td><?php echo $proveedor->prov_telefono;?></td>
-								<td><?php echo $proveedor->prov_direccion;?></td>
-								<td><?php echo $proveedor->prov_ciudad;?></td>
-								<td><?php echo $proveedor->prov_correo;?></td>
-								<td><?php echo $proveedor->prov_fecha_creacion;?></td>
-								<td><?php echo $proveedor->prov_fecha_modificacion;?></td>
+								<td><?php echo $cliente->clie_id; ?></td>
+								<td><?php echo $cliente->clie_nombre;?></td>
+								<td><?php echo $cliente->clie_fecha_incorporacion;?></td>
+								<td><?php echo $cliente->clie_fecha_creacion;?></td>
+								<td><?php echo $cliente->clie_fecha_modificacion;?></td>
 
 								<?php
-								$estado = $proveedor->prov_estado;
+								$estado = $cliente->clie_estado;
 								if($estado == 1){
 									$estado2     = "Activo";$label_class = 'label-success';
 								}else{
@@ -60,9 +52,9 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_proveedor/<?php echo $proveedor->prov_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<a href="<?php echo base_url();?>edit_cliente/<?php echo $cliente->clie_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_proveedor/<?php echo $proveedor->prov_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<a href="<?php echo base_url();?>delete_cliente/<?php echo $cliente->clie_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
 									<?php endif ?>
 								</td>
 							</tr>
@@ -77,14 +69,14 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaProveedores").DataTable({
+	var tabla = $("#tablaCliente").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
 		'filter':true,
 		'stateSave':true,
 		'processing':true,
-		//'scrollX':true,
+		////'scrollX':true,
 		'searching':true,
 		
 		'language':{
@@ -112,5 +104,6 @@
 		},
 		
 	});
+
 </script>
 <?php $this->end()?>

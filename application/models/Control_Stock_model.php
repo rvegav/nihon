@@ -60,4 +60,10 @@ class Control_Stock_model extends CI_Model {
 		$resultado= $this->db->get();
 		return $resultado->row();
 	}
+	public function getProductosRevision(){
+		$this->db->where('inve_cantidad < inve_cantidad_minima');
+		$this->db->from('inventarios');
+		$resultado = $this->db->get();
+		return $resultado->num_rows();
+	}
 }

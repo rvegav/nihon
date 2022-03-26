@@ -82,6 +82,20 @@ $route['delete_tipo_producto/(:num)'] = 'tipo_productos/Tipos_Productos/delete/$
 $route['update_tipo_producto'] = 'tipo_productos/Tipos_Productos/update';
 $route['store_tipo_producto'] = 'tipo_productos/Tipos_Productos/store';
 
+$route['personas'] = 'personas/Personas';
+$route['add_persona'] = 'personas/Personas/add';
+$route['edit_persona/(:num)'] = 'personas/Personas/edit/$1';
+$route['delete_persona/(:num)'] = 'personas/Personas/delete/$1';
+$route['update_persona'] = 'personas/Personas/update';
+$route['store_persona'] = 'personas/Personas/store';
+
+$route['clientes'] = 'clientes/Clientes';
+$route['add_cliente'] = 'clientes/Clientes/add';
+$route['edit_cliente/(:num)'] = 'clientes/Clientes/edit/$1';
+$route['delete_cliente/(:num)'] = 'clientes/Clientes/delete/$1';
+$route['update_cliente'] = 'clientes/Clientes/update';
+$route['store_cliente'] = 'clientes/Clientes/store';
+
 //control de stock
 
 $route['stock'] = 'control_stock/Control_Stock';

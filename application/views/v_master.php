@@ -125,6 +125,12 @@
                   <p>Producto</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="<?= base_url()?>personas" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Personas</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -183,7 +189,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>multa_inspec" class="nav-link">
+                <a href="<?php echo base_url()?>clientes" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cargar Clientes</p>
                 </a>
@@ -191,7 +197,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>descumultaManual" class="nav-link">
+                <a href="<?php echo base_url()?>mascotas" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cargar Mascotas</p>
                 </a>

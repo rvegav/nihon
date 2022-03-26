@@ -5,7 +5,13 @@
 	<h4>Inventario</h4>
 	<br>
 	<div class="row">
-		<div class="col-md-2 offset-10">
+		<div class="col-md-3 offset-7">
+		<?php if ($productos_revision>0): ?>
+			<div class="p-2 mb-2 mt-2 bg-danger text-white"><?php echo $productos_revision ?> Productos requieren revision</div>
+			
+		<?php endif ?>
+		</div>
+		<div class="col-md-2">
 			<a href="<?php echo base_url()?>add_producto_stock" class="nav-link">
 				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Producto"><i class="fa fa-plus"></i>Agregar Producto</button>
 			</a>

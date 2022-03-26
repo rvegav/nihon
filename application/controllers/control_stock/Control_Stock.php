@@ -18,7 +18,8 @@
 		public function index()
 		{		
 			$data = array(
-				'inventarios'=> $this->Control_Stock_model->getInventarios()
+				'inventarios'=> $this->Control_Stock_model->getInventarios(),
+				'productos_revision' => $this->Control_Stock_model->getProductosRevision()
 			);
 			echo $this->templates->render('control_stock::list', $data);
 		}
@@ -108,7 +109,6 @@
 					'inve_precio_venta'  => trim($precio_venta),
 					'inve_cantidad'  => trim($cantidad_inicial),
 					'inve_cantidad_minima'  => trim($cantidad_minima),
-					'inve_fecha_creacion' => $fechaActual,
 					'inve_fecha_modificacion'  => $fechaActual
 				);
 				if($this->Control_Stock_model->update($inve_id,$data)){
