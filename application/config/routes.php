@@ -96,6 +96,20 @@ $route['delete_cliente/(:num)'] = 'clientes/Clientes/delete/$1';
 $route['update_cliente'] = 'clientes/Clientes/update';
 $route['store_cliente'] = 'clientes/Clientes/store';
 
+$route['especies'] = 'especies/Especies';
+$route['add_especie'] = 'especies/Especies/add';
+$route['edit_especie/(:num)'] = 'especies/Especies/edit/$1';
+$route['delete_especie/(:num)'] = 'especies/Especies/delete/$1';
+$route['update_especie'] = 'especies/Especies/update';
+$route['store_especie'] = 'especies/Especies/store';
+
+$route['razas'] = 'razas/Razas';
+$route['add_raza'] = 'razas/Razas/add';
+$route['edit_raza/(:num)'] = 'razas/Razas/edit/$1';
+$route['delete_raza/(:num)'] = 'razas/Razas/delete/$1';
+$route['update_raza'] = 'razas/Razas/update';
+$route['store_raza'] = 'razas/Razas/store';
+
 //control de stock
 
 $route['stock'] = 'control_stock/Control_Stock';

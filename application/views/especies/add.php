@@ -3,45 +3,30 @@
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
-		<h4>Editar Ciudad</h4>
+		<h4>Agregar Especie</h4>
 	</div>
 	<div class="card-body">
-		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
+		<form id="frm_especie" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="NumCiudad">Código Ciudad<span class="required">*</span></label>
+					<label for="NumEspecie">CÃ³digo Especie<span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="NumCiudad" name="NumCiudad" readonly value="<?php echo $ciudad->ciu_id ?>">
+						<input type="text" class="form-control" id="NumEspecie" name="NumEspecie" readonly value="<?php echo $maximo->MAXIMO;?>">
 					</div>	
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Ciudad <span class="required">*</span></label>
+					<label class="" for="desEspecie">Especie <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="desCiudad" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desCiudad" class="form-control" value="<?php echo $ciudad->ciu_descripcion ?>">
+						<input type="text" id="desEspecie" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desEspecie" class="form-control">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<?php
-					$estado = $ciudad->ciu_estado;
-					if($estado == 1){
-						$estado2     = "Activo";$label_class = 'label-success';
-					}else{
-						if($estado == 2){
-							$estado2     = "Inactivo";$label_class = 'label-warning';
-						}else{
-							$estado2     = "Anulado";$label_class = 'label-danger';
-						}
-					}
-					;?>
-					<label class="" for="desCiudad">Estado <span class="required">*</span></label>
-					<select class="form-control" style="width: 100%;" name="estado" id="estado">
-						<optgroup label="Estado Actual"></optgroup>
-						<option value="<?php echo $ciudad->ciu_estado ?>"><?php echo $estado2 ?></option>
-						<optgroup label="Estado a Asignar"></optgroup>
+					<label class="" for="">Estado <span class="required">*</span></label>
+					<select class="form-control" name="estado" id="estado">
 						<option value="1">Activo</option>
 						<option value="2">Inactivo</option>
 					</select>
@@ -65,11 +50,11 @@
 	<?php $this->push('scripts')?>
 	<script type="text/javascript">
 
-		$("#frm_ciudad").submit(function(event) {
+		$("#frm_especie").submit(function(event) {
 			event.preventDefault();		
 			var formDato = $(this).serialize();
 			$.ajax({
-				url: "<?php echo base_url()?>update_ciudad",
+				url: "<?php echo base_url()?>store_especie",
 				type: 'POST',
 				data: formDato
 			})
@@ -80,28 +65,28 @@
 				if (r['alerta']!="") {
 					var mensaje = r['alerta'];
 					wrapper.innerHTML = mensaje;
-					swal({
-						title: 'Atención!', 
-						content: wrapper,
+					swal.fire({
+						title: 'AtenciÃ³n!', 
+						html: wrapper,
 						icon: "warning",
 						columnClass: 'medium',
 					});
 				}
 				if (r['error']!="") {
 					wrapper.innerHTML = r['error'];
-					swal({
+					swal.fire({
 						icon: "error",
 						columnClass: 'medium',
 						theme: 'modern',
 						title: 'Error!',
-						content: wrapper,
+						html: wrapper,
 					});
 				}
 				if (r['correcto']!="") {
-					window.location = "<?php echo base_url()?>ciudades";
+					window.location = "<?php echo base_url()?>especies";
 				}
 			}).fail(function() {
-				alert("Se produjo un error, contacte con el soporte técnico");
+				alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 			});
 		})
 

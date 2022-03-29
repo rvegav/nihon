@@ -43,10 +43,12 @@
 				$id_inventario = $this->Clientes_model->ObtenerCodigo();
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
+				$estado = $this->input->post('estado');
 				$data = array(
 					'clie_id'  => $id_inventario->MAXIMO,
-					'clie_per_id'  => trim($prod_id),
-					'clie_fecha_incorporacion'  => trim($precio_compra),
+					'clie_per_id'  => trim($per_id),
+					'clie_fecha_incorporacion'  => trim($fecha_incorporacion),
+					'clie_estado'  => trim($estado),
 					'clie_fecha_creacion' => $fechaActual,
 					'clie_fecha_modificacion'  => $fechaActual
 				);
@@ -67,7 +69,7 @@
 		public function edit($id)
 		{
 			$data = array(
-				'inventario'=> $this->Clientes_model->getInventarios($id),
+				'cliente'=> $this->Clientes_model->getClientes($id),
 			);
 			echo $this->templates->render('clientes::edit', $data);
 
@@ -75,6 +77,7 @@
 		}
 		public function update()
 		{
+			$mensajes= $this->data;
 			$this->form_validation->set_rules("per_id", "Persona", "required");
 			$this->form_validation->set_rules("fecha_incorporacion", "Fecha de Incorporacion", "required");
 			if ($this->form_validation->run() == FALSE){
@@ -85,11 +88,13 @@
 				$fecha_incorporacion = $this->input->post("fecha_incorporacion");
 				$clie_id = $this->input->post('clie_id');
 				$id_inventario = $this->Clientes_model->ObtenerCodigo();
+				$estado = $this->input->post('estado');
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
 				$data = array(
-					'clie_per_id'  => trim($prod_id),
-					'clie_fecha_incorporacion'  => trim($precio_compra),
+					'clie_per_id'  => trim($per_id),
+					'clie_estado'  => trim($estado),
+					'clie_fecha_incorporacion'  => trim($fecha_incorporacion),
 					'clie_fecha_modificacion'  => $fechaActual
 				);
 				if($this->Clientes_model->update($clie_id,$data)){

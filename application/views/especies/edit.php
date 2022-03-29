@@ -3,30 +3,30 @@
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
-		<h4>Editar Ciudad</h4>
+		<h4>Editar Especie</h4>
 	</div>
 	<div class="card-body">
 		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="NumCiudad">Código Ciudad<span class="required">*</span></label>
+					<label for="NumCiudad">Código Especie<span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="NumCiudad" name="NumCiudad" readonly value="<?php echo $ciudad->ciu_id ?>">
+						<input type="text" class="form-control" id="NumCiudad" name="NumCiudad" readonly value="<?php echo $especie->esp_id ?>">
 					</div>	
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Ciudad <span class="required">*</span></label>
+					<label class="" for="desEspecie">Especie <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="desCiudad" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desCiudad" class="form-control" value="<?php echo $ciudad->ciu_descripcion ?>">
+						<input type="text" id="desEspecie" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desEspecie" class="form-control" value="<?php echo $especie->esp_descripcion ?>">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<?php
-					$estado = $ciudad->ciu_estado;
+					$estado = $especie->esp_estado;
 					if($estado == 1){
 						$estado2     = "Activo";$label_class = 'label-success';
 					}else{
@@ -37,10 +37,10 @@
 						}
 					}
 					;?>
-					<label class="" for="desCiudad">Estado <span class="required">*</span></label>
+					<label class="" for="">Estado <span class="required">*</span></label>
 					<select class="form-control" style="width: 100%;" name="estado" id="estado">
 						<optgroup label="Estado Actual"></optgroup>
-						<option value="<?php echo $ciudad->ciu_estado ?>"><?php echo $estado2 ?></option>
+						<option value="<?php echo $especie->esp_estado ?>"><?php echo $estado2 ?></option>
 						<optgroup label="Estado a Asignar"></optgroup>
 						<option value="1">Activo</option>
 						<option value="2">Inactivo</option>
@@ -69,7 +69,7 @@
 			event.preventDefault();		
 			var formDato = $(this).serialize();
 			$.ajax({
-				url: "<?php echo base_url()?>update_ciudad",
+				url: "<?php echo base_url()?>update_especie",
 				type: 'POST',
 				data: formDato
 			})
@@ -98,7 +98,7 @@
 					});
 				}
 				if (r['correcto']!="") {
-					window.location = "<?php echo base_url()?>ciudades";
+					window.location = "<?php echo base_url()?>especies";
 				}
 			}).fail(function() {
 				alert("Se produjo un error, contacte con el soporte técnico");

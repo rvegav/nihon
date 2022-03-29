@@ -6,7 +6,7 @@ class Clientes_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getClientes($id = false){
-		$this->db->select('c.clie_id, CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, c.clie_fecha_incorporacion, c.clie_estado, DATE_FORMAT(c.clie_fecha_creacion,"%d/%m/%Y")  clie_fecha_creacion, DATE_FORMAT(c.clie_fecha_modificacion,"%d/%m/%Y") clie_fecha_modificacion');
+		$this->db->select('c.clie_id, CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, c.clie_per_id ,DATE_FORMAT(c.clie_fecha_incorporacion,"%d/%m/%Y") clie_fecha_incorporacion, c.clie_fecha_incorporacion fecha_incorporacion, c.clie_estado, DATE_FORMAT(c.clie_fecha_creacion,"%d/%m/%Y")  clie_fecha_creacion, DATE_FORMAT(c.clie_fecha_modificacion,"%d/%m/%Y") clie_fecha_modificacion');
 		$this->db->from("clientes c");
 		$this->db->join('personas p', 'p.per_id = c.clie_per_id');
 		if ($id) {
@@ -59,7 +59,7 @@ class Clientes_model extends CI_Model {
 	}
 
 	public function ObtenerCodigo(){
-	    $this->db->select("(CASE WHEN  max(clie_id) IS NULL THEN '01' when (max(ciu_id) + 1) <= 9 then concat('0',(max(ciu_id) + 1)) ELSE max(ciu_id) + 1 END) as MAXIMO");
+	    $this->db->select("(CASE WHEN  max(clie_id) IS NULL THEN '01' when (max(clie_id) + 1) <= 9 then concat('0',(max(clie_id) + 1)) ELSE max(clie_id) + 1 END) as MAXIMO");
 		$this->db->from("clientes");
 		$resultado= $this->db->get();
 		return $resultado->row();

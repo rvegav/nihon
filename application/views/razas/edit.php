@@ -3,27 +3,35 @@
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
-		<h4>Agregar Cliente</h4>
+		<h4>Editar Cliente</h4>
 	</div>
 	<div class="card-body">
 		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="num_cliente">CÃ³digo Cliente<span class="required">*</span></label>
+					<label for="raz_id">Código Raza<span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="num_cliente" name="num_cliente" readonly value="<?php echo $maximo->MAXIMO;?>">
+						<input type="text" class="form-control" id="raz_id" name="raz_id" readonly value="<?php echo $raza->raz_id;?>">
 					</div>	
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Persona <span class="required">*</span></label>
+					<label for="desRaza">Raza<span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" class="form-control" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"  id="desRaza" name="desRaza" placeholder="Descripcion" value="<?php echo $raza->raz_descripcion ?>">
+					</div>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="">Especie <span class="required">*</span></label>
 					<div id="custom-search-input">
 						<div class="input-group">
-							<input type="hidden" name="per_id" id="per_id">	
-							<input type="text" name="persona" id="persona" class="form-control" placeholder="Buscar Persona" disabled="disabled" required="required"/>
+							<input type="hidden" name="esp_id" id="esp_id" value="<?php echo $raza->raz_esp_id ?>">	
+							<input type="text" name="especie" id="especie" class="form-control" placeholder="Buscar Especie" disabled="disabled" required="required" value="<?php echo $raza->raz_especie ?>">
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#persona_select">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#especie_select">
 									<span class="fa fa-search" aria-hidden="true">
 									</span>
 								</button>
@@ -33,17 +41,24 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label for="fecha_incorporacion">Fecha de Incorporacion<span class="required">*</span></label>
-					<div class="input-group">
-						<input type="date" class="form-control" id="fecha_incorporacion" name="fecha_incorporacion" value="">
-					</div>	
-				</div>
-			</div>
-			<div class="row">
+				<?php
+				$estado = $raza->raz_estado;
+				if($estado == 1){
+					$estado2     = "Activo";$label_class = 'label-success';
+				}else{
+					if($estado == 2){
+						$estado2     = "Inactivo";$label_class = 'label-warning';
+					}else{
+						$estado2     = "Anulado";$label_class = 'label-danger';
+					}
+				}
+				;?>
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Estado <span class="required">*</span></label>
-					<select class="form-control" name="estado" id="estado">
+					<select class="form-control" style="width: 100%;" name="estado" id="estado">
+						<optgroup label="Estado Actual"></optgroup>
+						<option value="<?php echo $raza->raz_estado ?>"><?php echo $estado2 ?></option>
+						<optgroup label="Estado a Asignar"></optgroup>
 						<option value="1">Activo</option>
 						<option value="2">Inactivo</option>
 					</select>
@@ -60,33 +75,29 @@
 	</div>
 
 </div>
-<div class="modal fade" id="persona_select">
+<div class="modal fade" id="especie_select">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Lista de Personas</h4>
+				<h4 class="modal-title">Lista de Especies</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bordered" id="tablaPersona" width="100%">
+				<table class="table table-bordered" id="tablaEspecie" width="100%">
 					<thead>
 						<tr>
 							<th class="text-center">Codigo</th>
-							<th class="text-center">Nombre</th>
-							<th class="text-center">Apellido</th>
-							<th class="text-center">Direccion</th>
+							<th class="text-center">Descripcion</th>
 							<th class="text-center">Accion</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php if(!empty($personas)):?>
+						<?php if(!empty($especies)):?>
 							<?php
-							foreach($personas as $persona):?>
+							foreach($especies as $especie):?>
 								<tr>
-									<td><?php echo $persona->per_id; ?></td>
-									<td><?php echo $persona->per_nombre;?></td>
-									<td><?php echo $persona->per_apellido;?></td>
-									<td><?php echo $persona->per_direccion;?></td>
+									<td><?php echo $especie->esp_id; ?></td>
+									<td><?php echo $especie->esp_descripcion;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -104,7 +115,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-		var tablaPersona = $("#tablaPersona").DataTable({
+	var tablaEspecie = $("#tablaEspecie").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
@@ -118,7 +129,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -128,7 +139,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Ãšltimo",
+				"sLast":     "Último",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -140,11 +151,11 @@
 		
 	});
 
-	$('#tablaPersona tbody').on('click', 'tr', function (event) {
-		var data = tablaPersona.row(this).data();
-		$('#per_id').val(data[0]);
-		$('#persona').val(data[1]+' '+data[2]);
-		$('#persona_select').modal('hide');
+	$('#tablaEspecie tbody').on('click', 'tr', function (event) {
+		var data = tablaEspecie.row(this).data();
+		$('#esp_id').val(data[0]);
+		$('#especie').val(data[1]);
+		$('#especie_select').modal('hide');
 	} );
 
 
@@ -152,7 +163,7 @@
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>store_cliente",
+			url: "<?php echo base_url()?>update_raza",
 			type: 'POST',
 			data: formDato
 		})
@@ -164,27 +175,27 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'AtenciÃ³n!', 
+					title: 'Atención!', 
 					html: wrapper,
-					icon: "warning",
-					columnClass: 'medium',
+					// icon: "warning",
+					// columnClass: 'medium',
 				});
 			}
 			if (r['error']!="") {
 				wrapper.innerHTML = r['error'];
 				swal.fire({
-					icon: "error",
-					columnClass: 'medium',
-					theme: 'modern',
+					// icon: "error",
+					// columnClass: 'medium',
+					// theme: 'modern',
 					title: 'Error!',
 					html: wrapper,
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>clientes";
+				window.location = "<?php echo base_url()?>razas";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
+			alert("Se produjo un error, contacte con el soporte técnico");
 		});
 	})
 

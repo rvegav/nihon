@@ -3,41 +3,41 @@
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
-		<h4>Agregar Cliente</h4>
+		<h4>Agregar Raza</h4>
 	</div>
 	<div class="card-body">
-		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
+		<form id="frm_especie" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="num_cliente">Código Cliente<span class="required">*</span></label>
+					<label for="raz_id">Código Raza<span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="num_cliente" name="num_cliente" readonly value="<?php echo $maximo->MAXIMO;?>">
+						<input type="text" class="form-control" id="raz_id" name="raz_id" readonly value="<?php echo $maximo->MAXIMO;?>">
 					</div>	
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Persona <span class="required">*</span></label>
+					<label for="desRaza">Raza<span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" class="form-control" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"  id="desRaza" name="desRaza" value="" placeholder="Descripcion">
+					</div>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Especie <span class="required">*</span></label>
 					<div id="custom-search-input">
 						<div class="input-group">
-							<input type="hidden" name="per_id" id="per_id">	
-							<input type="text" name="persona" id="persona" class="form-control" placeholder="Buscar Persona" disabled="disabled" required="required"/>
+							<input type="hidden" name="esp_id" id="esp_id">	
+							<input type="text" name="especie" id="especie" class="form-control" placeholder="Buscar Especie" disabled="disabled" required="required"/>
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#persona_select">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#especie_select">
 									<span class="fa fa-search" aria-hidden="true">
 									</span>
 								</button>
 							</span>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label for="fecha_incorporacion">Fecha de Incorporacion<span class="required">*</span></label>
-					<div class="input-group">
-						<input type="date" class="form-control" id="fecha_incorporacion" name="fecha_incorporacion" value="">
-					</div>	
 				</div>
 			</div>
 			<div class="row">
@@ -60,33 +60,29 @@
 	</div>
 
 </div>
-<div class="modal fade" id="persona_select">
+<div class="modal fade" id="especie_select">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Lista de Personas</h4>
+				<h4 class="modal-title">Lista de Especies</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bordered" id="tablaPersona" width="100%">
+				<table class="table table-bordered" id="tablaEspecie" width="100%">
 					<thead>
 						<tr>
 							<th class="text-center">Codigo</th>
-							<th class="text-center">Nombre</th>
-							<th class="text-center">Apellido</th>
-							<th class="text-center">Direccion</th>
+							<th class="text-center">Descripcion</th>
 							<th class="text-center">Accion</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php if(!empty($personas)):?>
+						<?php if(!empty($especies)):?>
 							<?php
-							foreach($personas as $persona):?>
+							foreach($especies as $especie):?>
 								<tr>
-									<td><?php echo $persona->per_id; ?></td>
-									<td><?php echo $persona->per_nombre;?></td>
-									<td><?php echo $persona->per_apellido;?></td>
-									<td><?php echo $persona->per_direccion;?></td>
+									<td><?php echo $especie->esp_id; ?></td>
+									<td><?php echo $especie->esp_descripcion;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -104,7 +100,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-		var tablaPersona = $("#tablaPersona").DataTable({
+		var tablaEspecie = $("#tablaEspecie").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
@@ -140,19 +136,19 @@
 		
 	});
 
-	$('#tablaPersona tbody').on('click', 'tr', function (event) {
-		var data = tablaPersona.row(this).data();
-		$('#per_id').val(data[0]);
-		$('#persona').val(data[1]+' '+data[2]);
-		$('#persona_select').modal('hide');
+	$('#tablaEspecie tbody').on('click', 'tr', function (event) {
+		var data = tablaEspecie.row(this).data();
+		$('#esp_id').val(data[0]);
+		$('#especie').val(data[1]);
+		$('#especie_select').modal('hide');
 	} );
 
 
-	$("#frm_ciudad").submit(function(event) {
+	$("#frm_especie").submit(function(event) {
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>store_cliente",
+			url: "<?php echo base_url()?>store_raza",
 			type: 'POST',
 			data: formDato
 		})
@@ -181,7 +177,7 @@
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>clientes";
+				window.location = "<?php echo base_url()?>razas";
 			}
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");
