@@ -110,6 +110,28 @@ $route['delete_raza/(:num)'] = 'razas/Razas/delete/$1';
 $route['update_raza'] = 'razas/Razas/update';
 $route['store_raza'] = 'razas/Razas/store';
 
+$route['mascotas'] = 'mascotas/Mascotas';
+$route['add_mascota'] = 'mascotas/Mascotas/add';
+$route['edit_mascota/(:num)'] = 'mascotas/Mascotas/edit/$1';
+$route['delete_mascota/(:num)'] = 'mascotas/Mascotas/delete/$1';
+$route['update_mascota'] = 'mascotas/Mascotas/update';
+$route['store_mascota'] = 'mascotas/Mascotas/store';
+
+
+$route['ocupaciones'] = 'ocupaciones/Ocupaciones';
+$route['add_ocupacion'] = 'ocupaciones/Ocupaciones/add';
+$route['edit_ocupacion/(:num)'] = 'ocupaciones/Ocupaciones/edit/$1';
+$route['delete_ocupacion/(:num)'] = 'ocupaciones/Ocupaciones/delete/$1';
+$route['update_ocupacion'] = 'ocupaciones/Ocupaciones/update';
+$route['store_ocupacion'] = 'ocupaciones/Ocupaciones/store';
+
+
+$route['empleados'] = 'empleados/Empleados';
+$route['add_empleado'] = 'empleados/Empleados/add';
+$route['edit_empleado/(:num)'] = 'empleados/Empleados/edit/$1';
+$route['delete_empleado/(:num)'] = 'empleados/Empleados/delete/$1';
+$route['update_empleado'] = 'empleados/Empleados/update';
+$route['store_empleado'] = 'empleados/Empleados/store';
 //control de stock
 
 $route['stock'] = 'control_stock/Control_Stock';

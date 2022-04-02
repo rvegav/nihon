@@ -2,12 +2,12 @@
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
 <div class="card">
-	<h4>Listado de Productos</h4>
+	<h4>Listado de Ocupaciones</h4>
 	<br>
 	<div class="row">
 		<div class="col-md-2 offset-10">
-			<a href="<?php echo base_url()?>add_producto" class="nav-link">
-				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Producto"><i class="fa fa-plus"></i>Agregar Producto</button>
+			<a href="<?php echo base_url()?>add_ocupacion" class="nav-link">
+				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Ocupacion"><i class="fa fa-plus"></i>Agregar Ocupacion</button>
 			</a>
 		</div>
 
@@ -15,14 +15,11 @@
 	<br>
 	<div class="row">
 		<div class="col-12">
-			<table class="table table-bordered" id="tablaProducto" width="100%">
+			<table class="table table-bordered" id="tablaOcupacion" width="100%">
 				<thead>
 					<tr>
 						<th class="text-center">Codigo</th>
 						<th class="text-center">Descripcion</th>
-						<th class="text-center">Marca</th>
-						<th class="text-center">Tipo Producto</th>
-						<th class="text-center">Proveedor</th>
 						<th class="text-center">Fecha de Creacion</th>
 						<th class="text-center">Ultima Modificacion</th>
 						<th class="text-center">Estado</th>
@@ -30,20 +27,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if(!empty($productos)):?>
+					<?php if(!empty($ocupaciones)):?>
 						<?php
-						foreach($productos as $producto):?>
+						foreach($ocupaciones as $ocupacion):?>
 							<tr>
-								<td><?php echo $producto->prod_id; ?></td>
-								<td><?php echo $producto->prod_descripcion;?></td>
-								<td><?php echo $producto->prod_marca;?></td>
-								<td><?php echo $producto->tipr_descripcion;?></td>
-								<td><?php echo $producto->prov_descripcion;?></td>
-								<td><?php echo $producto->prod_fecha_creacion;?></td>
-								<td><?php echo $producto->prod_fecha_modificacion;?></td>
+								<td><?php echo $ocupacion->ocu_id; ?></td>
+								<td><?php echo $ocupacion->ocu_descripcion;?></td>
+								<td><?php echo $ocupacion->ocu_fecha_creacion;?></td>
+								<td><?php echo $ocupacion->ocu_fecha_modificacion;?></td>
 
 								<?php
-								$estado = $producto->prod_estado;
+								$estado = $ocupacion->ocu_estado;
 								if($estado == 1){
 									$estado2     = "Activo";$label_class = 'label-success';
 								}else{
@@ -56,9 +50,9 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_producto/<?php echo $producto->prod_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<a href="<?php echo base_url();?>edit_ocupacion/<?php echo $ocupacion->ocu_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_producto/<?php echo $producto->prod_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<a href="<?php echo base_url();?>delete_ocupacion/<?php echo $ocupacion->ocu_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
 									<?php endif ?>
 								</td>
 							</tr>
@@ -73,16 +67,16 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaProducto").DataTable({
+	var tabla = $("#tablaOcupacion").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
 		'filter':true,
 		'stateSave':true,
 		'processing':true,
-		'scrollX':true,
+		////'scrollX':true,
 		'searching':true,
-
+		
 		'language':{
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -106,7 +100,8 @@
 				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 			}
 		},
-
+		
 	});
+
 </script>
 <?php $this->end()?>

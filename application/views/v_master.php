@@ -76,7 +76,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href="<?php echo base_url()?>" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="fas fa-user"></i>
               <p>
                 Empleado
@@ -85,7 +85,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url()?>" class="nav-link">
+                <a href="<?= base_url()?>empleados" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Agregar Empleado</p>
                 </a>
@@ -141,6 +141,12 @@
                 <a href="<?= base_url()?>razas" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Razas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url()?>ocupaciones" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ocupaciones</p>
                 </a>
               </li>
             </ul>
