@@ -70,7 +70,9 @@
 		public function edit($id)
 		{
 			$data = array(
-				'cliente'=> $this->Empleados_model->getEmpleados($id),
+				'empleado'=> $this->Empleados_model->getEmpleados($id),
+				'personas'=> $this->Personas_model->getPersonas(),
+				'ocupaciones' => $this->Ocupacion_model->getOcupaciones() 
 			);
 			echo $this->templates->render('empleados::edit', $data);
 
@@ -79,6 +81,7 @@
 		public function update()
 		{
 			$mensajes= $this->data;
+
 			$this->form_validation->set_rules("per_id", "Persona", "required");
 			$this->form_validation->set_rules("ocu_id", "Ocupacion", "required");
 			if ($this->form_validation->run() == FALSE){
@@ -88,7 +91,6 @@
 				$per_id = $this->input->post('per_id');
 				$ocu_id = $this->input->post("ocu_id");
 				$empl_id = $this->input->post('empl_id');
-				$id_inventario = $this->Empleados_model->ObtenerCodigo();
 				$estado = $this->input->post('estado');
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
@@ -98,7 +100,7 @@
 					'empl_ocu_id'  => trim($ocu_id),
 					'empl_fecha_modificacion'  => $fechaActual
 				);
-				if($this->Empleados_model->update($clie_id,$data)){
+				if($this->Empleados_model->update($empl_id,$data)){
 					$mensajes['correcto'] = 'correcto';
 					$this->session->set_flashdata('success', 'Actualizado correctamente!');
 				}else{

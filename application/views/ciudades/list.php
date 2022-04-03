@@ -2,6 +2,34 @@
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
 <div class="card">
+	<div class="col-md-12" align="right">
+		<?php
+		if($CI->session->flashdata("success")): ?>
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert">
+					&times;
+				</button>
+				<strong>
+					¡Buen Trabajo!
+				</strong>
+				<p><?php echo $CI->session->flashdata("success")?></p>
+			</div>
+		<?php endif; ?>
+		<?php 
+		if($CI->session->flashdata("error")): ?>
+			<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert">
+					&times;
+				</button>
+				<strong>
+					¡Ha Ocurrido un error!
+				</strong>
+				<p>
+					<?php echo $this->session->flashdata("error")?>
+				</p>
+			</div>
+		<?php endif; ?>
+	</div>
 	<h4>Listado de Ciudades</h4>
 	<br>
 	<div class="row">

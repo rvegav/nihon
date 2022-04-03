@@ -31,7 +31,7 @@
 				</div>
 			<?php endif; ?>
 			<?php
-			if($this->session->flashdata("error")): ?>
+			if($CI->session->flashdata("error")): ?>
 				<div class="alert alert-success" role="alert">
 					<button type="button" class="close" data-dismiss="alert">
 						&times;

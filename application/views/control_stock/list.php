@@ -2,14 +2,42 @@
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
 <div class="card">
+	<div class="col-md-12" align="right">
+		<?php
+		if($CI->session->flashdata("success")): ?>
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert">
+					&times;
+				</button>
+				<strong>
+					¡Buen Trabajo!
+				</strong>
+				<p><?php echo $CI->session->flashdata("success")?></p>
+			</div>
+		<?php endif; ?>
+		<?php 
+		if($CI->session->flashdata("error")): ?>
+			<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert">
+					&times;
+				</button>
+				<strong>
+					¡Ha Ocurrido un error!
+				</strong>
+				<p>
+					<?php echo $this->session->flashdata("error")?>
+				</p>
+			</div>
+		<?php endif; ?>
+	</div>
 	<h4>Inventario</h4>
 	<br>
 	<div class="row">
 		<div class="col-md-3 offset-7">
-		<?php if ($productos_revision>0): ?>
-			<div class="p-2 mb-2 mt-2 bg-danger text-white"><?php echo $productos_revision ?> Productos requieren revision</div>
-			
-		<?php endif ?>
+			<?php if ($productos_revision>0): ?>
+				<div class="p-2 mb-2 mt-2 bg-danger text-white"><?php echo $productos_revision ?> Productos requieren revision</div>
+				
+			<?php endif ?>
 		</div>
 		<div class="col-md-2">
 			<a href="<?php echo base_url()?>add_producto_stock" class="nav-link">
