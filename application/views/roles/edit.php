@@ -1,228 +1,157 @@
-
-<div class="right_col" role="main">
-	<div class="page-title">
-		<div class="title_left">
-			<h3>
-				Roles
-			</h3>
-		</div>
+<?php $this->layout('v_master')?>
+<?php $this->start('contenido')?>
+<?php $CI =& get_instance(); ?>
+<div class="card">
+	<div class="card-header">
+		<h4>Agregar Rol</h4>
 	</div>
-	<div class="clearfix"></div>
-	<div class="row">
-		<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="x_panel">
-				<?php
-				if($this->session->flashdata("success")): ?>
-					<div class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert">
-							&times;
-						</button>
-						<strong>
-							¡Buen Trabajo!
-						</strong>
-						<p>
-							<?php echo $this->session->flashdata("success")?>
-						</p>
-					</div>
+	<div class="card-body">
+		<form id="rol" data-parsley-validate="" class="form-horizontal form-label-left" action="<?php echo base_url()?>update_rol" method="POST" novalidate="">
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label for="NumRol">Código Rol<span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" class="form-control" id="NumRol" name="NumRol" readonly value="<?php echo $rol->rol_id;?>">
+					</div>	
 				</div>
-			<?php endif; ?>
-			<?php if($CI->session->flashdata("error")): ?>
-				<div class="alert alert-danger" role="alert">
-					<button type="button" class="close" data-dismiss="alert">
-						&times;
-					</button>
-					<strong>
-						¡Error!
-					</strong>
-					<p>
-						<?php echo $this->session->flashdata("error")?>
-					</p>
-				</div>
-			<?php endif; ?>
-
-			<div class="x_title">
-				<h2>
-					Roles  | Editar 
-				</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li>
-						<a class="collapse-link">
-							<i class="fa fa-chevron-up">
-							</i>
-						</a>
-					</li>
-					<li>
-						<a class="close-link">
-							<i class="fa fa-close">
-							</i>
-						</a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" action="<?php echo base_url()?>roles/roles/update" method="POST" novalidate="">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Rol <span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" id="desRol" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desRol" class="form-control" value="<?php echo $rol->rol_descripcion ?>">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-6 offset-3">
+					<button type="reset" class="btn btn-primary">Resetear</button>
+					<button id="send" type="submit" class="btn btn-success">Guardar</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<div class="input-group">
+						<span class="input-group-addon">Modulo:</span>
+						<select id="modulo" class="form-control select2">
+							<option value="">Seleccione el Modulo</option>
+							<?php foreach($modulos as $modulo):?>
+								<option value="<?php echo $modulo->mod_id;?>"><?php echo $modulo->mod_descripcion;?></option>
+							<?php endforeach;?>
+						</select>
+					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<div class="input-group">
+						<span class="input-group-addon">Pantalla:</span>
+						<select id="pantalla" class="form-control select2">
+							<option value="">Seleccione primero el modulo</option>
+						</select>
+					</div>
+				</div>
 
-						<div class="form-group <?php echo !empty(form_error("Descripcion"))? 'has-error':'';?>">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="Descripcion">Rol <span class="required">*</span>
-							</label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="Descripcion" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();" required="required" value="<?php echo $rol->DESCRIPCION;?>" name="Descripcion" class="form-control col-md-7 col-xs-12">
-								<?php echo form_error("Descripcion","<span class='help-block'>","</span>" );?>
-							</div>
-						</div>
-
-
-
-						<div class="ln_solid"></div>
-						<div class="form-group">
-							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-								<button type="reset" class="btn btn-primary">Resetear</button>
-								<button id="send" type="submit" class="btn btn-success" name="idrol" value="<?php echo $rol->IDROL ?>">Guardar</button>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group col-md-3">
-								<div class="input-group">
-									<span class="input-group-addon">Modulo:</span>
-									<select id="modulo" class="form-control select2">
-										<option value="">Seleccione el Modulo</option>
-										<?php foreach($modulos as $modulo):?>
-											<option value="<?php echo $modulo->IDMODULO;?>"><?php echo $modulo->DESMODULO;?></option>
-										<?php endforeach;?>
-									</select>
-								</div>
-							</div>
-							<div class="form-group col-md-3">
-								<div class="input-group">
-									<span class="input-group-addon">Pantalla:</span>
-									<select id="pantalla" class="form-control select2">
-										<option value="">Seleccione primero el modulo</option>
-
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group col-md-1">
-								<div class="">
-									<label for="insert">Insertar</label>
-									<input type="checkbox" class="flat" id="Insert">
-								</div>
-							</div>
-
-							<div class="form-group col-md-1">
-								<div class="">
-									<label for="Update">Actualizar</label>
-									<input type="checkbox" class="flat" id="Update">
-								</div>
-							</div>
-							<div class="form-group col-md-1">
-								<div class="">
-									<label for="Delete">Eliminar</label>
-									<input type="checkbox" class="flat" id="Delete">
-								</div>
-							</div>
-							<div class="form-group col-md-1">
-								<div class="">
-									<label for="Select">Visualizar</label>
-									<input type="checkbox" class="flat" id="select">
-								</div>
-							</div>
-							<div class="col-md-2">
-								<button id="btn-agregar" type="button" class="btn btn-success btn-flat"><span class="fa fa-plus"></span>Agregar</button>
-							</div>
-						</div>
-						<table id="table" class="table table-responsive table-bordered">
-							<thead>
-								<tr>
-									<th>Modulo</th>
-									<th>Pantalla</th>
-									<th>Permisos</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								foreach($permisos as $permiso):?>
-									<tr>
-										<td><?php echo $permiso->DESMODULO ?></td>
-										<td><?php echo $permiso->DESPANTALLA ?></td>
-										<td><table class="table table-responsive">
+				<div class="form-group col-md-1">
+					<div class="">
+						<label for="insert">Insertar</label>
+						<input type="checkbox" class="flat" id="Insert" value="" name="insert_detalle[]">
+					</div>
+				</div>
+				<div class="form-group col-md-1">
+					<div class="">
+						<label for="Update">Actualizar</label>
+						<input type="checkbox" class="flat" id="Update">
+					</div>
+				</div>
+				<div class="form-group col-md-1">
+					<div class="">
+						<label for="Delete">Eliminar</label>
+						<input type="checkbox" class="flat" id="Delete" value="">
+					</div>
+				</div>
+				<div class="form-group col-md-1">
+					<div class="">
+						<label for="Select">Visualizar</label>
+						<input type="checkbox" class="flat" id="select">
+					</div>
+				</div>
+				<div class="col-md-2">
+					<button id="btn-agregar" type="button" class="btn btn-success btn-flat"><span class="fa fa-plus"></span>Agregar</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="table-responsive">
+					<table id="table" class="table ">
+						<thead>
+							<tr>
+								<th>Modulo</th>
+								<th>Pantalla</th>
+								<th>Permisos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if ($detalles): ?>
+								<?php foreach ($detalles as $detalle): ?>
+									<td><?php echo $detalle->mod_descripcion ?></td>
+									<td><?php echo $detalle->pant_descripcion?></td>
+									<td><table class="table table-responsive">
 											<thead>
-												<input type="hidden" name="modulo[<?php echo str_replace(" ","",$permiso->DESPANTALLA)?>][IDPERMISO]" value="<?php echo $permiso->IDPERMISO ?>">
-												<input type="hidden" name="modulo[<?php echo str_replace(" ","",$permiso->DESPANTALLA)?>][pantalla]" value="<?php echo $permiso->IDPANTALLA ?>">
-												<td><input type="checkbox" class="flat" disabled id="insert_detalle" name="modulo[<?php echo str_replace(' ','',$permiso->DESPANTALLA);?>][insert]" <?php if ($permiso->PERINSERT =='1'): ?> checked <?php endif ?>>Insert</td>
-												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$permiso->DESPANTALLA)?>][update]" <?php if ($permiso->PERUPDATE =='1'): ?> checked <?php endif ?>>Update</td>
-												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$permiso->DESPANTALLA)?>][delete]" <?php if ($permiso->PERDELETE =='1'): ?> checked <?php endif ?>>Delete</td>
-												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$permiso->DESPANTALLA)?>][select]" <?php if ($permiso->PERSELECT =='1'): ?> checked <?php endif ?>>Visualizar</td>
+												<input type="hidden" name="modulo[<?php echo str_replace(" ","",$detalle->pant_descripcion)?>][pantalla]" value="<?php echo $detalle->pant_id ?>">
+												<td><input type="checkbox" class="flat" disabled id="insert_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion);?>][insert]" <?php if ($detalle->insercion =='SI'): ?> checked <?php endif ?>>Insert</td>
+												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][update]" <?php if ($detalle->actualizacion =='SI'): ?> checked <?php endif ?>>Update</td>
+												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][delete]" <?php if ($detalle->borrado =='SI'): ?> checked <?php endif ?>>Delete</td>
+												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][select]" <?php if ($detalle->visualizacion =='SI'): ?> checked <?php endif ?>>Visualizar</td>
 											</thead>
-										</table></td>
-										<td><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-
-					</form>
-
-				</div> <!-- /COL  12-->
-			</div><!-- /ROW -->
-		</div><!-- / content -->
+										</table>
+								<?php endforeach ?>
+							<?php endif ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
-</div>
+<?php $this->stop()?>
+<?php $this->push('scripts')?>
 <script type="text/javascript">
-	// console.log($('#Insert'));
+	console.log($('#Insert'));
 	$(document).ready(function(){
-		$('#Insert').on('ifChecked', function(event){
-  			// alert(event.type + ' callback');
-  			$('#select').iCheck("check");
-  			$('#select').iCheck("disable");
-  		});
-		$('#Insert').on('ifUnchecked', function(event){
+		$('#Insert').on('change', function(event){
   			// alert(event.type + ' callback');
   			if ($('#Insert').prop("checked") == true || $('#Update').prop("checked") == true || $('#Delete').prop("checked") == true)
   			{
-  				$('#select').iCheck("check");
-  				$('#select').iCheck("disable");
+  				$('#select').prop("checked", true);
+  				$('#select').prop("disable", true);
   			}else{
-  				$('#select').iCheck("uncheck");
-  				$('#select').iCheck("enable");
+  				$('#select').prop("checked", false);
+  				$('#select').prop("disabled", false);
   			}
   		});
-		$('#Delete').on('ifChecked', function(event){
-  			// alert(event.type + ' callback');
-  			$('#select').iCheck("check");
-  			$('#select').iCheck("disable");
 
-  		});
-		$('#Delete').on('ifUnchecked', function(event){
+		$('#Delete').on('change', function(event){
   			// alert(event.type + ' callback');
-  			$('#select').iCheck("uncheck");
-  			$('#select').iCheck("enable");
+  			$('#select').prop("checked", false);
+  			$('#select').prop("disabled", false);
   			if ($('#Insert').prop("checked") == true || $('#Update').prop("checked") == true || $('#Delete').prop("checked") == true)
   			{
-  				$('#select').iCheck("check");
-  				$('#select').iCheck("disable");
+  				$('#select').prop("checked", true);
+  				$('#select').prop("disable");
   			}else{
-  				$('#select').iCheck("uncheck");
-  				$('#select').iCheck("enable");
+  				$('#select').prop("checked", false);
+  				$('#select').prop("disabled", false);
   			}
   		});
-		$('#Update').on('ifChecked', function(event){
-  			// alert(event.type + ' callback');
-  			$('#select').iCheck("check");
-  			$('#select').iCheck("disable");
-  		});
-		$('#Update').on('ifUnchecked', function(event){
+
+		$('#Update').on('change', function(event){
   			// alert(event.type + ' callback');
   			if ($('#Insert').prop("checked") == true || $('#Update').prop("checked") == true || $('#Delete').prop("checked") == true)
   			{
-  				$('#select').iCheck("check");
-  				$('#select').iCheck("disable");
+  				$('#select').prop("checked", true);
+  				$('#select').prop("disable");
   			}else{
-  				$('#select').iCheck("uncheck");
-  				$('#select').iCheck("enable");
+  				$('#select').prop("checked", false);
+  				$('#select').prop("disabled", false);
   			}
   		});
 	});
@@ -230,23 +159,23 @@
 
 		if ($('#modulo').val().length < 1) 
 		{
-			swal ( "Debe seleccionar un modulo!" ) ;
+			swal.fire ( "Debe seleccionar un modulo!" ) ;
 			return false;
 		}
 
 		if ($('#pantalla').val().length < 1)
 		{
-			swal ( "Debe seleccionar una pantalla!" ) ;
+			swal.fire ( "Debe seleccionar una pantalla!" ) ;
 			return false;
 		}
 
 		if ($('#Insert').prop("checked") == false && $('#Update').prop("checked") == false && $('#Delete').prop("checked") == false && $('#select').prop("checked") == false)
 		{
-			swal ( "Debe marcar algunas de de las acciones!.") ;
+			swal.fire ( "Debe marcar algunas de de las acciones!.") ;
 			return false;
 		}
 		
-		pantalla = $("SELECT#pantalla option:selected").text().replaceAll(" ", "");
+		pantalla = $("SELECT#modulo option:selected").text().replaceAll(" ", "");
 		html = '<tr>';
 		html += '<td>';
 		html += '<input type="hidden" id="modulo" name="modulo['+pantalla+'][modulo]" value="'+ $("SELECT#modulo option:selected").val() + '" >';
@@ -308,16 +237,6 @@
 		console.log(pantalla);
 		$("#modulo").select2().trigger('change');
 	});
-	$('#pantalla').change(function(){
-		$('#pantalla option').hide();
-		$('#pantalla option[value="'+$(this).val()+'"]').show()
-	});
-
-	$('#modulo').change(function(){
-		$('#modulo option').hide();
-		$('#modulo option[value="'+$(this).val()+'"]').show()
-	});
-
 
 	$(document).ready(function(){
 		$('#modulo').on('change', function(){
@@ -329,6 +248,7 @@
 					// data:'modulo_id='+moduloID,
 				})
 				.done(function (html){
+					console.log(html);
 					$('#pantalla').html(html);
 				})
 				.fail(function(){
@@ -341,15 +261,14 @@
 
 		$('#send').click(function(){    	
 			
-			var inputValue = $('#Descripcion').val();        
-
+			var inputValue = $('#desRol').val();        
 			$('.flat').prop('disabled', false);		
 			// $('#update_detalle').prop('disabled', false);		
 			// $('#delete_detalle').prop('disabled', false);		
 			// $('#select_detalle').prop('disabled', false);		
 			if ($.trim(inputValue).length < 1) 
 			{
-				swal ( "Debe introducir descripcion del Rol" ) ;
+				swal.fire( "Debe introducir descripcion del Rol" ) ;
 				return false;
 			}
 
@@ -364,3 +283,6 @@
 	});
 
 </script>
+<?php $this->end()?>
+
+<!-- /.modal -->

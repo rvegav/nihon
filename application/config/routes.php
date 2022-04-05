@@ -143,9 +143,10 @@ $route['store_producto_stock'] = 'control_stock/Control_Stock/store';
 //seguridad
 
 $route['roles'] = 'roles/Roles';
-$route['add_roles'] = 'roles/Roles/add';
-$route['edit_roles/(:num)'] = 'roles/Roles/edit/$1';
-$route['delete_roles/(:num)'] = 'roles/Roles/delete/$1';
-$route['update_roles'] = 'roles/Roles/update';
-$route['store_roles'] = 'roles/Roles/store';
+$route['add_rol'] = 'roles/Roles/add';
+$route['edit_rol/(:num)'] = 'roles/Roles/edit/$1';
+$route['delete_rol/(:num)'] = 'roles/Roles/delete/$1';
+$route['update_rol'] = 'roles/Roles/update';
+$route['store_rol'] = 'roles/Roles/store';
+$route['view_detalle_rol'] = 'roles/Roles/view';
 $route['usuarios'] = 'usuarios/Usuarios';

@@ -21,6 +21,7 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/bootstrap-select/css/bootstrap-select.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/confirm/dist/jquery-confirm.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/sweetalert2.min.css">
+  
   <!-- Bootstrap Table-->
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/bootstrap-table/bootstrap-table.min.css">
   <!-- Favicon-->
@@ -328,7 +329,7 @@
     <script src="<?= base_url() ?>assets/js/sistema.js"></script>
     <!-- Boostrap Table-->
     <script src="<?= base_url() ?>assets/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="<?= base_url() ?>assets/bootstrap-table/bootstrap-table-es-AR.min"></script>
+    <!-- <script src="<?= base_url() ?>assets/bootstrap-table/bootstrap-table-es-AR.min"></script> -->
     <script src="<?= base_url() ?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url() ?>assets/js/select2.min.js"></script>
     <!-- <script src="</?= base_url() ?>assets/datatables/Editor-1.9.2/js/dataTables.editor.js"></script> -->

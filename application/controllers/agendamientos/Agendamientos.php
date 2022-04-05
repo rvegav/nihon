@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Mascotas extends CI_Controller
+class Agendamientos extends CI_Controller
 {
 	//solo el constructor, para llamar a las clases
 	public function __construct()
@@ -20,7 +20,7 @@ class Mascotas extends CI_Controller
 	public function index()
 	{		
 		$data = array(
-			'mascotas'=> $this->Mascotas_model->getMascotas()
+			'agendamientos'=> $this->Mascotas_model->getMascotas()
 		);
 		echo $this->templates->render('mascotas::list', $data);
 	}
@@ -29,8 +29,8 @@ class Mascotas extends CI_Controller
 	{
 		$data = array(			
 			'maximo' => $this->Mascotas_model->ObtenerCodigo(),
-			'clientes' => $this->Clientes_model->getClientes(),
-			'razas' => $this->Razas_model->getRazas()
+			'mascotas' => $this->Clientes_model->getClientes(),
+			'empleados' => $this->Razas_model->getRazas()
 		);
 		echo $this->templates->render('mascotas::add', $data);
 
@@ -88,9 +88,9 @@ class Mascotas extends CI_Controller
 	public function edit($id)
 	{
 		$data = array(
-			'mascota'=> $this->Mascotas_model->getMascotas($id),
-			'clientes' => $this->Clientes_model->getClientes(),
-			'razas' => $this->Razas_model->getRazas()
+			'agenda'=> $this->Mascotas_model->getMascotas($id),
+			'mascotas' => $this->Clientes_model->getClientes(),
+			'empleados' => $this->Razas_model->getRazas()
 		);
 		echo $this->templates->render('mascotas::edit', $data);
 
