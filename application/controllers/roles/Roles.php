@@ -154,49 +154,41 @@ class Roles extends CI_Controller
 	public function update()
 	{
 		$this->comprobacionRoles();
-		$idRol= $this->input->post("idrol");
-		$NumRol= $this->input->post("NumRol");
-		$desRol= $this->input->post("Descripcion");
-		$modulos = $this->input->post('modulo');
-		$desRol = trim($desRol);
-		if($desRol !="" && trim($desRol) !=""){
-			//indicar campos de la tabla a modificar
+		$this->form_validation->set_rules("desRol", "Descripcion", "required");
+		if ($this->form_validation->run() == FALSE){
+			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>');
+		}else{
+			$modulos = $this->input->post('modulo');
+			$id = $this->input->post("NumRol");
+			$descripcion = $this->input->post("desRol");
+			$time = time();
+			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
-				'descripcion' => $desRol
+				'rol_descripcion'  => $descripcion,
+				'rol_fecha_modificacion' => $fechaActual
 			);
-
-			if($this->Rol_model->update($idRol,$data)){
-				foreach ($modulos as $modulo) {
-					// echo '<pre>';
-					// var_dump($_POST);
-					// echo '</pre>';
-					$idPermiso ='';
-					$data = array(
-						'IDPANTALLA' => $modulo['pantalla'], 
-						'PERINSERT' => isset($modulo['insert']),
-						'PERUPDATE'=>isset($modulo['update']),
-						'PERDELETE'=>isset($modulo['delete']),
-						'PERSELECT'=>isset($modulo['select'])
-					);
-					if ($idPermiso!='') {
-						$idPermiso = $modulo['IDPERMISO'];
-					}
-					$this->Permiso_model->update($idRol, $idPermiso, $data);
-				}
-				$this->session->set_flashdata('success', 'Actualizado correctamente!');
-				redirect(base_url()."roles/roles", "refresh");
-
-			}
-			else
+			if($this->Rol_model->update($id,$data))
 			{
-				$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-				redirect(base_url()."roles/roles/edit/".$idRol,"refresh");
+				//si todo esta bien, emitimos mensaje
+				$this->session->set_flashdata('success', 'Rol registrado correctamente!');
+				$rol_id = $this->Rol_model->ultimoInsert();
+				foreach ($modulos as $modulo) {
+					$data = array(
+						'rol_det_rol_id'=>$rol_id->rol_id,
+						'rol_det_pant_id' => $modulo['pantalla'], 
+						'rol_det_insertar' => isset($modulo['insert']),
+						'rol_det_actualizar'=>isset($modulo['update']),
+						'rol_det_borrar'=>isset($modulo['delete']),
+						'rol_det_visualizar'=>isset($modulo['select']),
+						'rol_det_fecha_modificacion' => $fechaActual
+					);
+					$this->Rol_model->save_detalle($data);
+				}
+				redirect(base_url()."roles/roles", "refresh");
+			}else{
+				$this->session->set_flashdata('error', 'Rol no registrado!');
+				redirect(base_url()."roles/roles/add", "refresh");
 			}
-		}
-		else
-		{	
-			$this->session->set_flashdata('error', 'Ingrese Rol!');			
-			redirect(base_url()."roles/roles/edit/".$idRol,"refresh");			
 		}
 	}
 

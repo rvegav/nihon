@@ -92,17 +92,20 @@
 						<tbody>
 							<?php if ($detalles): ?>
 								<?php foreach ($detalles as $detalle): ?>
-									<td><?php echo $detalle->mod_descripcion ?></td>
-									<td><?php echo $detalle->pant_descripcion?></td>
-									<td><table class="table table-responsive">
-											<thead>
-												<input type="hidden" name="modulo[<?php echo str_replace(" ","",$detalle->pant_descripcion)?>][pantalla]" value="<?php echo $detalle->pant_id ?>">
-												<td><input type="checkbox" class="flat" disabled id="insert_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion);?>][insert]" <?php if ($detalle->insercion =='SI'): ?> checked <?php endif ?>>Insert</td>
-												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][update]" <?php if ($detalle->actualizacion =='SI'): ?> checked <?php endif ?>>Update</td>
-												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][delete]" <?php if ($detalle->borrado =='SI'): ?> checked <?php endif ?>>Delete</td>
-												<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][select]" <?php if ($detalle->visualizacion =='SI'): ?> checked <?php endif ?>>Visualizar</td>
-											</thead>
-										</table>
+									<tr>
+										<td><?php echo $detalle->mod_descripcion ?></td>
+										<td><?php echo $detalle->pant_descripcion?></td>
+										<td><table class="table table-responsive">
+												<thead>
+													<input type="hidden" name="modulo[<?php echo str_replace(" ","",$detalle->pant_descripcion)?>][pantalla]" value="<?php echo $detalle->pant_id ?>">
+													<td><input type="checkbox" class="flat" disabled id="insert_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion);?>][insert]" <?php if ($detalle->insercion =='SI'): ?> checked <?php endif ?>>Insert</td>
+													<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][update]" <?php if ($detalle->actualizacion =='SI'): ?> checked <?php endif ?>>Update</td>
+													<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][delete]" <?php if ($detalle->borrado =='SI'): ?> checked <?php endif ?>>Delete</td>
+													<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][select]" <?php if ($detalle->visualizacion =='SI'): ?> checked <?php endif ?>>Visualizar</td>
+												</thead>
+											</table></td>
+										
+									</tr>
 								<?php endforeach ?>
 							<?php endif ?>
 						</tbody>

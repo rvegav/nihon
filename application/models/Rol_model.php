@@ -53,21 +53,21 @@ class Rol_model extends CI_Model {
 	}
 
 	public function validarExiste($numRol){
-	    $this->db->select("count(*) as cantidad");
+		$this->db->select("count(*) as cantidad");
 		$this->db->from("roles");
 		$resultados= $this->db->get();
 		return $resultados->result();	
 	}
 //obtener el ultimo id mas 1
 	public function ultimoNumero(){
-	    $this->db->select("(CASE WHEN  max(rol_id) IS NULL THEN '1' ELSE max(rol_id) + 1 END) as MAXIMO");
+		$this->db->select("(CASE WHEN  max(rol_id) IS NULL THEN '1' ELSE max(rol_id) + 1 END) as MAXIMO");
 		$this->db->from("roles");
 		$resultado= $this->db->get();
 		return $resultado->row();
 	}
 
 	public function ObtenerCodigo(){
-	    $this->db->select("(CASE WHEN  max(rol_id) IS NULL THEN '01' when (max(rol_id) + 1) <= 9 then concat('0',(max(rol_id) + 1)) ELSE max(rol_id) + 1 END) as MAXIMO");
+		$this->db->select("(CASE WHEN  max(rol_id) IS NULL THEN '01' when (max(rol_id) + 1) <= 9 then concat('0',(max(rol_id) + 1)) ELSE max(rol_id) + 1 END) as MAXIMO");
 		$this->db->from("roles");
 		$resultado= $this->db->get();
 		return $resultado->row();
@@ -87,6 +87,16 @@ class Rol_model extends CI_Model {
 		return $resultado->row();
 	}
 	public function save_detalle($data){
+		$rol_id = $data['rol_det_rol_id'];
+		$pant_id = $data['rol_det_pant_id'];
+		$this->db->where('rol_det_rol_id', $rol_id);
+		$this->db->where('rol_det_pant_id', $pant_id);
+		$resultado = $this->db->get('rol_detalles');
+		if ($resultado->num_rows()>0) {
+			$this->db->where('rol_det_rol_id', $rol_id);
+			$this->db->where('rol_det_pant_id', $pant_id);
+			$this->db->update('rol_detalles', $data);
+		}
 		return $this->db->insert("rol_detalles", $data);
 	}
 	public function getDetalleRol($id_rol){
