@@ -149,4 +149,16 @@ $route['delete_rol/(:num)'] = 'roles/Roles/delete/$1';
 $route['update_rol'] = 'roles/Roles/update';
 $route['store_rol'] = 'roles/Roles/store';
 $route['view_detalle_rol'] = 'roles/Roles/view';
+
 $route['usuarios'] = 'usuarios/Usuarios';
+$route['add_usuario'] = 'usuarios/Usuarios/add';
+$route['edit_usuario/(:num)'] = 'usuarios/Usuarios/edit/$1';
+$route['delete_usuario/(:num)'] = 'usuarios/Usuarios/delete/$1';
+$route['update_usuario'] = 'usuarios/Usuarios/update';
+$route['store_usuario'] = 'usuarios/Usuarios/store';
+$route['view_rol_usuario'] = 'usuarios/Usuarios/view';
+$route['generar_pass'] = 'usuarios/Usuarios/generarContrasena';
+
+$route['procesar_login'] = 'Auth/ProcesoLogin';
+$route['inicio'] = 'Auth/Inicio';
+$route['cerrar_sesion'] = 'Auth/cerrarSesion';

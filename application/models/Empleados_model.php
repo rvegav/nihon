@@ -6,7 +6,7 @@ class Empleados_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getEmpleados($id = false){
-		$this->db->select('e.empl_id, CONCAT(p.per_nombre, " ", p.per_apellido) empl_nombre, e.empl_per_id, o.ocu_descripcion empl_ocupacion, e.empl_ocu_id, e.empl_estado, DATE_FORMAT(e.empl_fecha_creacion,"%d/%m/%Y") empl_fecha_creacion, DATE_FORMAT(e.empl_fecha_modificacion,"%d/%m/%Y") empl_fecha_modificacion');
+		$this->db->select('e.empl_id, CONCAT(p.per_nombre, " ", p.per_apellido) empl_nombre, e.empl_per_id, o.ocu_descripcion empl_ocupacion, e.empl_ocu_id, e.empl_estado, DATE_FORMAT(e.empl_fecha_creacion,"%d/%m/%Y") empl_fecha_creacion, DATE_FORMAT(e.empl_fecha_modificacion,"%d/%m/%Y") empl_fecha_modificacion, per_nro_doc empl_nro_doc');
 		$this->db->from("empleados e");
 		$this->db->join('personas p', 'p.per_id = e.empl_per_id');
 		$this->db->join('ocupaciones o', 'o.ocu_id = e.empl_ocu_id');

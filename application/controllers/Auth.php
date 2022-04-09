@@ -8,12 +8,15 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
-		$this->templates->addFolder('modulos', APPPATH.'views');
-		// $this->load->model(array('Login'));
+		$this->templates->addFolder('dashboard', APPPATH.'views/dashboard');
+		$this->load->model(array('Usuarios_model'));
+		$this->load->library('Bcrypt');
+
 	}
 
 	public function index()
 	{
+
 		if ($this->session->userdata('sist_conex')!="A") {
 			$this->load->view('login');
 		}else {
@@ -23,15 +26,15 @@ class Auth extends CI_Controller {
 
 	public function ObtenerEstado()
 	{
-		$dato = $this->Login->ObtenerEstado();
+		$dato = $this->Usuarios_model->ObtenerEstado();
 
 		if ($dato!="") {
 			$datestconusu = array(
-					'sist_conex' => $dato->ESTADO,
+				'sist_conex' => $dato->ESTADO,
 			);
 		}else {
 			$datestconusu = array(
-					'sist_conex' => 'I',
+				'sist_conex' => 'I',
 			);
 		}
 		$this->session->set_userdata($datestconusu);
@@ -41,31 +44,34 @@ class Auth extends CI_Controller {
 	{
 		$usuario = $this->input->post('usuario');
 		$password = $this->input->post('password');
-		$comprobar = $this->Login->ComprobacionCredenciales($usuario,$password);
+		$comprobar = $this->Usuarios_model->login($usuario,$password);
 
 		if ($comprobar!=false) {
-
+			$mod_id_aux = '';
+			$pan_id_aux = '';
+			foreach ($comprobar as $modulo){
+				if ($mod_id_aux <> $modulo->mod_id) {
+					$modulos[] = $modulo->mod_id;
+					$mod_id_aux = $modulo->mod_id;
+				}
+				if ($pan_id_aux <> $modulo->pant_id) {
+					$pantallas[] = $modulo->pant_id;
+					$pan_id_aux = $modulo->pant_id;
+				}
+			}
 			$data = array(
 				'sist_conex' => 'A',
-				'sist_funcod' => $comprobar->EMPL_COD,
-				'sist_funnom' => $comprobar->FUNC,
-				'sist_ofidesc' => $comprobar->ESOR_DESC,
-				'sist_sededesc' => $comprobar->SEDE_DESC,
-				'sist_estsede' => $comprobar->ESSE_ID,
-				'sist_role' => $comprobar->USSI_ROL_ID,
-				'sist_usuid'	=> $comprobar->USUF_ID,
-				'sist_usuname'	=> $comprobar->USUF_NOMBRE,
-				'sist_ultconx' => $comprobar->ULTI_CONX,
-				'sist_depsupe' => $comprobar->DEPE_SUPE,
-				'sist_sedeco' => $comprobar->SEDE_COD,
-				'sist_estorg' => $comprobar->ESOR_COD,
-				'sist_cargo' => $comprobar->CARGO
+				'sist_funnom' => $comprobar[0]->usua_empleado,
+				'sist_modulos' => $modulos,
+				'sist_pantallas' => $pantallas,
+				'sist_usuid'	=> $comprobar[0]->usua_id,
+				'sist_usuname'	=> $comprobar[0]->usua_name,
 			);
 
 
 			$this->session->set_userdata($data);
-			$this->Login->update_estado_usuario_activo();
-			$this->Login->update_estado_sistrol_activo();
+			$this->Usuarios_model->update_estado_sistrol_activo();
+			// $this->Usuarios_model->update_estado_sistrol_activo();
 			echo json_encode("correcto");
 		}else{
 			echo json_encode("incorrecto");
@@ -76,7 +82,7 @@ class Auth extends CI_Controller {
 	{
 		$this->ObtenerEstado();
 		if ($this->session->userdata('sist_conex')=="A") {
-			echo $this->templates->render('modulos::v_inicio');
+			echo $this->templates->render('dashboard::inicio');
 		}else {
 			redirect(base_url(),'refresh');
 		}
