@@ -7,7 +7,8 @@
       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-friends"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Empleados</span>
+        <span class="info-box-text">Estetico</span>
+        9/10
         <span class="info-box-number" id="id_cantcontratado">
         </span>
       </div>
@@ -23,7 +24,8 @@
       <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Proveedores</span>
+        <span class="info-box-text">Consultorio</span>
+        8/8
         <span class="info-box-number" id="id_contnombrados"></span>
       </div>
       <!-- /.info-box-content -->
@@ -36,8 +38,8 @@
       <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-signature"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Productos</span>
-        <span class="info-box-number" id="id_contarvacantes"></span>
+        <span class="info-box-text">laborario</span>
+        <span class="info-box-number" id="id_contarvacantes">3/3</span>
       </div>
     </div>
   </div>

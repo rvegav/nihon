@@ -12,13 +12,14 @@ class Ocupaciones extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('ocupaciones', APPPATH.'views/ocupaciones');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Ocupacion_model'));
+		$this->load->model(array('Usuarios_model','Ocupacion_model'));
 
 	}
 	
 	//esta funcion es la primera que se cargar
-	public function index()
-	{		
+public function index()
+{
+$username = $this->session->userdata('sist_usuname');		
 		$data = array(
 			'ocupaciones'=> $this->Ocupacion_model->getOcupaciones()
 		);

@@ -12,7 +12,7 @@
 			$this->templates = new League\Plates\Engine(APPPATH.'views');
 			$this->templates->addFolder('empleados', APPPATH.'views/empleados');
 			$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-			$this->load->model(array('Empleados_model', 'Personas_model', 'Ocupacion_model'));
+			$this->load->model(array('Usuarios_model','Empleados_model', 'Personas_model', 'Ocupacion_model'));
 
 		}
 		public function index()

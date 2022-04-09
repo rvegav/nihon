@@ -12,13 +12,14 @@ class Especies extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('especies', APPPATH.'views/especies');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Especies_model'));
+		$this->load->model(array('Usuarios_model','Especies_model'));
 
 	}
 	
 	//esta funcion es la primera que se cargar
-	public function index()
-	{		
+public function index()
+{
+$username = $this->session->userdata('sist_usuname');		
 		$data = array(
 			'especies'=> $this->Especies_model->getEspecies()
 		);

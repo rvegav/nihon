@@ -12,13 +12,14 @@ class Tipos_Productos extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('tipo_productos', APPPATH.'views/tipo_productos');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Tipo_Productos_model'));
+		$this->load->model(array('Usuarios_model','Tipo_Productos_model'));
 
 	}
 	
 	//esta funcion es la primera que se cargar
 	public function index()
-	{		
+	{
+		$username = $this->session->userdata('sist_usuname');		
 		$data = array(
 			'tipo_productos'=> $this->Tipo_Productos_model->getTipoProductos()
 		);

@@ -252,7 +252,7 @@
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>store_mascota",
+			url: "<?php echo base_url()?>update_mascota",
 			type: 'POST',
 			data: formDato
 		})

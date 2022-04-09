@@ -27,6 +27,7 @@ class Usuarios extends CI_Controller {
 	}
 	public function index()
 	{
+		$username = $this->session->userdata('sist_usuname');
 		$this->comprobacionRoles();
 		$data = array(
 			'usuarios'=> $this->Usuarios_model->getUsuarios()

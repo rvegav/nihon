@@ -102,5 +102,21 @@ class Usuarios_model extends CI_Model {
 		$consulta = $this->db->get('usuarios');
 		return $consulta->row();
 	}
-	
+	public function getPermisosRol($username, $pantalla){
+		$this->db->select('pant_descripcion, rd.rol_det_actualizar, rd.rol_det_visualizar, rd.rol_det_borrar, rd.rol_det_insertar');
+		$this->db->from('usuarios u');
+		$this->db->join('roles_usuarios ru', 'ru.rol_usu_usu_id = u.usua_id');
+		$this->db->join('roles r', 'r.rol_id = ru.rol_usu_rol_id');
+		$this->db->join('rol_detalles rd', 'rd.rol_det_rol_id = r.rol_id');
+		$this->db->join('pantallas pa', 'pa.pant_id = rd.rol_det_pant_id');
+		$this->db->join('modulos m', 'm.mod_id = pa.pant_mod_id');
+		$this->db->where('u.usua_name', $username);
+		$this->db->where('pa.pant_id', $pantalla);
+		$resultado = $this->db->get();
+		if ($resultado->num_rows()>0) {
+			return $resultado->row();
+		}else{
+			return false;
+		}
+	}
 }

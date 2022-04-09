@@ -12,13 +12,14 @@ class Agendamientos extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('mascotas', APPPATH.'views/mascotas');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Mascotas_model', 'Clientes_model', 'Razas_model'));
+		$this->load->model(array('Usuarios_model','Mascotas_model', 'Clientes_model', 'Razas_model'));
 
 	}
 	
 	//esta funcion es la primera que se cargar
 	public function index()
-	{		
+	{
+		$username = $this->session->userdata('sist_usuname');		
 		$data = array(
 			'agendamientos'=> $this->Mascotas_model->getMascotas()
 		);

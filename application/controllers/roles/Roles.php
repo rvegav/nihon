@@ -7,7 +7,7 @@ class Roles extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array("Permiso_model", "Rol_model"));
+		$this->load->model(array('Usuarios_model',"Permiso_model", "Rol_model"));
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('roles', APPPATH.'views/roles');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
@@ -19,15 +19,16 @@ class Roles extends CI_Controller
 
 	}
 	public function comprobacionRoles(){
-		$usuario = $this->session->userdata("DESUSUARIO");
-		$idmodulo = 4;
-		if (!$this->Usuarios_model->comprobarPermiso($usuario, $idmodulo)) {
-			redirect(base_url());
-		}
+		// $usuario = $this->session->userdata("DESUSUARIO");
+		// $idmodulo = 4;
+		// if (!$this->Usuarios_model->comprobarPermiso($usuario, $idmodulo)) {
+		// 	redirect(base_url());
+		// }
 	}
 	//esta funcion es la primera que se cargar
 	public function index()
 	{
+		$username = $this->session->userdata('sist_usuname');
 		$this->comprobacionRoles();	
 		//cargamos un array usando el modelo
 		$roles = $this->Rol_model->getRoles();
@@ -56,6 +57,7 @@ class Roles extends CI_Controller
 		if ($detalles) {
 			foreach ($detalles as $detalle ) {
 				$array = array();
+				$array['MODULO'] = $detalle->mod_descripcion;
 				$array['PANTALLA']=$detalle->pant_descripcion;
 				$array['INSERCION']=$detalle->insercion;
 				$array['ACTUALIZACION']=$detalle->actualizacion;

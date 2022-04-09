@@ -1,6 +1,7 @@
 <?php $this->layout('v_master')?>
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
+<?php if ($permiso): ?>
 <div class="card">
 	<div class="col-md-12" align="right">
 		<?php
@@ -33,11 +34,15 @@
 	<h4>Listado de Ciudades</h4>
 	<br>
 	<div class="row">
-		<div class="col-md-2 offset-10">
-			<a href="<?php echo base_url()?>add_ciudad" class="nav-link">
-				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Ciudad"><i class="fa fa-plus"></i>Agregar Ciudad</button>
-			</a>
-		</div>
+
+		<?php if ($permiso->rol_det_insertar ==1): ?>
+			
+			<div class="col-md-2 offset-10">
+				<a href="<?php echo base_url()?>add_ciudad" class="nav-link">
+					<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Ciudad"><i class="fa fa-plus"></i>Agregar Ciudad</button>
+				</a>
+			</div>
+		<?php endif ?>
 
 	</div>
 	<br>
@@ -78,9 +83,14 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+									<?php if ($permiso->rol_det_actualizar == 1): ?>
+										<a href="<?php echo base_url();?>edit_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<?php endif ?>
+									<?php if ($permiso->rol_det_borrar ==1): ?>
+										<?php if ($estado!=2): ?>
+											<a href="<?php echo base_url();?>delete_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<?php endif ?>
+										
 									<?php endif ?>
 								</td>
 							</tr>
@@ -92,6 +102,8 @@
 
 	</div>
 </div>
+
+<?php endif ?>
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">

@@ -96,6 +96,7 @@
 				<div class="table-responsive">
 					<table class="table" id="table_detalle">
 						<thead>
+							<th>Modulo</th>
 							<th>Pantalla</th>
 							<th>Insercion</th>
 							<th>Actualizacion</th>
@@ -137,6 +138,7 @@
 			},
 			'language':lenguaje,
 			'columns':[
+			{data:'MODULO'},
 			{data:'PANTALLA'},
 			{data:'INSERCION','sClass':'text-center'},
 			{data:'ACTUALIZACION','sClass':'text-center'},

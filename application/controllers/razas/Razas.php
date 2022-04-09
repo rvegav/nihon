@@ -12,13 +12,14 @@ class Razas extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('razas', APPPATH.'views/razas');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Razas_model', 'Especies_model'));
+		$this->load->model(array('Usuarios_model','Razas_model', 'Especies_model'));
 
 	}
 	
 	//esta funcion es la primera que se cargar
 	public function index()
-	{		
+	{
+		$username = $this->session->userdata('sist_usuname');		
 		$data = array(
 			'razas'=> $this->Razas_model->getRazas()
 		);
@@ -96,40 +97,40 @@ class Razas extends CI_Controller
 		$estado = $this->input->post('estado');
 		$idEspecie = $this->input->post('esp_id');
 
-			$this->form_validation->set_rules("desRaza", "Descripcion", "required");
-			$desRaza = trim($desRaza);
-			if ($this->form_validation->run() == FALSE){
-				$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
+		$this->form_validation->set_rules("desRaza", "Descripcion", "required");
+		$desRaza = trim($desRaza);
+		if ($this->form_validation->run() == FALSE){
+			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
+		}else{
+			$time = time();
+			$fechaActual = date("Y-m-d H:i:s",$time);
+			$data = array(
+				'raz_descripcion' => $desRaza,
+				'raz_esp_id'  => trim($idEspecie),
+				'raz_estado' => $estado,
+				'raz_fecha_modificacion'=> $fechaActual
+			);
+			if($this->Razas_model->update($idRaza,$data)){
+				$mensajes['correcto'] = 'correcto';
+				$this->session->set_flashdata('success', 'Actualizado correctamente!');
 			}else{
-				$time = time();
-				$fechaActual = date("Y-m-d H:i:s",$time);
-				$data = array(
-					'raz_descripcion' => $desRaza,
-					'raz_esp_id'  => trim($idEspecie),
-					'raz_estado' => $estado,
-					'raz_fecha_modificacion'=> $fechaActual
-				);
-				if($this->Razas_model->update($idRaza,$data)){
-					$mensajes['correcto'] = 'correcto';
-					$this->session->set_flashdata('success', 'Actualizado correctamente!');
-				}else{
-					$mensajes['error'] = 'Errores al intentar Actualizar!';
-					$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-				}
-			}
-			echo json_encode($mensajes);
-
-		}
-		public function delete($id)
-		{
-			if($this->Razas_model->delete($id)){
-				$this->session->set_flashdata('success', 'Eliminado correctamente!');
-				redirect(base_url()."razas", "refresh");
-			}else{
+				$mensajes['error'] = 'Errores al intentar Actualizar!';
 				$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-				redirect(base_url()."razas","refresh");
 			}
-
 		}
+		echo json_encode($mensajes);
+
 	}
+	public function delete($id)
+	{
+		if($this->Razas_model->delete($id)){
+			$this->session->set_flashdata('success', 'Eliminado correctamente!');
+			redirect(base_url()."razas", "refresh");
+		}else{
+			$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
+			redirect(base_url()."razas","refresh");
+		}
+
+	}
+}

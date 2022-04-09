@@ -12,7 +12,7 @@
 			$this->templates = new League\Plates\Engine(APPPATH.'views');
 			$this->templates->addFolder('personas', APPPATH.'views/personas');
 			$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-			$this->load->model(array('Personas_model', 'Ciudad_model'));
+			$this->load->model(array('Usuarios_model','Personas_model', 'Ciudad_model'));
 
 		}
 		public function index()

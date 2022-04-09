@@ -12,7 +12,7 @@
 			$this->templates = new League\Plates\Engine(APPPATH.'views');
 			$this->templates->addFolder('control_stock', APPPATH.'views/control_stock');
 			$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-			$this->load->model(array('Control_Stock_model', 'Productos_model'));
+			$this->load->model(array('Usuarios_model','Control_Stock_model', 'Productos_model'));
 
 		}
 		public function index()

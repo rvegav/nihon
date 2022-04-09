@@ -12,15 +12,17 @@ class Ciudades extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('ciudades', APPPATH.'views/ciudades');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Ciudad_model'));
+		$this->load->model(array('Usuarios_model','Ciudad_model'));
 
 	}
 	
 	//esta funcion es la primera que se cargar
 	public function index()
-	{		
+	{
+		$username = $this->session->userdata('sist_usuname');	
 		$data = array(
-			'ciudades'=> $this->Ciudad_model->getCiudades()
+			'ciudades'=> $this->Ciudad_model->getCiudades(),
+			'permiso'=> $this->Usuarios_model->getPermisosRol($username, 2)
 		);
 		echo $this->templates->render('ciudades::list', $data);
 	}
@@ -90,39 +92,39 @@ class Ciudades extends CI_Controller
 		$idCiudad= $this->input->post("NumCiudad");
 		$desCiudad= $this->input->post("desCiudad");
 		$estado = $this->input->post('estado');
-			$this->form_validation->set_rules("desCiudad", "Descripcion", "required");
-			$desCiudad = trim($desCiudad);
-			if ($this->form_validation->run() == FALSE){
-				$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
+		$this->form_validation->set_rules("desCiudad", "Descripcion", "required");
+		$desCiudad = trim($desCiudad);
+		if ($this->form_validation->run() == FALSE){
+			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
+		}else{
+			$time = time();
+			$fechaActual = date("Y-m-d H:i:s",$time);
+			$data = array(
+				'ciu_descripcion' => $desCiudad,
+				'ciu_estado' => $estado,
+				'ciu_fecha_modificacion'=> $fechaActual
+			);
+			if($this->Ciudad_model->update($idCiudad,$data)){
+				$mensajes['correcto'] = 'correcto';
+				$this->session->set_flashdata('success', 'Actualizado correctamente!');
 			}else{
-				$time = time();
-				$fechaActual = date("Y-m-d H:i:s",$time);
-				$data = array(
-					'ciu_descripcion' => $desCiudad,
-					'ciu_estado' => $estado,
-					'ciu_fecha_modificacion'=> $fechaActual
-				);
-				if($this->Ciudad_model->update($idCiudad,$data)){
-					$mensajes['correcto'] = 'correcto';
-					$this->session->set_flashdata('success', 'Actualizado correctamente!');
-				}else{
-					$mensajes['error'] = 'Errores al intentar Actualizar!';
-					$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-				}
-			}
-			echo json_encode($mensajes);
-
-		}
-		public function delete($id)
-		{
-			if($this->Ciudad_model->delete($id)){
-				$this->session->set_flashdata('success', 'Eliminado correctamente!');
-				redirect(base_url()."ciudades", "refresh");
-			}else{
+				$mensajes['error'] = 'Errores al intentar Actualizar!';
 				$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-				redirect(base_url()."ciudades","refresh");
 			}
-
 		}
+		echo json_encode($mensajes);
+
 	}
+	public function delete($id)
+	{
+		if($this->Ciudad_model->delete($id)){
+			$this->session->set_flashdata('success', 'Eliminado correctamente!');
+			redirect(base_url()."ciudades", "refresh");
+		}else{
+			$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
+			redirect(base_url()."ciudades","refresh");
+		}
+
+	}
+}
