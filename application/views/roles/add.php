@@ -161,7 +161,7 @@
 			return false;
 		}
 		
-		pantalla = $("SELECT#modulo option:selected").text().replaceAll(" ", "");
+		pantalla = $("SELECT#pantalla option:selected").text().replaceAll(" ", "");
 		html = '<tr>';
 		html += '<td>';
 		html += '<input type="hidden" id="modulo" name="modulo['+pantalla+'][modulo]" value="'+ $("SELECT#modulo option:selected").val() + '" >';
