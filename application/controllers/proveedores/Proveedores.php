@@ -14,6 +14,21 @@
 			$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
 			$this->load->model(array('Usuarios_model','Proveedores_model', 'Ciudad_model'));
 
+			$this->comprobacionRoles();
+		}
+		public function comprobacionRoles()
+		{
+			$usuario = $this->session->userdata("sist_usuname");
+			$idmodulo = 2;
+			$pantalla = 3;
+			if ($this->session->userdata('sist_conex')=='A') {
+				if (!$this->Usuarios_model->getPermisosRol($usuario, $pantalla,$idmodulo)) {
+					redirect(base_url());
+				}
+			}else{
+				redirect(base_url());
+
+			}
 		}
 		public function index()
 		{		

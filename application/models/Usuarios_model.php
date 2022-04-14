@@ -15,6 +15,7 @@ class Usuarios_model extends CI_Model {
 		$this->db->join('modulos m', 'm.mod_id = pa.pant_mod_id');
 		$this->db->where("u.usua_name", $username);
 		$this->db->order_by('5', 'asc');
+		$this->db->order_by('6', 'asc');
 		$results= $this->db->get();
 
 		if($results->num_rows()>0){
@@ -102,7 +103,7 @@ class Usuarios_model extends CI_Model {
 		$consulta = $this->db->get('usuarios');
 		return $consulta->row();
 	}
-	public function getPermisosRol($username, $pantalla){
+	public function getPermisosRol($username, $pantalla = false, $modulo = false){
 		$this->db->select('pant_descripcion, rd.rol_det_actualizar, rd.rol_det_visualizar, rd.rol_det_borrar, rd.rol_det_insertar');
 		$this->db->from('usuarios u');
 		$this->db->join('roles_usuarios ru', 'ru.rol_usu_usu_id = u.usua_id');
@@ -111,7 +112,12 @@ class Usuarios_model extends CI_Model {
 		$this->db->join('pantallas pa', 'pa.pant_id = rd.rol_det_pant_id');
 		$this->db->join('modulos m', 'm.mod_id = pa.pant_mod_id');
 		$this->db->where('u.usua_name', $username);
-		$this->db->where('pa.pant_id', $pantalla);
+		if ($pantalla) {
+			$this->db->where('pa.pant_id', $pantalla);
+		}
+		if ($modulo) {
+			$this->db->where('m.mod_id', $modulo);
+		}
 		$resultado = $this->db->get();
 		if ($resultado->num_rows()>0) {
 			return $resultado->row();

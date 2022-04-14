@@ -14,12 +14,27 @@ class Productos extends CI_Controller
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
 		$this->load->model(array('Usuarios_model','Productos_model', 'Proveedores_model', 'Tipo_Productos_model'));
 
+		$this->comprobacionRoles();
+	}
+	public function comprobacionRoles()
+	{
+		$usuario = $this->session->userdata("sist_usuname");
+		$idmodulo = 2;
+		$pantalla = 5;
+		if ($this->session->userdata('sist_conex')=='A') {
+			if (!$this->Usuarios_model->getPermisosRol($usuario, $pantalla,$idmodulo)) {
+				redirect(base_url());
+			}
+		}else{
+			redirect(base_url());
+
+		}
 	}
 	
 	//esta funcion es la primera que se cargar
-public function index()
-{
-$username = $this->session->userdata('sist_usuname');		
+	public function index()
+	{
+		$username = $this->session->userdata('sist_usuname');		
 		$data = array(
 			'productos'=> $this->Productos_model->getProductos()
 		);

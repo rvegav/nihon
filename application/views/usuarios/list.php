@@ -43,56 +43,59 @@
 	<br>
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-bordered" id="tablausuario" width="100%">
-				<thead>
-					<tr>
-						<th class="text-center">Codigo</th>
-						<th class="text-center">Nombre de usuario</th>
-						<th class="text-center">Nombre del empleado</th>
-						<th class="text-center">Fecha Creacion</th>
-						<th class="text-center">Ultima Modificacion</th>
-						<th class="text-center">Estado</th>
-						<th class="text-center">Opciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if(!empty($usuarios)):?>
-						<?php
-						foreach($usuarios as $usuario):?>
-							<tr>
-								<td><?php echo $usuario->usua_id; ?></td>
-								<td><?php echo $usuario->usua_name;?></td>
-								<td><?php echo $usuario->usua_empleado;?></td>
-								<td><?php echo $usuario->usua_fecha_creacion;?></td>
-								<td><?php echo $usuario->usua_fecha_modificacion;?></td>
+			<div class="table-responsive">
+				<table class="table table-bordered" id="tablausuario" width="100%">
+					<thead>
+						<tr>
+							<th class="text-center">Codigo</th>
+							<th class="text-center">Nombre de usuario</th>
+							<th class="text-center">Nombre del empleado</th>
+							<th class="text-center">Fecha Creacion</th>
+							<th class="text-center">Ultima Modificacion</th>
+							<th class="text-center">Estado</th>
+							<th class="text-center">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(!empty($usuarios)):?>
+							<?php
+							foreach($usuarios as $usuario):?>
+								<tr>
+									<td><?php echo $usuario->usua_id; ?></td>
+									<td><?php echo $usuario->usua_name;?></td>
+									<td><?php echo $usuario->usua_empleado;?></td>
+									<td><?php echo $usuario->usua_fecha_creacion;?></td>
+									<td><?php echo $usuario->usua_fecha_modificacion;?></td>
 
-								<?php
-								$estado = $usuario->usua_estado;
-								if($estado == 1){
-									$estado2     = "Activo";$label_class = 'label-success';
-								}else{
-									if($estado == 2){
-										$estado2     = "Inactivo";$label_class = 'label-warning';
+									<?php
+									$estado = $usuario->usua_estado;
+									if($estado == 1){
+										$estado2     = "Activo";$label_class = 'label-success';
 									}else{
-										$estado2     = "Anulado";$label_class = 'label-danger';
+										if($estado == 2){
+											$estado2     = "Inactivo";$label_class = 'label-warning';
+										}else{
+											$estado2     = "Anulado";$label_class = 'label-danger';
+										}
 									}
-								}
-								;?>
-								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
-								<td>
-									<button type="button" class="btn btn-primary btn-view" data-toggle="modal" data-target="#modal-view" value="<?php echo $usuario->usua_id;?>">
-										<i class="fa fa-eye"></i>
-									</button>
-									<a href="<?php echo base_url();?>edit_usuario/<?php echo $usuario->usua_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_usuario/<?php echo $usuario->usua_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
-									<?php endif ?>
-								</td>
-							</tr>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</tbody>
-			</table>
+									;?>
+									<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
+									<td>
+										<button type="button" class="btn btn-primary btn-view" data-toggle="modal" data-target="#modal-view" value="<?php echo $usuario->usua_id;?>">
+											<i class="fa fa-eye"></i>
+										</button>
+										<a href="<?php echo base_url();?>edit_usuario/<?php echo $usuario->usua_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+										<?php if ($estado!=2): ?>
+											<a href="<?php echo base_url();?>delete_usuario/<?php echo $usuario->usua_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<?php endif ?>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</tbody>
+				</table>
+				
+			</div>
 		</div>
 
 	</div>
@@ -108,7 +111,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="table-responsive">
-					<table class="table" id="tabla_roles">
+					<table class="table" id="tabla_roles" width="100%">
 						<thead>
 							<tr>
 								<th>Codigo Rol</th>

@@ -11,19 +11,23 @@ class Roles extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('roles', APPPATH.'views/roles');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-
-		// if (!$this->session->userdata("login")){
-		// 	redirect(base_url());
 		$this->load->model("Usuarios_model");
-		// }s
 
+		$this->comprobacionRoles();
 	}
-	public function comprobacionRoles(){
-		// $usuario = $this->session->userdata("DESUSUARIO");
-		// $idmodulo = 4;
-		// if (!$this->Usuarios_model->comprobarPermiso($usuario, $idmodulo)) {
-		// 	redirect(base_url());
-		// }
+	public function comprobacionRoles()
+	{
+		$usuario = $this->session->userdata("sist_usuname");
+		$idmodulo = 3;
+		$pantalla = 11;
+		if ($this->session->userdata('sist_conex')=='A') {
+			if (!$this->Usuarios_model->getPermisosRol($usuario, $pantalla,$idmodulo)) {
+				redirect(base_url());
+			}
+		}else{
+			redirect(base_url());
+
+		}
 	}
 	//esta funcion es la primera que se cargar
 	public function index()

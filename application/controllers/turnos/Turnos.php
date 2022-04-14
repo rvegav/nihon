@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Especies extends CI_Controller
+class Turnos extends CI_Controller
 {
 	//solo el constructor, para llamar a las clases
 	public function __construct()
@@ -10,9 +10,9 @@ class Especies extends CI_Controller
 		// 	redirect(base_url());
 		// }
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
-		$this->templates->addFolder('especies', APPPATH.'views/especies');
+		$this->templates->addFolder('turnos', APPPATH.'views/turnos');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Usuarios_model','Especies_model'));
+		$this->load->model(array('Usuarios_model','Ciudad_model'));
 
 		$this->comprobacionRoles();
 	}
@@ -20,7 +20,7 @@ class Especies extends CI_Controller
 	{
 		$usuario = $this->session->userdata("sist_usuname");
 		$idmodulo = 2;
-		$pantalla = 7;
+		$pantalla = 16;
 		if ($this->session->userdata('sist_conex')=='A') {
 			if (!$this->Usuarios_model->getPermisosRol($usuario, $pantalla,$idmodulo)) {
 				redirect(base_url());
@@ -30,22 +30,24 @@ class Especies extends CI_Controller
 
 		}
 	}
+	
 	//esta funcion es la primera que se cargar
 	public function index()
 	{
-		$username = $this->session->userdata('sist_usuname');		
+		$username = $this->session->userdata('sist_usuname');	
 		$data = array(
-			'especies'=> $this->Especies_model->getEspecies()
+			'turnos'=> $this->Ciudad_model->getTurnos(),
+			'permiso'=> $this->Usuarios_model->getPermisosRol($username, 2)
 		);
-		echo $this->templates->render('especies::list', $data);
+		echo $this->templates->render('turnos::list', $data);
 	}
 	//funcion add para mostrar vistas
 	public function add()
 	{
 		$data = array(			
-			'maximo' => $this->Especies_model->ObtenerCodigo()
+			'maximo' => $this->Ciudad_model->ObtenerCodigo()
 		);
-		echo $this->templates->render('especies::add', $data);
+		echo $this->templates->render('turnos::add', $data);
 
 	}
 	//funcion vista
@@ -53,35 +55,35 @@ class Especies extends CI_Controller
 	{
 
 		$mensajes= $this->data;
-		$this->form_validation->set_rules("desEspecie", "Descripcion", "required");
+		$this->form_validation->set_rules("desCiudad", "Descripcion", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
-			$desEspecie   = $this->input->post("desEspecie");
+			$desCiudad   = $this->input->post("desCiudad");
 			$estado = $this->input->post('estado');
-			$idEspecie = $this->Especies_model->ObtenerCodigo();
+			$idciudad = $this->Ciudad_model->ObtenerCodigo();
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
-				'esp_id'  => $idEspecie->MAXIMO,
-				'esp_descripcion'  => trim($desEspecie),
-				'esp_fecha_creacion' => $fechaActual,
-				'esp_fecha_modificacion'  => $fechaActual,
-				'esp_estado' => $estado
+				'ciu_id'  => $idciudad->MAXIMO,
+				'ciu_descripcion'  => trim($desCiudad),
+				'ciu_fecha_creacion' => $fechaActual,
+				'ciu_fecha_modificacion'  => $fechaActual,
+				'ciu_estado' => $estado
 			);
-			$desEspecie = trim($desEspecie);
-			if($this->Especies_model->validarExiste($desEspecie)){
-				$mensajes['error']= 'Ya existe una Especie con la misma descripcion';
+			$desCiudad = trim($desCiudad);
+			if($this->Ciudad_model->validarExiste($desCiudad)){
+				$mensajes['error']= 'Ya existe una ciudad con la misma descripcion';
 			}else{
-				if($this->Especies_model->save($data)){
+				if($this->Ciudad_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
-					$this->session->set_flashdata('success', 'Especie registrado correctamente!');
-						// redirect(base_url()."especies", "refresh");
+					$this->session->set_flashdata('success', 'Ciudad registrado correctamente!');
+						// redirect(base_url()."turnos", "refresh");
 				}else{
 					$mensajes['error'] = 'Ciudad no registrado!';
-					$this->session->set_flashdata('error', 'Especie no registrado!');
+					$this->session->set_flashdata('error', 'Ciudad no registrado!');
 						// redirect(base_url()."add_ciudad", "refresh");
 				}
 			}
@@ -93,20 +95,20 @@ class Especies extends CI_Controller
 	public function edit($id)
 	{
 		$data = array(
-			'especie'=> $this->Especies_model->getEspecies($id),
+			'ciudad'=> $this->Ciudad_model->getTurnos($id),
 		);
-		echo $this->templates->render('especies::edit', $data);
+		echo $this->templates->render('turnos::edit', $data);
 
 		
 	}
 	public function update()
 	{
 		$mensajes = $this->data;
-		$idEspecie= $this->input->post("NumCiudad");
-		$desEspecie= $this->input->post("desEspecie");
+		$idCiudad= $this->input->post("NumCiudad");
+		$desCiudad= $this->input->post("desCiudad");
 		$estado = $this->input->post('estado');
-		$this->form_validation->set_rules("desEspecie", "Descripcion", "required");
-		$desEspecie = trim($desEspecie);
+		$this->form_validation->set_rules("desCiudad", "Descripcion", "required");
+		$desCiudad = trim($desCiudad);
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
@@ -114,11 +116,11 @@ class Especies extends CI_Controller
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
-				'esp_descripcion' => $desEspecie,
-				'esp_estado' => $estado,
-				'esp_fecha_modificacion'=> $fechaActual
+				'ciu_descripcion' => $desCiudad,
+				'ciu_estado' => $estado,
+				'ciu_fecha_modificacion'=> $fechaActual
 			);
-			if($this->Especies_model->update($idEspecie,$data)){
+			if($this->Ciudad_model->update($idCiudad,$data)){
 				$mensajes['correcto'] = 'correcto';
 				$this->session->set_flashdata('success', 'Actualizado correctamente!');
 			}else{
@@ -131,12 +133,12 @@ class Especies extends CI_Controller
 	}
 	public function delete($id)
 	{
-		if($this->Especies_model->delete($id)){
+		if($this->Ciudad_model->delete($id)){
 			$this->session->set_flashdata('success', 'Eliminado correctamente!');
-			redirect(base_url()."especies", "refresh");
+			redirect(base_url()."turnos", "refresh");
 		}else{
 			$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-			redirect(base_url()."especies","refresh");
+			redirect(base_url()."turnos","refresh");
 		}
 
 	}

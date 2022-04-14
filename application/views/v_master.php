@@ -55,10 +55,10 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="<?php echo base_url()?>" class="brand-link">
-      <!-- <img src="<?= base_url() ?>assets/img/logo.png"
-           class="brand-image img-circle elevation-3"
-           style="opacity: .8"> -->
-           <span class="brand-text font-weight-light">MundoPET</span>
+           <!-- <span class="brand-text font-weight-light">MundoPET</span> -->
+      <img src="<?= base_url() ?>assets/img/logo.png"
+           class="img-rounded"
+           style="opacity: 1; width: 60%; height: 60%;">
          </a>
 
          <!-- Sidebar -->
@@ -300,7 +300,7 @@
               </ul>
             </li>
           <?php endif ?>
-          <?php if ($modulo == 5): ?>
+          <?php if ($modulo == 6): ?>
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -353,7 +353,7 @@
               </ul>
             </li>
           <?php endif ?>
-          <?php if ($modulo == 6): ?>
+          <?php if ($modulo == 7): ?>
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">

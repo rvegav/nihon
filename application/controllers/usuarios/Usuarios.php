@@ -13,17 +13,22 @@ class Usuarios extends CI_Controller {
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
 		$this->load->model(array('Usuarios_model', 'Rol_model', 'Empleados_model'));
 		$this->load->library('Bcrypt');
-
+		$this->comprobacionRoles();
 
 	}
 	public function comprobacionRoles()
 	{
-		// $this->comprobacionRoles();
-		$usuario = $this->session->userdata("DESUSUARIO");
-		$idmodulo = 4;
-		// if (!$this->Usuarios_model->comprobarPermiso($usuario, $idmodulo)) {
-		// 	redirect(base_url());
-		// }
+		$usuario = $this->session->userdata("sist_usuname");
+		$idmodulo = 3;
+		$pantalla = 10;
+		if ($this->session->userdata('sist_conex')=='A') {
+			if (!$this->Usuarios_model->getPermisosRol($usuario, $pantalla,$idmodulo)) {
+				redirect(base_url());
+			}
+		}else{
+			redirect(base_url());
+
+		}
 	}
 	public function index()
 	{
@@ -103,6 +108,20 @@ class Usuarios extends CI_Controller {
 			}
 		}
 		echo json_encode($mensajes);
+	}
+
+	public function edit($id)
+	{
+		$this->comprobacionRoles();
+
+
+		$data = array(			
+			'rol' => $this->Rol_model->getRoles($id),
+			'modulos'=> $this->Rol_model->getModulos(),
+			'pantallas'=> $this->Rol_model->getPantallas(),
+			'detalles' => $this->Rol_model->getDetalleRol($id)
+		);
+		echo $this->templates->render('roles::edit', $data);
 	}
 	public function generarContrasena($length = 12) 
 	{
