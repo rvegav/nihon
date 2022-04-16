@@ -55,30 +55,30 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="<?php echo base_url()?>" class="brand-link">
-           <!-- <span class="brand-text font-weight-light">MundoPET</span> -->
-      <img src="<?= base_url() ?>assets/img/logo.png"
-           class="img-rounded"
-           style="opacity: 1; width: 60%; height: 60%;">
-         </a>
+       <!-- <span class="brand-text font-weight-light">MundoPET</span> -->
+       <img src="<?= base_url() ?>assets/img/logo.png"
+       class="img-rounded"
+       style="opacity: 1; width: 60%; height: 60%;">
+     </a>
 
-         <!-- Sidebar -->
+     <!-- Sidebar -->
 
-         <div class="sidebar">
-          <!-- Sidebar user (optional) -->
-          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info">
-              <a href="#" class="d-block"><?= $CI->session->userdata('sist_funnom'); ?></a>
-              <p class="d-block" style="color:white;font-size:9px"><?= $CI->session->userdata('sist_cargo'); ?></p>
-              <p class="d-block" style="color:white;font-size:9px">ÚLTIMA CONEXIÓN:<?= $CI->session->userdata('sist_ultconx'); ?></p>
-            </div>
-          </div>
+     <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="#" class="d-block"><?= $CI->session->userdata('sist_funnom'); ?></a>
+          <p class="d-block" style="color:white;font-size:9px"><?= $CI->session->userdata('sist_cargo'); ?></p>
+          <p class="d-block" style="color:white;font-size:9px">ÚLTIMA CONEXIÓN:<?= $CI->session->userdata('sist_ultconx'); ?></p>
+        </div>
+      </div>
 
-          <?php $modulos = $CI->session->userdata('sist_modulos'); ?>
-          <?php $pantallas = $CI->session->userdata('sist_pantallas'); ?>
-          <?php foreach ($modulos as $modulo): ?>
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <?php $modulos = $CI->session->userdata('sist_modulos'); ?>
+      <?php $pantallas = $CI->session->userdata('sist_pantallas'); ?>
+      <?php foreach ($modulos as $modulo): ?>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
            <?php if ($modulo == 1): ?>
@@ -188,6 +188,15 @@
                       <a href="<?= base_url()?>ocupaciones" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ocupaciones</p>
+                      </a>
+                    </li>
+                  <?php endif ?>
+                  <?php if ($pantalla ==16): ?>
+
+                    <li class="nav-item">
+                      <a href="<?= base_url()?>turnos" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Turnos</p>
                       </a>
                     </li>
                   <?php endif ?>

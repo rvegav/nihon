@@ -32,7 +32,7 @@ class Usuarios_model extends CI_Model {
 	}
 
 	public function getUsuarios($id= false){
-		$this->db->select("usua_id, usua_name, CONCAT(p.per_nombre, ' ', p.per_apellido) usua_empleado, usua_estado, usua_fecha_creacion, usua_fecha_modificacion");
+		$this->db->select("usua_id, usua_name, CONCAT(p.per_nombre, ' ', p.per_apellido) usua_empleado,u.usua_empl_id, usua_estado, usua_fecha_creacion, usua_fecha_modificacion");
 		$this->db->from('usuarios u');
 		$this->db->join('empleados e', 'e.empl_id = u.usua_empl_id');
 		$this->db->join('personas p', 'e.empl_per_id = p.per_id');
@@ -124,5 +124,16 @@ class Usuarios_model extends CI_Model {
 		}else{
 			return false;
 		}
+	}
+	public function update($id, $data, $password = false){
+		if ($password) {
+			$this->db->set('usua_clave', $password);			
+		}
+		$this->db->where("usua_id", $id);
+		return $this->db->update("usuarios", $data);
+	}
+	public function resetRoles($id_usuario){
+		$this->db->where('rol_usu_usu_id', $id_usuario);
+		$this->db->delete('roles_usuarios');
 	}
 }

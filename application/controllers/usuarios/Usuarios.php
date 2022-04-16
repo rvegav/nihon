@@ -66,7 +66,6 @@ class Usuarios extends CI_Controller {
 	}
 	public function store()
 	{
-		$this->comprobacionRoles();
 		$mensajes = $this->data;
 		$this->form_validation->set_rules("username", "Usuario", "required");
 		$this->form_validation->set_rules("pass_inicial", "Contraseña Generada", "required");
@@ -112,16 +111,73 @@ class Usuarios extends CI_Controller {
 
 	public function edit($id)
 	{
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 
-
+		$roles = $this->Rol_model->getRoles();
+		$detalles_rol = $this->Usuarios_model->getRolUsuario($id);
+		foreach ($detalles_rol as $detalle) {
+			foreach ($roles as $rol) {
+				if ($rol->rol_id == $detalle->rol_id) {
+					$clave = array_search($rol, $roles);
+					unset($roles[$clave]);
+				}
+			}
+		}
 		$data = array(			
-			'rol' => $this->Rol_model->getRoles($id),
-			'modulos'=> $this->Rol_model->getModulos(),
-			'pantallas'=> $this->Rol_model->getPantallas(),
-			'detalles' => $this->Rol_model->getDetalleRol($id)
+			'usuario' => $this->Usuarios_model->getUsuarios($id),
+			'roles'=> $roles,
+			'detalles_rol' => $this->Usuarios_model->getRolUsuario($id)
+
 		);
-		echo $this->templates->render('roles::edit', $data);
+		echo $this->templates->render('usuarios::edit', $data);
+	}
+	public function update()
+	{
+
+		$mensajes = $this->data;
+		$this->form_validation->set_rules("username", "Usuario", "required");
+		$this->form_validation->set_rules("empl_id", "Empleado", "required");
+		$roles = $this->input->post('roles');
+		if ($this->form_validation->run() == FALSE or count($roles)==0){
+			if (count($roles)==0) {
+				$mensajes['alerta'] = '<p>Debe Seleccionar al menos un Rol</p>';
+			}else{
+				$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>');
+			}
+
+		}else{
+			$username = $this->input->post('username');
+			$usua_id = $this->input->post('usua_id');
+			if ($this->input->post('pass_inicial')) {
+				$passinicial = $this->input->post('pass_inicial');
+				$password = $this->bcrypt->hash_password($passinicial);
+			}else{
+				$password = false;
+			}
+			$empleado = $this->input->post('empl_id');
+			// $opcion      = array('cost'=>12);
+			// $password = password_hash($passinicial, PASSWORD_BCRYPT, array($opcion));
+			$data = array(
+				'usua_name'=> $username,
+				'usua_empl_id'=> $empleado,
+				'usua_fecha_modificacion'=>date("Y-m-d H:i:s")
+			);
+			$this->Usuarios_model->update($usua_id, $data, $password);
+			$this->Usuarios_model->resetRoles($usua_id);
+			if ($usua_id) {
+				foreach ($roles as $rol) {
+					$data = array(
+						'rol_usu_rol_id' => $rol,
+						'rol_usu_usu_id' => $usua_id,
+					);
+					$this->Usuarios_model->save_rol_usuario($data);
+				}
+				$mensajes['correcto'] = '<p>Correcto</p>';
+			}else{
+				$mensajes['error'] = '<p>Usuario Existente</p>';
+			}
+		}
+		echo json_encode($mensajes);
 	}
 	public function generarContrasena($length = 12) 
 	{

@@ -132,6 +132,13 @@ $route['edit_empleado/(:num)'] = 'empleados/Empleados/edit/$1';
 $route['delete_empleado/(:num)'] = 'empleados/Empleados/delete/$1';
 $route['update_empleado'] = 'empleados/Empleados/update';
 $route['store_empleado'] = 'empleados/Empleados/store';
+
+$route['turnos'] = 'turnos/Turnos';
+$route['add_turno'] = 'turnos/Turnos/add';
+$route['edit_turno/(:num)'] = 'turnos/Turnos/edit/$1';
+$route['delete_turno/(:num)'] = 'turnos/Turnos/delete/$1';
+$route['update_turno'] = 'turnos/Turnos/update';
+$route['store_turno'] = 'turnos/Turnos/store';
 //control de stock
 
 $route['stock'] = 'control_stock/Control_Stock';

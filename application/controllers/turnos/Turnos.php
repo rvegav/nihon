@@ -12,7 +12,7 @@ class Turnos extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('turnos', APPPATH.'views/turnos');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Usuarios_model','Ciudad_model'));
+		$this->load->model(array('Usuarios_model','Turnos_model'));
 
 		$this->comprobacionRoles();
 	}
@@ -36,8 +36,8 @@ class Turnos extends CI_Controller
 	{
 		$username = $this->session->userdata('sist_usuname');	
 		$data = array(
-			'turnos'=> $this->Ciudad_model->getTurnos(),
-			'permiso'=> $this->Usuarios_model->getPermisosRol($username, 2)
+			'turnos'=> $this->Turnos_model->getTurnos(),
+			'permiso'=> $this->Usuarios_model->getPermisosRol($username, 16)
 		);
 		echo $this->templates->render('turnos::list', $data);
 	}
@@ -45,7 +45,7 @@ class Turnos extends CI_Controller
 	public function add()
 	{
 		$data = array(			
-			'maximo' => $this->Ciudad_model->ObtenerCodigo()
+			'maximo' => $this->Turnos_model->ObtenerCodigo()
 		);
 		echo $this->templates->render('turnos::add', $data);
 
@@ -53,31 +53,39 @@ class Turnos extends CI_Controller
 	//funcion vista
 	public function store()
 	{
-
 		$mensajes= $this->data;
-		$this->form_validation->set_rules("desCiudad", "Descripcion", "required");
+		$this->form_validation->set_rules("desTurno", "Descripcion", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
+		$this->form_validation->set_rules("hora_desde", "Hora Desde", "required");
+		$this->form_validation->set_rules("hora_hasta", "Hora Hasta", "required");
+		$this->form_validation->set_rules("tiempo_aprox", "Tiempo Aproximado", "required");
+
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
-			$desCiudad   = $this->input->post("desCiudad");
+			$desTurno   = $this->input->post("desTurno");
 			$estado = $this->input->post('estado');
-			$idciudad = $this->Ciudad_model->ObtenerCodigo();
+			$hora_desde = $this->input->post('hora_desde');
+			$hora_hasta = $this->input->post('hora_hasta');
+			$tiempo_aproximado = $this->input->post('tiempo_aprox');
+			$idTurno = $this->Turnos_model->ObtenerCodigo();
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
-				'ciu_id'  => $idciudad->MAXIMO,
-				'ciu_descripcion'  => trim($desCiudad),
-				'ciu_fecha_creacion' => $fechaActual,
-				'ciu_fecha_modificacion'  => $fechaActual,
-				'ciu_estado' => $estado
+				'tur_id'  => $idTurno->MAXIMO,
+				'tur_descripcion'  => trim($desTurno),
+				'tur_desde_hora'  => trim($hora_desde),
+				'tur_hasta_hora'  => trim($hora_hasta),
+				'tur_tiempo_aproximado'  => trim($tiempo_aproximado),
+				'tur_fecha_creacion' => $fechaActual,
+				'tur_fecha_modificacion'  => $fechaActual,
+				'tur_estado' => $estado
 			);
-			$desCiudad = trim($desCiudad);
-			if($this->Ciudad_model->validarExiste($desCiudad)){
+			if($this->Turnos_model->validarExiste($desTurno)){
 				$mensajes['error']= 'Ya existe una ciudad con la misma descripcion';
 			}else{
-				if($this->Ciudad_model->save($data)){
+				if($this->Turnos_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
 					$this->session->set_flashdata('success', 'Ciudad registrado correctamente!');
 						// redirect(base_url()."turnos", "refresh");
@@ -95,7 +103,7 @@ class Turnos extends CI_Controller
 	public function edit($id)
 	{
 		$data = array(
-			'ciudad'=> $this->Ciudad_model->getTurnos($id),
+			'turno'=> $this->Turnos_model->getTurnos($id),
 		);
 		echo $this->templates->render('turnos::edit', $data);
 
@@ -104,23 +112,33 @@ class Turnos extends CI_Controller
 	public function update()
 	{
 		$mensajes = $this->data;
-		$idCiudad= $this->input->post("NumCiudad");
-		$desCiudad= $this->input->post("desCiudad");
-		$estado = $this->input->post('estado');
-		$this->form_validation->set_rules("desCiudad", "Descripcion", "required");
-		$desCiudad = trim($desCiudad);
+		$idTurno= $this->input->post("NumTurno");
+		$this->form_validation->set_rules("desTurno", "Descripcion", "required");
+		$this->form_validation->set_rules("estado", "Estado", "required");
+		$this->form_validation->set_rules("hora_desde", "Hora Desde", "required");
+		$this->form_validation->set_rules("hora_hasta", "Hora Hasta", "required");
+		$this->form_validation->set_rules("tiempo_aprox", "Tiempo Aproximado", "required");
+
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
+			$desTurno   = $this->input->post("desTurno");
+			$estado = $this->input->post('estado');
+			$hora_desde = $this->input->post('hora_desde');
+			$hora_hasta = $this->input->post('hora_hasta');
+			$tiempo_aproximado = $this->input->post('tiempo_aprox');
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
-				'ciu_descripcion' => $desCiudad,
-				'ciu_estado' => $estado,
-				'ciu_fecha_modificacion'=> $fechaActual
+				'tur_descripcion'  => trim($desTurno),
+				'tur_desde_hora'  => trim($hora_desde),
+				'tur_hasta_hora'  => trim($hora_hasta),
+				'tur_tiempo_aproximado'  => trim($tiempo_aproximado),
+				'tur_fecha_modificacion'  => $fechaActual,
+				'tur_estado' => $estado
 			);
-			if($this->Ciudad_model->update($idCiudad,$data)){
+			if($this->Turnos_model->update($idTurno,$data)){
 				$mensajes['correcto'] = 'correcto';
 				$this->session->set_flashdata('success', 'Actualizado correctamente!');
 			}else{
@@ -133,7 +151,7 @@ class Turnos extends CI_Controller
 	}
 	public function delete($id)
 	{
-		if($this->Ciudad_model->delete($id)){
+		if($this->Turnos_model->delete($id)){
 			$this->session->set_flashdata('success', 'Eliminado correctamente!');
 			redirect(base_url()."turnos", "refresh");
 		}else{
