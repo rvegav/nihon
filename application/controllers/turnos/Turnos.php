@@ -12,7 +12,7 @@ class Turnos extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('turnos', APPPATH.'views/turnos');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Usuarios_model','Turnos_model'));
+		$this->load->model(array('Usuarios_model','Turnos_model', 'Productos_model'));
 
 		$this->comprobacionRoles();
 	}
@@ -45,7 +45,8 @@ class Turnos extends CI_Controller
 	public function add()
 	{
 		$data = array(			
-			'maximo' => $this->Turnos_model->ObtenerCodigo()
+			'maximo' => $this->Turnos_model->ObtenerCodigo(),
+			'servicios' =>$this->Productos_model->getProductos(false, 'N'),
 		);
 		echo $this->templates->render('turnos::add', $data);
 
@@ -58,6 +59,7 @@ class Turnos extends CI_Controller
 		$this->form_validation->set_rules("estado", "Estado", "required");
 		$this->form_validation->set_rules("hora_desde", "Hora Desde", "required");
 		$this->form_validation->set_rules("hora_hasta", "Hora Hasta", "required");
+		$this->form_validation->set_rules("prod_id", "Servicios", "required");
 		$this->form_validation->set_rules("tiempo_aprox", "Tiempo Aproximado", "required");
 
 		if ($this->form_validation->run() == FALSE){
@@ -69,11 +71,13 @@ class Turnos extends CI_Controller
 			$hora_desde = $this->input->post('hora_desde');
 			$hora_hasta = $this->input->post('hora_hasta');
 			$tiempo_aproximado = $this->input->post('tiempo_aprox');
+			$prod_id = $this->input->post('prod_id');
 			$idTurno = $this->Turnos_model->ObtenerCodigo();
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
 				'tur_id'  => $idTurno->MAXIMO,
+				'tur_prod_id' =>$prod_id,
 				'tur_descripcion'  => trim($desTurno),
 				'tur_desde_hora'  => trim($hora_desde),
 				'tur_hasta_hora'  => trim($hora_hasta),
@@ -104,6 +108,7 @@ class Turnos extends CI_Controller
 	{
 		$data = array(
 			'turno'=> $this->Turnos_model->getTurnos($id),
+			'servicios' =>$this->Productos_model->getProductos(false, 'N'),
 		);
 		echo $this->templates->render('turnos::edit', $data);
 
@@ -118,6 +123,7 @@ class Turnos extends CI_Controller
 		$this->form_validation->set_rules("hora_desde", "Hora Desde", "required");
 		$this->form_validation->set_rules("hora_hasta", "Hora Hasta", "required");
 		$this->form_validation->set_rules("tiempo_aprox", "Tiempo Aproximado", "required");
+		$this->form_validation->set_rules("prod_id", "Servicios", "required");
 
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
@@ -127,11 +133,14 @@ class Turnos extends CI_Controller
 			$estado = $this->input->post('estado');
 			$hora_desde = $this->input->post('hora_desde');
 			$hora_hasta = $this->input->post('hora_hasta');
+			$prod_id = $this->input->post('prod_id');
+
 			$tiempo_aproximado = $this->input->post('tiempo_aprox');
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
 				'tur_descripcion'  => trim($desTurno),
+				'tur_prod_id' =>$prod_id,
 				'tur_desde_hora'  => trim($hora_desde),
 				'tur_hasta_hora'  => trim($hora_hasta),
 				'tur_tiempo_aproximado'  => trim($tiempo_aproximado),

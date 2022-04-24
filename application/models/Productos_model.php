@@ -14,7 +14,7 @@ class Productos_model extends CI_Model {
 			$this->db->where('p.prod_id', $id);
 		}
 		if ($inventariable) {
-			$this->db->where('tp.tipr_inventariable', 'S');
+			$this->db->where('tp.tipr_inventariable', $inventariable);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

@@ -26,7 +26,7 @@
 		public function add(){
 			$data = array(			
 				'maximo' => $this->Control_Stock_model->ObtenerCodigo(), 
-				'productos'=> $this->Productos_model->getProductos(false, true) 
+				'productos'=> $this->Productos_model->getProductos(false, 'S') 
 			);
 			echo $this->templates->render('control_stock::add', $data);
 

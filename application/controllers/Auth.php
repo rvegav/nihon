@@ -62,6 +62,7 @@ class Auth extends CI_Controller {
 			$data = array(
 				'sist_conex' => 'A',
 				'sist_funnom' => $comprobar[0]->usua_empleado,
+				'sist_empl_id' => $comprobar[0]->usua_empl_id,
 				'sist_modulos' => $modulos,
 				'sist_pantallas' => $pantallas,
 				'sist_usuid'	=> $comprobar[0]->usua_id,

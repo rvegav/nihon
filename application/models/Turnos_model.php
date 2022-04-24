@@ -6,8 +6,9 @@ class Turnos_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getTurnos($id = false){
-		$this->db->select('tur_id, tur_descripcion, tur_desde_hora, tur_hasta_hora, tur_tiempo_aproximado, DATE_FORMAT(tur_fecha_creacion,"%d/%m/%Y")  tur_fecha_creacion, DATE_FORMAT(tur_fecha_modificacion,"%d/%m/%Y") tur_fecha_modificacion, tur_estado');
-		$this->db->from("turnos");
+		$this->db->select('tur_id, tur_descripcion, tur_desde_hora, tur_hasta_hora, tur_tiempo_aproximado, DATE_FORMAT(tur_fecha_creacion,"%d/%m/%Y")  tur_fecha_creacion, DATE_FORMAT(tur_fecha_modificacion,"%d/%m/%Y") tur_fecha_modificacion, tur_estado, tur_prod_id, prod_descripcion');
+		$this->db->from("turnos t");
+		$this->db->join('productos p', 'p.prod_id = t.tur_prod_id');
 		if ($id) {
 			$this->db->where('tur_id', $id);
 		}
@@ -62,5 +63,8 @@ class Turnos_model extends CI_Model {
 		$this->db->from("turnos");
 		$resultado= $this->db->get();
 		return $resultado->row();
+	}
+	public function insertDetalle($data){
+		return $this->db->insert("turno_detalles", $data);
 	}
 }

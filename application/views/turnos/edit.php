@@ -27,7 +27,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="hora_desde">Hora Desde <span class="required">*</span></label>
 					<div class="input-group">
-						<input  class="form-control" type="time" id="hora_desde" name="hora_desde" min="08:00" max="18:00" required value="<?php echo $turno->tur_desde_hora ?>">
+						<input  class="form-control" type="time" id="hora_desde" name="hora_desde" min="08	:00" max="18:00" required value="<?php echo $turno->tur_desde_hora ?>">
 					</div>
 				</div>
 			</div>
@@ -47,7 +47,20 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Tipo de Servicio <span class="required">*</span></label>
+					<select class="form-control" name="prod_id" id="servicio">
+						<optgroup label="Servicio Actual"></optgroup>
+						<option value="<?php echo $turno->tur_prod_id ?>"><?php echo $turno->prod_descripcion ?></option>
+						<optgroup label="Servicio a Asignar"></optgroup>
+						<?php foreach ($servicios as $servicio): ?>
+							<option value="<?php echo $servicio->prod_id ?>"><?php echo $servicio->prod_descripcion ?></option>
+						<?php endforeach ?>
+						
+					</select>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<?php

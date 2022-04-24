@@ -1,7 +1,6 @@
 <?php $this->layout('v_master')?>
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
-<?php if ($permiso): ?>
 <div class="card">
 	<div class="col-md-12" align="right">
 		<?php
@@ -31,57 +30,37 @@
 			</div>
 		<?php endif; ?>
 	</div>
-	<h4>Listado de Horarios</h4>
-	<br>
-	<div class="row">
-
-		<?php if ($permiso->rol_det_insertar ==1): ?>
-			
-			<div class="col-md-2 offset-10">
-				<a href="<?php echo base_url()?>add_turno" class="nav-link">
-					<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Turno"><i class="fa fa-plus"></i>Agregar Turno</button>
-				</a>
-			</div>
-		<?php endif ?>
-
-	</div>
-	<br>
+	<h4>Listado de Agendamientos</h4>
 	<div class="row">
 		<div class="col-12">
-			<table class="table table-bordered" id="tablaTurno" width="100%">
+			<table class="table table-bordered" id="tablaCliente" width="100%">
 				<thead>
 					<tr>
 						<th class="text-center">Codigo</th>
-						<th class="text-center">Descripcion</th>
-						<th class="text-center">Hora Desde</th>
-						<th class="text-center">Hora Hasta</th>
-						<th class="text-center">Aprox. en Minutos</th>
-						<th class="text-center">Fecha de Creacion</th>
-						<th class="text-center">Ultima Modificacion</th>
+						<th class="text-center">Mascota</th>
+						<th class="text-center">Dueño</th>
+						<th class="text-center">Fecha de agendamiento</th>
 						<th class="text-center">Estado</th>
 						<th class="text-center">Opciones</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php if(!empty($turnos)):?>
+					<?php if(!empty($agendamientos)):?>
 						<?php
-						foreach($turnos as $turno):?>
+						foreach($agendamientos as $agendamiento):?>
 							<tr>
-								<td><?php echo $turno->tur_id; ?></td>
-								<td><?php echo $turno->prod_descripcion;?></td>
-								<td><?php echo $turno->tur_desde_hora;?></td>
-								<td><?php echo $turno->tur_hasta_hora;?></td>
-								<td><?php echo $turno->tur_tiempo_aproximado;?></td>
-								<td><?php echo $turno->tur_fecha_creacion;?></td>
-								<td><?php echo $turno->tur_fecha_modificacion;?></td>
+								<td><?php echo $agendamiento->age_id; ?></td>
+								<td><?php echo $agendamiento->age_mascota;?></td>
+								<td><?php echo $agendamiento->age_duenho;?></td>
+								<td><?php echo $agendamiento->age_fecha_creacion;?></td>
 
 								<?php
-								$estado = $turno->tur_estado;
+								$estado = $agendamiento->age_estado;
 								if($estado == 1){
-									$estado2     = "Activo";$label_class = 'label-success';
+									$estado2     = "Pendiente";$label_class = 'label-success';
 								}else{
 									if($estado == 2){
-										$estado2     = "Inactivo";$label_class = 'label-warning';
+										$estado2     = "Atendido";$label_class = 'label-warning';
 									}else{
 										$estado2     = "Anulado";$label_class = 'label-danger';
 									}
@@ -89,14 +68,12 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<?php if ($permiso->rol_det_actualizar == 1): ?>
-										<a href="<?php echo base_url();?>edit_turno/<?php echo $turno->tur_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-									<?php endif ?>
-									<?php if ($permiso->rol_det_borrar ==1): ?>
-										<?php if ($estado!=2): ?>
-											<a href="<?php echo base_url();?>delete_turno/<?php echo $turno->tur_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
-										<?php endif ?>
-										
+									<a href="<?php echo base_url();?>edit_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<?php if ($estado ==2): ?>
+										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-cash"></i></a>
+									<?php else: ?>
+										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+
 									<?php endif ?>
 								</td>
 							</tr>
@@ -108,12 +85,10 @@
 
 	</div>
 </div>
-
-<?php endif ?>
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaTurno").DataTable({
+	var tabla = $("#tablaCliente").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,

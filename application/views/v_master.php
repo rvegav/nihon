@@ -375,21 +375,21 @@
               <ul class="nav nav-treeview">
                 <?php foreach ($pantallas as $pantalla): ?>
 
-                  <?php if ($pantalla ==20): ?>
+                  <?php if ($pantalla ==17): ?>
 
                     <li class="nav-item">
-                      <a href="<?php echo base_url()?>open_det_devenga" class="nav-link">
+                      <a href="<?php echo base_url()?>recepcion" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Agendar Turno  </p>
+                        <p>Recepcion</p>
                       </a>
                     </li>
                   <?php endif ?>
-                  <?php if ($pantalla ==21): ?>
+                  <?php if ($pantalla ==18): ?>
 
                     <li class="nav-item">
-                      <a href="<?php echo base_url()?>open_det_devenga" class="nav-link">
+                      <a href="<?php echo base_url()?>atencion" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Listado de Agendamientos  </p>
+                        <p>Atenciones</p>
                       </a>
                     </li>
                   <?php endif ?>

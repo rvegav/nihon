@@ -47,7 +47,17 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Tipo de Servicio <span class="required">*</span></label>
+					<select class="form-control" name="prod_id" id="servicio">
+						<?php foreach ($servicios as $servicio): ?>
+							<option value="<?php echo $servicio->prod_id ?>"><?php echo $servicio->prod_descripcion ?></option>
+						<?php endforeach ?>
+						
+					</select>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Estado <span class="required">*</span></label>

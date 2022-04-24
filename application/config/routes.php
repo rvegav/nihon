@@ -169,3 +169,16 @@ $route['generar_pass'] = 'usuarios/Usuarios/generarContrasena';
 $route['procesar_login'] = 'Auth/ProcesoLogin';
 $route['inicio'] = 'Auth/Inicio';
 $route['cerrar_sesion'] = 'Auth/cerrarSesion';
+
+
+//servicios
+
+$route['recepcion'] = 'agendamientos/Agendamientos/recepcion';
+$route['atencion'] = 'agendamientos/Agendamientos/atencion';
+$route['add_agendamiento'] = 'agendamientos/Agendamientos/add';
+$route['edit_producto_stock/(:num)'] = 'edit/$1';
+$route['update_producto_stock'] = 'update';
+$route['store_agendamiento'] = 'agendamientos/Agendamientos/store';
+
+$route['get_mascotas'] = 'agendamientos/Agendamientos/getMascotasCliente';
+$route['get_disponibilidad'] = 'agendamientos/Agendamientos/getDisponibilidadTurno';
