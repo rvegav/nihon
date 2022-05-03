@@ -12,7 +12,7 @@ class Agendamientos extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('agendamientos', APPPATH.'views/agendamientos');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Usuarios_model','Agendamientos_model', 'Turnos_model','Clientes_model', 'Razas_model', 'Empleados_model', 'Mascotas_model', 'Productos_model'));
+		$this->load->model(array('Usuarios_model','Agendamientos_model', 'Turnos_model','Clientes_model', 'Razas_model', 'Empleados_model', 'Mascotas_model', 'Productos_model', 'Control_Stock_model'));
 
 		$this->comprobacionRoles();
 		$time = time();
@@ -51,7 +51,7 @@ class Agendamientos extends CI_Controller
 	public function atencion(){	
 		$empl_id = $this->session->userdata('sist_empl_id');	
 		$data = array(
-			'agendamientos'=> $this->Agendamientos_model->getAgendamiento($empl_id)
+			'agendamientos'=> $this->Agendamientos_model->getAgendamiento(false, $empl_id)
 		);
 		echo $this->templates->render('agendamientos::list_atencion', $data);	
 	}
@@ -60,7 +60,6 @@ class Agendamientos extends CI_Controller
 	public function add()
 	{
 		$data = array(			
-			'maximo' => $this->Agendamientos_model->ObtenerCodigo(),
 			'clientes' => $this->Clientes_model->getClientes(),
 			'empleados' => $this->Empleados_model->getempleados(), 
 			'servicios' => $this->Productos_model->getProductos(false, 'N'),
@@ -84,6 +83,10 @@ class Agendamientos extends CI_Controller
 			$empl_id_atencion = $this->input->post('empl_id');
 			$razon = $this->input->post('razon');
 			$estado = $this->input->post('estado');
+			$datoMascota = $this->Mascotas_model->getMascotas($mascota);
+			$firstDate  = new DateTime($datoMascota->mas_fecha_nacimiento_sin);
+			$secondDate = new DateTime($this->fechaActual);
+			$intvl = $firstDate->diff($secondDate);
 			foreach ($turnos as $turno) {
 				$data = array(
 					'age_estado'  => $estado,
@@ -92,9 +95,11 @@ class Agendamientos extends CI_Controller
 					'age_emp_id_recepcion' => $this->session->userdata('sist_empl_id'),
 					'age_tude_id' => $turno,
 					'age_motivo_agendamiento' => $razon,
+					'age_edad_paciente' =>$intvl->y . " años, " . $intvl->m."meses y ".$intvl->d." días",
 					'age_fecha_creacion' => $this->fechaActual,
 					'age_fecha_modificacion'  => $this->fechaActual
 				);
+				$this->Agendamientos_model->updateDisponibilidad($turno, 'OCUPADO');
 				if($this->Agendamientos_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
 					$this->session->set_flashdata('success', 'Atencion registrada correctamente!');
@@ -112,53 +117,49 @@ class Agendamientos extends CI_Controller
 	public function edit($id)
 	{
 		$data = array(
-			'agenda'=> $this->Agendamientos_model->getMascotas($id),
-			'mascotas' => $this->Clientes_model->getClientes(),
-			'empleados' => $this->Razas_model->getRazas()
+
+			'agenda'=> $this->Agendamientos_model->getAgendamiento($id),
+			'clientes' => $this->Clientes_model->getClientes(),
+			'empleados' => $this->Empleados_model->getempleados(), 
+			'servicios' => $this->Productos_model->getProductos(false, 'N'),
 		);
-		echo $this->templates->render('agendamientos::edit', $data);
+		echo $this->templates->render('agendamientos::edit_recepcion', $data);
 
 		
 	}
 	public function update()
 	{
-		$mensajes = $this->data;
-		$this->form_validation->set_rules("nombreMascota", "Nombre", "required");
-		$this->form_validation->set_rules("estado", "Estado", "required");
-		$this->form_validation->set_rules("clie_id", "Cliente", "required");
-		$this->form_validation->set_rules("raz_id", "Raza", "required");
-		$this->form_validation->set_rules("fecha_nacimiento", "Fecha de Nacimiento", "required");
-
+		$mensajes= $this->data;
+		$this->form_validation->set_rules("mascota", "Paciente", "required");
+		$this->form_validation->set_rules("empl_id", "Empleado", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
-			$idMascota = $this->input->post('mas_id');
-			$nombreMascota   = $this->input->post("nombreMascota");
+			$turnos = $this->input->post('turnos');
+			$mascota = $this->input->post('mascota');
+			$empl_id_atencion = $this->input->post('empl_id');
+			$razon = $this->input->post('razon');
 			$estado = $this->input->post('estado');
-			$clie_id = $this->input->post('clie_id');
-			$raz_id = $this->input->post('raz_id');
-			$sexo = $this->input->post('sexo');
-			$fecha_nacimiento = $this->input->post('fecha_nacimiento');
-			$time = time();
-			$fechaActual = date("Y-m-d H:i:s",$time);
-			$data = array(
-				'mas_nombre'  => trim($nombreMascota),
-				'mas_nombre'  => trim($nombreMascota),
-				'mas_fecha_nacimiento'=>$fecha_nacimiento,
-				'mas_clie_id' => $clie_id,
-				'mas_raz_id' => $raz_id,
-				'mas_sexo' => $sexo,
-				'mas_estado' => $estado,
-				'mas_fecha_modificacion'  => $fechaActual
-			);
-			$nombreMascota = trim($nombreMascota);
-			if($this->Agendamientos_model->update($idMascota,$data)){
-				$mensajes['correcto'] = 'correcto';
-				$this->session->set_flashdata('success', 'Actualizado correctamente!');
-			}else{
-				$mensajes['error'] = 'Errores al intentar Actualizar!';
-				$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
+			foreach ($turnos as $turno) {
+				$data = array(
+					'age_estado'  => $estado,
+					'age_mas_id'  => $mascota,
+					'age_emp_id_atencion'=>$empl_id_atencion,
+					'age_emp_id_recepcion' => $this->session->userdata('sist_empl_id'),
+					'age_tude_id' => $turno,
+					'age_motivo_agendamiento' => $razon,
+					'age_fecha_creacion' => $this->fechaActual,
+					'age_fecha_modificacion'  => $this->fechaActual
+				);
+				$this->Agendamientos_model->updateDisponibilidad($turno, 'OCUPADO');
+				if($this->Agendamientos_model->save($data)){
+					$mensajes['correcto'] = 'correcto';
+					$this->session->set_flashdata('success', 'Atencion registrada correctamente!');
+				}else{
+					$mensajes['error'] = 'Atencion no registrada!';
+					$this->session->set_flashdata('error', 'Atencion no registrada!');
+				}
 			}
 		}
 		echo json_encode($mensajes);
@@ -174,6 +175,22 @@ class Agendamientos extends CI_Controller
 			redirect(base_url()."productos","refresh");
 		}
 
+	}
+
+	public function atender($id)
+	{
+		$agenda = $this->Agendamientos_model->getAgendamiento($id);
+		$data = array(
+
+			'agenda'=> $agenda, 
+			'servicios' => $this->Productos_model->getProductos(false, 'N'),
+			'productos' => $this->Control_Stock_model->getInventarios(),
+			'mascota' => $this->Mascotas_model->getMascotas($agenda->age_mas_id),
+			'fechaActual' => $this->fechaActual,
+		);
+		echo $this->templates->render('agendamientos::edit_atencion', $data);
+
+		
 	}
 	public function getMascotasCliente(){
 		$clie_id = $this->input->post('clie_id');
@@ -248,5 +265,32 @@ class Agendamientos extends CI_Controller
 			$data['data'] =[];
 		}
 		echo json_encode($data);
+	}
+	public function getServicio(){
+		$age_id = $this->input->post('age_id');
+		$agendamiento_data = $this->Agendamientos_model->getAgendamiento($age_id);
+		$array['ID'] = $agendamiento_data->prod_id;
+		$array['DESCRIPCION'] = $agendamiento_data->prod_descripcion;
+		$dato[] = $array;
+		$data['data'] = $dato;
+		echo json_encode($data);
+	}
+	public function getDisponibilidadProductos(){
+		$productos = $this->Control_Stock_model->getInventarios();
+		if ($productos) {
+			foreach ($productos as $producto) {
+				$array = [];
+				$array['ID'] = $producto->prod_id;
+				$array['DESCRIPCION'] = $producto->prod_descripcion;
+				$array['CANTIDAD'] = $producto->inve_cantidad;
+				$datos[] = $array;
+				$data['data'] = $datos;
+			}
+			$data['data'] = $datos;
+		}else{
+			$data['data'] =[];
+		}
+		echo json_encode($data);
+		
 	}
 }

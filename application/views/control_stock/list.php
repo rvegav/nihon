@@ -61,7 +61,7 @@
 						<th class="text-center">Precio Venta</th>
 						<th class="text-center">Precio Compra</th>
 						<th class="text-center">Ultima Modificacion</th>
-						<th class="text-center">Opciones</th>
+						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>

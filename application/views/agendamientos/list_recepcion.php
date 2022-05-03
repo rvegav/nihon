@@ -30,7 +30,7 @@
 			</div>
 		<?php endif; ?>
 	</div>
-	<h4>Listado de Agendamientos</h4>
+	<h4>Recepcion - Listado de Agendamientos</h4>
 	<br>
 	<div class="row">
 		<div class="col-md-2 offset-9">
@@ -53,7 +53,7 @@
 						<th class="text-center">Fecha Agendamiento</th>
 						<th class="text-center">Fecha Atencion</th>
 						<th class="text-center">Estado</th>
-						<th class="text-center">Opciones</th>
+						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -81,11 +81,11 @@
 								;?>
 								<td><?php echo $estado2 ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_agendamiento/<?php echo $agendamiento->age_mas_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<a href="<?php echo base_url();?>edit_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 									<?php if ($estado ==2): ?>
-										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_mas_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-cash"></i></a>
+										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-cash"></i></a>
 									<?php else: ?>
-										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_mas_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
 
 									<?php endif ?>
 								</td>

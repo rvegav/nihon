@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"/>
+  <!-- <meta lang="es"> -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?= sistema ?></title>
   <meta name="description" content="">
@@ -98,7 +99,7 @@
                     <li class="nav-item">
                       <a href="<?= base_url()?>empleados" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Agregar Empleado</p>
+                        <p>Nomina de Empleados</p>
                       </a>
                     </li>
                   <?php endif ?>
@@ -390,6 +391,15 @@
                       <a href="<?php echo base_url()?>atencion" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Atenciones</p>
+                      </a>
+                    </li>
+                  <?php endif ?>
+                  <?php if ($pantalla ==19): ?>
+
+                    <li class="nav-item">
+                      <a href="<?php echo base_url()?>atencion" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ventas</p>
                       </a>
                     </li>
                   <?php endif ?>

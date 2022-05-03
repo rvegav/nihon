@@ -9,7 +9,7 @@
 		<form id="frm_ocupacion" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="NumOcupacion">Código Ocupacion<span class="required">*</span></label>
+					<label for="NumOcupacion">CÃ³digo Ocupacion<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="NumOcupacion" name="NumOcupacion" readonly value="<?php echo $ocupacion->ocu_id ?>">
 					</div>	
@@ -81,7 +81,7 @@
 					var mensaje = r['alerta'];
 					wrapper.innerHTML = mensaje;
 					swal({
-						title: 'Atención!', 
+						title: 'AtenciÃ³n!', 
 						content: wrapper,
 						icon: "warning",
 						columnClass: 'medium',
@@ -101,7 +101,7 @@
 					window.location = "<?php echo base_url()?>ocupaciones";
 				}
 			}).fail(function() {
-				alert("Se produjo un error, contacte con el soporte técnico");
+				alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 			});
 		})
 

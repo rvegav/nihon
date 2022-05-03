@@ -56,7 +56,7 @@
 						<th class="text-center">Fecha Creacion</th>
 						<th class="text-center">Fecha Modificacion</th>
 						<th class="text-center">Estado</th>
-						<th class="text-center">Opciones</th>
+						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -110,9 +110,9 @@
 		'paging':true,
 		'info':true,
 		'filter':true,
-		'stateSave':true,
+		'stateSave':false,
 		'processing':true,
-		//'scrollX':true,
+		'scrollX':true,
 		'searching':true,
 		
 		'language':{

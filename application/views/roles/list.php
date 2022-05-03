@@ -50,7 +50,7 @@
 						<th class="text-center">Descripcion</th>
 						<th class="text-center">Fecha de Grabacion</th>
 						<th class="text-center">Estado</th>
-						<th class="text-center">Opciones</th>
+						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>

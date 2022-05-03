@@ -9,7 +9,7 @@
 		<form id="frm_mascota" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="mas_id">Código Mascota<span class="required">*</span></label>
+					<label for="mas_id">CÃ³digo Mascota<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="mas_id" name="mas_id" readonly value="<?php echo $mascota->mas_id;?>">
 					</div>	
@@ -25,11 +25,11 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Dueño<span class="required">*</span></label>
+					<label class="" for="desCiudad">DueÃ±o<span class="required">*</span></label>
 					<div id="custom-search-input">
 						<div class="input-group">
 							<input value ="<?php echo $mascota->mas_clie_id ?>" type="hidden" name="clie_id" id="clie_id">	
-							<input value ="<?php echo $mascota->mas_nombre_duenho?>" type="text" name="cliente_nombre" id="cliente_nombre" class="form-control" placeholder="Buscar Dueño" disabled="disabled" required="required">
+							<input value ="<?php echo $mascota->mas_nombre_duenho?>" type="text" name="cliente_nombre" id="cliente_nombre" class="form-control" placeholder="Buscar DueÃ±o" disabled="disabled" required="required">
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cliente_select">
 									<span class="fa fa-search" aria-hidden="true">
@@ -100,7 +100,7 @@
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Descripcion</th>
 							<th class="text-center">Especie</th>
-							<th class="text-center">Opciones</th>
+							<th class="text-center">Operaciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -137,7 +137,7 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Nombre</th>
-							<th class="text-center">Opciones</th>
+							<th class="text-center">Operaciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -178,7 +178,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -188,7 +188,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ãšltimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -219,7 +219,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -229,7 +229,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ãšltimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -264,7 +264,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃ³n!', 
 					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
@@ -284,7 +284,7 @@
 				window.location = "<?php echo base_url()?>mascotas";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 		});
 	})
 

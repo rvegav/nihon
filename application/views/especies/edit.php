@@ -9,7 +9,7 @@
 		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="NumCiudad">Código Especie<span class="required">*</span></label>
+					<label for="NumCiudad">CÃ³digo Especie<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="NumCiudad" name="NumCiudad" readonly value="<?php echo $especie->esp_id ?>">
 					</div>	
@@ -81,7 +81,7 @@
 					var mensaje = r['alerta'];
 					wrapper.innerHTML = mensaje;
 					swal({
-						title: 'Atención!', 
+						title: 'AtenciÃ³n!', 
 						content: wrapper,
 						icon: "warning",
 						columnClass: 'medium',
@@ -101,7 +101,7 @@
 					window.location = "<?php echo base_url()?>especies";
 				}
 			}).fail(function() {
-				alert("Se produjo un error, contacte con el soporte técnico");
+				alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 			});
 		})
 

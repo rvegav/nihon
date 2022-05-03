@@ -107,7 +107,7 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Descripcion</th>
-							<th class="text-center">Opciones</th>
+							<th class="text-center">Operaciones</th>
 						</tr>
 					</thead>
 					<tbody>

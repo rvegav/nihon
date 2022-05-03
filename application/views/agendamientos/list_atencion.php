@@ -30,7 +30,7 @@
 			</div>
 		<?php endif; ?>
 	</div>
-	<h4>Listado de Agendamientos</h4>
+	<h4>Atencion - Listado de Agendamientos</h4>
 	<div class="row">
 		<div class="col-12">
 			<table class="table table-bordered" id="tablaCliente" width="100%">
@@ -40,8 +40,10 @@
 						<th class="text-center">Mascota</th>
 						<th class="text-center">Dueño</th>
 						<th class="text-center">Fecha de agendamiento</th>
+						<th class="text-center">Motivo</th>
+						<th class="text-center">Tipo Servicio</th>
 						<th class="text-center">Estado</th>
-						<th class="text-center">Opciones</th>
+						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,10 +51,12 @@
 						<?php
 						foreach($agendamientos as $agendamiento):?>
 							<tr>
-								<td><?php echo $agendamiento->age_id; ?></td>
-								<td><?php echo $agendamiento->age_mascota;?></td>
-								<td><?php echo $agendamiento->age_duenho;?></td>
-								<td><?php echo $agendamiento->age_fecha_creacion;?></td>
+								<td class="text-center"><?php echo $agendamiento->age_id; ?></td>
+								<td class="text-center"><?php echo $agendamiento->age_mascota;?></td>
+								<td class="text-center"><?php echo $agendamiento->age_duenho;?></td>
+								<td class="text-center"><?php echo $agendamiento->age_fecha_creacion;?></td>
+								<td class="text-center"><?php echo $agendamiento->age_motivo_agendamiento;?></td>
+								<td class="text-center"><?php echo $agendamiento->prod_descripcion;?></td>
 
 								<?php
 								$estado = $agendamiento->age_estado;
@@ -68,7 +72,7 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<a href="<?php echo base_url();?>atender_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Atender Expediente"><i class="fa fa-edit"></i></a>
 									<?php if ($estado ==2): ?>
 										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-cash"></i></a>
 									<?php else: ?>
@@ -93,9 +97,9 @@
 		'paging':true,
 		'info':true,
 		'filter':true,
-		'stateSave':true,
+		'stateSave':false,
 		'processing':true,
-		////'scrollX':true,
+		// 'scrollX':true,	
 		'searching':true,
 		
 		'language':{

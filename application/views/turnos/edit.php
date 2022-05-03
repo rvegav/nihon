@@ -9,7 +9,7 @@
 		<form id="frm_turno" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="NumTurno">Código Turno<span class="required">*</span></label>
+					<label for="NumTurno">CÃ³digo Turno<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="NumTurno" name="NumTurno" readonly value="<?php echo $turno->tur_id;?>">
 					</div>	
@@ -116,7 +116,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃ³n!', 
 					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
@@ -136,7 +136,7 @@
 				window.location = "<?php echo base_url()?>turnos";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 		});
 	})
 

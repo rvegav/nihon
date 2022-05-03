@@ -176,9 +176,13 @@ $route['cerrar_sesion'] = 'Auth/cerrarSesion';
 $route['recepcion'] = 'agendamientos/Agendamientos/recepcion';
 $route['atencion'] = 'agendamientos/Agendamientos/atencion';
 $route['add_agendamiento'] = 'agendamientos/Agendamientos/add';
+$route['edit_agendamiento/(:num)'] = 'agendamientos/Agendamientos/edit/$1';
+$route['update_agendamiento'] = 'agendamientos/Agendamientos/update';
+$route['atender_agendamiento/(:num)'] = 'agendamientos/Agendamientos/atender/$1';
 $route['edit_producto_stock/(:num)'] = 'edit/$1';
-$route['update_producto_stock'] = 'update';
 $route['store_agendamiento'] = 'agendamientos/Agendamientos/store';
+$route['get_servicio'] = 'agendamientos/Agendamientos/getServicio';
+$route['get_disponibilidad_producto'] = 'agendamientos/Agendamientos/getDisponibilidadProductos';
 
 $route['get_mascotas'] = 'agendamientos/Agendamientos/getMascotasCliente';
 $route['get_disponibilidad'] = 'agendamientos/Agendamientos/getDisponibilidadTurno';

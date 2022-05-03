@@ -103,7 +103,7 @@
             Swal.fire({
               type:'error',
               title:'Error!',
-              text:'Se produjo un error a nivel del servidor pongase en contacto con el Departamento de Desarrollo de Sistemas!',
+              text:'Se produjo un error a nivel del servidor pongase en contacto con el servicio técnico',
             });
           })
         });

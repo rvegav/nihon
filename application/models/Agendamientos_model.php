@@ -10,8 +10,8 @@ class Agendamientos_model extends CI_Model {
 		
 	}
 	public function getAgendamiento($id = false, $empl_id = false){
-		$this->db->select('a.age_fecha_creacion age_agendamiento, CONCAT(p.per_nombre, " ", p.per_apellido) age_duenho,
-			m.mas_nombre age_mascota, CONCAT(pe.per_nombre, " ", pe.per_apellido) age_emp_atencion, a.age_estado, a.age_fecha_creacion, a.age_fecha_atencion, a.age_mas_id, pr.prod_descripcion');
+		$this->db->select('a.age_id, a.age_fecha_creacion age_agendamiento, CONCAT(p.per_nombre, " ", p.per_apellido) age_duenho,
+			m.mas_nombre age_mascota, CONCAT(pe.per_nombre, " ", pe.per_apellido) age_emp_atencion, a.age_estado, DATE_FORMAT(a.age_fecha_creacion,"%d/%m/%Y") age_fecha_creacion, a.age_fecha_atencion, a.age_mas_id,c.clie_id, t.tude_fecha, pr.prod_descripcion, pr.prod_id, t.tude_id, e.empl_id age_emo_id_atencion, a.age_motivo_agendamiento, a.age_edad_paciente');
 		$this->db->from('agendamientos a');
 		$this->db->join('mascotas m', 'm.mas_id = a.age_mas_id');
 		$this->db->join('clientes c', 'c.clie_id = m.mas_clie_id');
@@ -23,8 +23,8 @@ class Agendamientos_model extends CI_Model {
 		$this->db->join('personas pe', 'pe.per_id = e.empl_per_id', 'left');
 		$this->db->join('empleados em', 'em.empl_id = a.age_emp_id_recepcion', 'left');
 		$this->db->join('personas per', 'per.per_id = em.empl_per_id', 'left');
-		$this->db->group_by('a.age_fecha_creacion, CONCAT(p.per_nombre, " ", p.per_apellido),
-			m.mas_nombre, CONCAT(pe.per_nombre, " ", pe.per_apellido), a.age_estado, a.age_fecha_atencion,a.age_mas_id, prod_descripcion');
+		// $this->db->group_by('a.age_fecha_creacion, CONCAT(p.per_nombre, " ", p.per_apellido),
+		// 	m.mas_nombre, CONCAT(pe.per_nombre, " ", pe.per_apellido), a.age_estado, a.age_fecha_atencion,a.age_mas_id, prod_descripcion');
 		if ($empl_id) {
 			$this->db->where('age_emp_id_atencion', $empl_id);
 		}
@@ -51,6 +51,7 @@ class Agendamientos_model extends CI_Model {
 		$this->db->join('turnos t', 't.tur_id = td.tude_tur_id');
 		$this->db->where('t.tur_prod_id', $servicio);
 		$this->db->where('td.tude_fecha', $fecha);
+		$this->db->group_by('tude_hora, tude_estado, tude_fecha, tude_id');
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {
 			return $resultados->result();
@@ -72,7 +73,11 @@ class Agendamientos_model extends CI_Model {
 	public function save($data){
 		return $this->db->insert("agendamientos", $data);
 	}
-
+	public function updateDisponibilidad($id, $estado){
+		$this->db->set('tude_estado', $estado);
+		$this->db->where('tude_id', $id);
+		return $this->db->update('turno_detalles');
+	}
 }
 
 /* End of file Agendamientos_model.php */

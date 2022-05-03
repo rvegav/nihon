@@ -399,6 +399,11 @@
 				data.servicio_consulta=$('#servicio').val();
 			}
 		},
+		"createdRow": function(row, data, index){
+			if (data.ESTADO == 'OCUPADO'){
+				$(row).addClass("Warning");
+			}
+		},
 		'columns':[
 		{data:'ITEM'},
 		{data:'DIA'},
@@ -431,12 +436,13 @@
 		
 	});
 	$('#tablaDisponibilidad tbody').on( 'click', 'tr', function () {
-		$(this).toggleClass('selected');
+		var registro = $(this).toggleClass('selected');
 
 		var mas_id = '';
 		var data = tablaDisponibilidad.rows('.selected').data();
 		var ind = tablaDisponibilidad.rows('.selected').data().length;
-		if (ind>2) {
+		console.log(registro);
+		if (ind>1) {
 			Swal.fire({
 				type:'error',
 				title:'Error!',
@@ -444,6 +450,19 @@
 			});
 			$(this).removeClass('selected');
 		}
+		$registro = $(this);
+		$.each(tablaDisponibilidad.rows('.selected').data(), function(index, val) {
+			if (val.ESTADO == 'OCUPADO') {
+				Swal.fire({
+					type:'error',
+					title:'Error!',
+					text:'No se puede seleccionar un turno ocupado!',
+				});
+				registro.removeClass('selected');
+
+			}
+
+		});
 
 	} );
 	$('#consulta_disponibilidad').on( 'click', function () {

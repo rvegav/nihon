@@ -3,13 +3,13 @@
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
-		<h4>Agregar Empleado</h4>
+		<h4>Editar Empleado</h4>
 	</div>
 	<div class="card-body">
 		<form id="frm_empleado" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="num_cliente">Código Empleado<span class="required">*</span></label>
+					<label for="num_cliente">CÃ³digo Empleado<span class="required">*</span></label>
 					<div class="input-group">
 						<input value="<?php echo $empleado->empl_id ?>" type="text" class="form-control" id="empl_id" name="empl_id" readonly>
 					</div>	
@@ -174,7 +174,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -184,7 +184,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ultimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -217,7 +217,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -227,7 +227,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ultimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -262,7 +262,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃƒÂ³n!', 
 					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
@@ -282,7 +282,7 @@
 				window.location = "<?php echo base_url()?>empleados";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃƒÂ©cnico");
 		});
 	})
 

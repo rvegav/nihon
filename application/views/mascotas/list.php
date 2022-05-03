@@ -55,7 +55,7 @@
 						<th class="text-center">Fecha Creacion</th>
 						<th class="text-center">Fecha Modificacion</th>
 						<th class="text-center">Estado</th>
-						<th class="text-center">Opciones</th>
+						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>
