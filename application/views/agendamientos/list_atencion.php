@@ -72,10 +72,12 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>atender_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Atender Expediente"><i class="fa fa-edit"></i></a>
 									<?php if ($estado ==2): ?>
-										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-cash"></i></a>
-									<?php else: ?>
+										<a href="<?php echo base_url();?>view_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Atender Expediente"><i class="fa fa-eye"></i></a>
+									<?php elseif ($estado==1): ?>
+										<a href="<?php echo base_url();?>atender_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Atender Expediente"><i class="fa fa-edit"></i></a>
+									<?php endif ?>
+									<?php if ($estado ==1): ?>
 										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
 
 									<?php endif ?>

@@ -5,8 +5,8 @@ class Control_Stock_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getInventarios($id = false){
-		$this->db->select('i.inve_id, p.prod_id,  i.inve_cantidad_minima, i.inve_cantidad, p.prod_descripcion,i.inve_precio_compra, i.inve_precio_venta , DATE_FORMAT(i.inve_fecha_modificacion,"%d/%m/%Y") inve_fecha_modificacion, p.prod_marca, tp.tipr_descripcion, pr.prov_descripcion');
+	public function getInventarios($id = false, $prod_id = false){
+		$this->db->select('i.inve_id, p.prod_id,  i.inve_cantidad_minima, i.inve_cantidad, p.prod_descripcion,p.prod_precio_compra, p.prod_precio_venta , DATE_FORMAT(i.inve_fecha_modificacion,"%d/%m/%Y") inve_fecha_modificacion, p.prod_marca, tp.tipr_descripcion, pr.prov_descripcion');
 		$this->db->from("inventarios i");
 		$this->db->join('productos p', 'p.prod_id = i.inve_prod_id');
 		$this->db->join('tipo_productos tp', 'tp.tipr_id = p.prod_tipr_id');
@@ -14,9 +14,12 @@ class Control_Stock_model extends CI_Model {
 		if ($id) {
 			$this->db->where('inve_id', $id);
 		}
+		if ($prod_id) {
+			$this->db->where('prod_id', $prod_id);
+		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {
-			if ($id) {
+			if ($id || $prod_id) {
 				return $resultados->row();
 			}
 			return $resultados->result();

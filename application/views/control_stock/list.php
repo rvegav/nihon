@@ -49,43 +49,46 @@
 	<br>
 	<div class="row">
 		<div class="col-12">
-			<table class="table table-bordered" id="tablaProducto" width="100%">
-				<thead>
-					<tr>
-						<th class="text-center">Codigo</th>
-						<th class="text-center">Producto</th>
-						<th class="text-center">Marca</th>
-						<th class="text-center">Tipo Producto</th>
-						<th class="text-center">Proveedor</th>
-						<th class="text-center">Cantidad</th>
-						<th class="text-center">Precio Venta</th>
-						<th class="text-center">Precio Compra</th>
-						<th class="text-center">Ultima Modificacion</th>
-						<th class="text-center">Operaciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if(!empty($inventarios)):?>
-						<?php
-						foreach($inventarios as $inventario):?>
-							<tr>
-								<td><?php echo $inventario->prod_id; ?></td>
-								<td><?php echo $inventario->prod_descripcion;?></td>
-								<td><?php echo $inventario->prod_marca;?></td>
-								<td><?php echo $inventario->tipr_descripcion;?></td>
-								<td><?php echo $inventario->prov_descripcion;?></td>
-								<td><?php echo $inventario->inve_cantidad;?>/<?php echo $inventario->inve_cantidad_minima;?></td>
-								<td><?php echo $inventario->inve_precio_venta;?> </td>
-								<td><?php echo $inventario->inve_precio_compra;?> </td>
-								<td><?php echo $inventario->inve_fecha_modificacion;?></td>
-								<td>
-									<a href="<?php echo base_url();?>edit_producto_stock/<?php echo $inventario->inve_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-								</td>
-							</tr>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</tbody>
-			</table>
+			<div class="table-responsive">
+				
+				<table class="table table-bordered" id="tablaProducto" width="100%">
+					<thead>
+						<tr>
+							<th class="text-center">Codigo</th>
+							<th class="text-center">Producto</th>
+							<th class="text-center">Marca</th>
+							<th class="text-center">Tipo Producto</th>
+							<th class="text-center">Proveedor</th>
+							<th class="text-center">Cantidad</th>
+							<th class="text-center">Precio Venta</th>
+							<th class="text-center">Precio Compra</th>
+							<th class="text-center">Ultima Modificacion</th>
+							<th class="text-center">Operaciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(!empty($inventarios)):?>
+							<?php
+							foreach($inventarios as $inventario):?>
+								<tr>
+									<td><?php echo $inventario->prod_id; ?></td>
+									<td><?php echo $inventario->prod_descripcion;?></td>
+									<td><?php echo $inventario->prod_marca;?></td>
+									<td><?php echo $inventario->tipr_descripcion;?></td>
+									<td><?php echo $inventario->prov_descripcion;?></td>
+									<td><?php echo $inventario->inve_cantidad;?>/<?php echo $inventario->inve_cantidad_minima;?></td>
+									<td><?php echo $inventario->prod_precio_venta;?> </td>
+									<td><?php echo $inventario->prod_precio_compra;?> </td>
+									<td><?php echo $inventario->inve_fecha_modificacion;?></td>
+									<td>
+										<a href="<?php echo base_url();?>edit_producto_stock/<?php echo $inventario->inve_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</div>
@@ -98,9 +101,9 @@
 		'paging':true,
 		'info':true,
 		'filter':true,
-		'stateSave':true,
+		'stateSave':false,
 		'processing':true,
-		////'scrollX':true,
+		// 'scrollX':true,
 		'searching':true,
 		
 		'language':{

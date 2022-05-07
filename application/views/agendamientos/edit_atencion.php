@@ -7,7 +7,7 @@
 	</div>
 	<div class="card-body">
 		<h5>Detalles del agendamiento</h5>
-		<form id="frm_agendamiento" data-parsley-validate="" class="" action="" method="POST">
+		<form id="frm_atencion" data-parsley-validate="" class="" action="" method="POST">
 			<table class="table table-striped">
 				<tbody>
 					<tr>
@@ -159,7 +159,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bordered" id="tablaCliente" width="100%">
+				<table class="table table-bordered" id="tablaServicios" width="100%">
 					<thead>
 						<tr>
 							<th class="text-center">Codigo</th>
@@ -191,74 +191,45 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-
-	$("#frm_agendamiento").submit(function(event) {
-		event.preventDefault();
-		event.preventDefault();
-		// var tabla = $('#tablaPaciente').DataTable();
-		if (tablaPaciente) {
-
-			$.each(tablaPaciente.rows('.selected').data(), function(index, val) {
-				$('<input />', {
-					type:'hidden',
-					name:'mascota',
-					value: val.MAS_ID
-				}).appendTo($('#frm_agendamiento'));
-
-			});
-		}
-		if (tablaDisponibilidad) {
-
-			$.each(tablaDisponibilidad.rows('.selected').data(), function(index, val) {
-				$('<input />', {
-					type:'hidden',
-					name:'turnos[]',
-					value: val.ID
-				}).appendTo($('#frm_agendamiento'));
-
-			});
-		}		
-		var formDato = $(this).serialize();
-		$.ajax({
-			url: "<?php echo base_url()?>update_agendamiento",
-			type: 'POST',
-			data: formDato
-		})
-		.done(function(result) {
-			var r = JSON.parse(result);
-			console.log(r);
-			const wrapper = document.createElement('div');
-			if (r['alerta']!="") {
-				var mensaje = r['alerta'];
-				wrapper.innerHTML = mensaje;
-				swal.fire({
-					title: 'Atención!', 
-					html: wrapper,
-					icon: "warning",
-					columnClass: 'medium',
-				});
-			}
-			if (r['error']!="") {
-				wrapper.innerHTML = r['error'];
-				swal.fire({
-					icon: "error",
-					columnClass: 'medium',
-					theme: 'modern',
-					title: 'Error!',
-					html: wrapper,
-				});
-			}
-			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>recepcion";
-			}
-		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
-		});
-		$('#frm_agendamiento').trigger("reset");
-	})
 	var tablaProducto = $("#tablaProducto").DataTable({
 		'lengthChange':false,
 		'lengthMenu':[3],
+		'paging':true,
+		'info':false,
+		'filter':true,
+		'stateSave':false,
+		'processing':true,
+		'scrollX':false,
+		'searching':false,
+		
+		'language':{
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		},
+		
+	});
+	var tablaServicios = $("#tablaServicios").DataTable({
+		'lengthChange':false,
+		'lengthMenu':[5],
 		'paging':true,
 		'info':false,
 		'filter':true,
@@ -312,9 +283,13 @@
 		'columns':[
 		{data:'ID'},
 		{data:'DESCRIPCION'},
-		{data: function(){
-			return null;
-		}},
+		{data: function(data){
+			if (typeof data.OPERACION =='undefined') {
+				return '';
+			}else{
+				return data.OPERACION;
+			}
+		},'sClass':'text-center'},
 		],
 		'language':{
 			"sProcessing":     "Procesando...",
@@ -339,6 +314,9 @@
 				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 			}
 		},
+		'columnDefs':[
+		{'name': 'OPERACION', 'targets': 2}
+		]
 		
 	});
 	var tablaInventario = $("#tablaInventario").DataTable({
@@ -392,23 +370,123 @@
 		registro = $(this).parents('tr');
 		var data = tablaInventario.row(registro).data();
 		tablaProducto.row.add( [
-            data.ID,
-            data.DESCRIPCION,
-         	0,
-         	'<button type="button" class="btn btn-default mas"  ><i class="fa fa-plus"></i></button><button type="button" class="btn btn-default menos"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-danger eliminar"><i class="fa fa-trash"></i></button>'
-        ] ).draw( false );
+			data.ID,
+			data.DESCRIPCION,
+			0,
+			'<button type="button" class="btn btn-default mas"  ><i class="fa fa-plus"></i></button><button type="button" class="btn btn-default menos"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-danger eliminar"><i class="fa fa-trash"></i></button>'
+			] ).draw( false );
 		$('#producto_select').modal('hide');
 
 	} );
 	$('#tablaProducto tbody').on('click', '.mas', function (event) {
 		registro = $(this).parents('tr');
 		var data = tablaProducto.row(registro).data();
-		tablaProducto.row(registro).data()[2]++;
-		// tablaProducto.draw();
-		// console.log(tablaProducto.row(registro).columns().data());
-		$("#tablaProducto").DataTable().draw();
-		console.log(tablaProducto.row(registro).data());
+		var cantidad = data[2]++;
+		registro.get(0).cells[2].innerHTML = cantidad + 1;
+		tablaProducto.draw();
+
+		// console.log(cantidad);
 	} );
+	$('#tablaProducto tbody').on('click', '.menos', function (event) {
+		registro = $(this).parents('tr');
+		var data = tablaProducto.row(registro).data();
+		var cantidad = data[2]--;;
+		if ((cantidad - 1)< 0) {
+			alert('no puede ser menor que 0 (cero)');
+			data[2]++;
+		}else{
+			registro.get(0).cells[2].innerHTML = cantidad - 1;
+
+		}
+		tablaProducto.draw();
+		// console.log(cantidad);
+	} );
+	$('#tablaProducto tbody').on('click', '.eliminar', function () {
+		tablaProducto
+		.row( $(this).parents('tr') )
+		.remove()
+		.draw();
+	} );
+	$('#tablaServicios tbody').on('click', '.select', function (event) {
+		registro = $(this).parents('tr');
+		var data = tablaServicios.row(registro).data();
+		tablaServicio.rows.add( [{
+			'ID': data[0],
+			'DESCRIPCION':data[1],
+			'OPERACION':'<button type="button" class="btn btn-danger eliminar"><i class="fa fa-trash"></i></button>'
+		},
+		] ).draw( );
+		console.log(tablaServicio.rows().data());
+		$('#servicio_select').modal('hide');
+
+	} );
+	$('#tablaServicio tbody').on('click', '.eliminar', function () {
+		tablaServicio
+		.row( $(this).parents('tr') )
+		.remove()
+		.draw();
+	} );
+	$("#frm_atencion").submit(function(event) {
+		event.preventDefault();
+
+		if (tablaProducto) {
+
+			html ='';
+			$.each(tablaProducto.rows().data(), function(index, val) {
+				html += '<input type="hidden" name="productos['+index+'][prod_id]" value="'+val[0]+'">';
+				html += '<input type="hidden" name="productos['+index+'][cantidad]" value="'+val[2]+'">';
+				$("#frm_atencion").append(html);
+			});
+		}
+		if (tablaServicio) {
+			html ='';
+			$.each(tablaServicio.rows().data(), function(index, val) {
+				console.log(val)
+				html += '<input type="hidden" name="servicios['+index+'][serv_id]" value="'+val.ID+'">';
+				html += '<input type="hidden" name="servicios['+index+'][serv_descipricion]" value="'+val.DESCRIPCION+'">';
+				$("#frm_atencion").append(html);
+
+			});
+		}
+		var formDato = $(this).serialize();
+		// alert(datos);
+		$.ajax({
+			url: "<?php echo base_url()?>atencion_expediente",
+			type: 'POST',
+			data: formDato
+		})
+		.done(function(result) {
+			var r = JSON.parse(result);
+			console.log(r);
+			const wrapper = document.createElement('div');
+			if (r['alerta']!="") {
+				var mensaje = r['alerta'];
+				wrapper.innerHTML = mensaje;
+				swal.fire({
+					title: 'Atención!', 
+					html: wrapper,
+					icon: "warning",
+					columnClass: 'medium',
+				});
+			}
+			if (r['error']!="") {
+				wrapper.innerHTML = r['error'];
+				swal.fire({
+					icon: "error",
+					columnClass: 'medium',
+					theme: 'modern',
+					title: 'Error!',
+					html: wrapper,
+				});
+			}
+			if (r['correcto']!="") {
+				window.location = "<?php echo base_url()?>atencion";
+			}
+		}).fail(function() {
+			alert("Se produjo un error, contacte con el soporte técnico");
+		});
+		$('#frm_atencion').trigger("reset");
+	});
 </script>
 <?php $this->end()?>
 

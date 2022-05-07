@@ -9,7 +9,7 @@
 		<form id="frm_producto" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="prod_id">Código Producto<span class="required">*</span></label>
+					<label for="prod_id">CÃ³digo Producto<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="prod_id" name="prod_id" readonly value="<?php echo $producto->prod_id;?>">
 					</div>	
@@ -62,6 +62,22 @@
 								</button>
 							</span>
 						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" id="precio_venta" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control" value="<?php echo $producto->prod_precio_venta ?>">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" id="precio_compra" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control" value="<?php echo $producto->prod_precio_compra ?>">
 					</div>
 				</div>
 			</div>
@@ -190,7 +206,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -200,7 +216,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ãšltimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -234,7 +250,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃ³n!', 
 					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
@@ -254,7 +270,7 @@
 				window.location = "<?php echo base_url()?>productos";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 		});
 	})
 

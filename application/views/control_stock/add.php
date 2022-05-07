@@ -36,7 +36,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Cantidad Minima <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Cantidad Minima" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="cantidad_minima" class="form-control">
+						<input type="text" id="cantidad_minima" placeholder="Cantidad Minima" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="cantidad_minima" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
+						<input type="text" id="precio_venta" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
+						<input type="text" id="precio_compra" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -76,31 +76,38 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bordered" id="tablaProductos" width="100%">
-					<thead>
-						<tr>
-							<th class="text-center">Codigo</th>
-							<th class="text-center">Descripcion</th>
-							<th class="text-center">Proveedor</th>
-							<th class="text-center">Tipo Producto</th>
-							<th class="text-center">Operaciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php if(!empty($productos)):?>
-							<?php
-							foreach($productos as $productos):?>
-								<tr>
-									<td><?php echo $productos->prod_id; ?></td>
-									<td><?php echo $productos->prod_descripcion;?></td>
-									<td><?php echo $productos->prov_descripcion;?></td>
-									<td><?php echo $productos->tipr_descripcion;?></td>
-									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
-								</tr>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</tbody>
-				</table>
+				<div class="table-responsive">
+					<table class="table table-bordered" id="tablaProductos" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center">Codigo</th>
+								<th class="text-center">Descripcion</th>
+								<th class="text-center">Proveedor</th>
+								<th class="text-center">Tipo Producto</th>
+								<th class="text-center">Precio Compra</th>
+								<th class="text-center">Precio Venta</th>
+								<th class="text-center">Operaciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if(!empty($productos)):?>
+								<?php
+								foreach($productos as $productos):?>
+									<tr>
+										<td><?php echo $productos->prod_id; ?></td>
+										<td><?php echo $productos->prod_descripcion;?></td>
+										<td><?php echo $productos->prov_descripcion;?></td>
+										<td><?php echo $productos->tipr_descripcion;?></td>
+										<td><?php echo $productos->prod_precio_compra;?></td>
+										<td><?php echo $productos->prod_precio_venta;?></td>
+										<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
+									</tr>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</tbody>
+					</table>
+					
+				</div>
 			</div>
 			<!-- <div class="modal-footer">
 				<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
@@ -150,6 +157,8 @@
 		var data = tabla.row(this).data();
 		$('#prod_id').val(data[0]);
 		$('#producto').val(data[1]);
+		$('#precio_venta').val(data[4]);
+		$('#precio_compra').val(data[5]);
 		$('#producto_select').modal('hide');
 	} );
 

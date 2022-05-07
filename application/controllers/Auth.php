@@ -18,7 +18,7 @@ class Auth extends CI_Controller {
 	{
 
 		if ($this->session->userdata('sist_conex')!="A") {
-			$this->load->view('login');
+			$this->load->view('login_1');
 		}else {
 			redirect('inicio','refresh');
 		}

@@ -60,6 +60,8 @@ class Productos extends CI_Controller
 		// $this->form_validation->set_rules("marcaProducto", "Marca", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
 		$this->form_validation->set_rules("tipr_id", "Tipo Producto", "required");
+		$this->form_validation->set_rules("precio_venta", "Tipo Producto", "required");
+		$this->form_validation->set_rules("precio_compra", "Tipo Producto", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
@@ -69,6 +71,8 @@ class Productos extends CI_Controller
 			$idProducto = $this->Productos_model->ObtenerCodigo();
 			$prov_id = $this->input->post('prov_id');
 			$tipr_id = $this->input->post('tipr_id');
+			$precio_venta = $this->input->post('precio_venta');
+			$precio_compra = $this->input->post('precio_compra');
 			if ($prov_id=='') {
 				$prov_id = NULL;
 			}
@@ -82,6 +86,8 @@ class Productos extends CI_Controller
 				'prod_tipr_id' => $tipr_id,
 				'prod_prov_id' => $prov_id,
 				'prod_estado' => $estado,
+				'prod_precio_compra'=> $precio_compra,
+				'prod_precio_venta'=> $precio_venta,
 				'prod_fecha_creacion' => $fechaActual,
 				'prod_fecha_modificacion'  => $fechaActual
 			);
@@ -119,6 +125,8 @@ class Productos extends CI_Controller
 		$this->form_validation->set_rules("desProducto", "Descripcion", "required");
 		// $this->form_validation->set_rules("marcaProducto", "Marca", "required");
 		$this->form_validation->set_rules("tipr_id", "Tipo Producto", "required");
+		$this->form_validation->set_rules("precio_venta", "Precio de Venta", "required");
+		$this->form_validation->set_rules("precio_compra", "Precio de Compra", "required");
 
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
@@ -130,6 +138,8 @@ class Productos extends CI_Controller
 			$prov_id = $this->input->post('prov_id');
 			$tipr_id = $this->input->post('tipr_id');
 			$marca = $this->input->post('marcaProducto');
+			$precio_venta = $this->input->post('precio_venta');
+			$precio_compra = $this->input->post('precio_compra');
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			if ($prov_id=='') {
@@ -140,6 +150,8 @@ class Productos extends CI_Controller
 				'prod_marca'=>$marca,
 				'prod_tipr_id' => $tipr_id,
 				'prod_prov_id'=>$prov_id,
+				'prod_precio_compra'=> $precio_compra,
+				'prod_precio_venta'=> $precio_venta,
 				'prod_fecha_modificacion'  => $fechaActual,
 				'prod_estado' => $estado
 			);

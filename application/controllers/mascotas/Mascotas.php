@@ -12,9 +12,11 @@ class Mascotas extends CI_Controller
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('mascotas', APPPATH.'views/mascotas');
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-		$this->load->model(array('Usuarios_model','Mascotas_model', 'Clientes_model', 'Razas_model'));
+		$this->load->model(array('Usuarios_model','Mascotas_model', 'Clientes_model', 'Razas_model', 'Agendamientos_model'));
 
 		$this->comprobacionRoles();
+		$time = time();
+		$this->fechaActual = date("Y-m-d H:i:s",$time);
 	}
 	public function comprobacionRoles()
 	{
@@ -166,5 +168,22 @@ class Mascotas extends CI_Controller
 			redirect(base_url()."productos","refresh");
 		}
 
+	}
+	public function view($id)
+	{
+		$datoMascota = $this->Mascotas_model->getMascotas($id);
+		$firstDate  = new DateTime($datoMascota->mas_fecha_nacimiento_sin);
+		$secondDate = new DateTime($this->fechaActual);
+		$intvl = $firstDate->diff($secondDate);
+
+		$data = array(
+			'mascota'=> $datoMascota,
+			'edad'=>$intvl->y . " años, " . $intvl->m."meses y ".$intvl->d." días",
+			'agendamientos' => $this->Agendamientos_model->getAgendamiento(false, false, $id),
+		);
+
+		echo $this->templates->render('mascotas::view', $data);
+
+		
 	}
 }

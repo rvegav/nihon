@@ -51,6 +51,7 @@
                     </div>
                     <input type="hidden" name="token" id="token" value="<?= $this->security->get_csrf_hash();?>">
                     <button type="submit" class="btn btn-primary">Ingresar</button>
+                  </form>
                   </div>
                 </div>
               </div>

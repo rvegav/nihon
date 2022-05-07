@@ -53,8 +53,8 @@
 				$data = array(
 					'inve_id'  => $id_inventario->MAXIMO,
 					'inve_prod_id'  => trim($prod_id),
-					'inve_precio_compra'  => trim($precio_compra),
-					'inve_precio_venta'  => trim($precio_venta),
+					// 'inve_precio_compra'  => trim($precio_compra),
+					// 'inve_precio_venta'  => trim($precio_venta),
 					'inve_cantidad'  => trim($cantidad_inicial),
 					'inve_cantidad_minima'  => trim($cantidad_minima),
 					'inve_fecha_creacion' => $fechaActual,
@@ -105,8 +105,8 @@
 				$fechaActual = date("Y-m-d H:i:s",$time);
 				$data = array(
 					'inve_prod_id'  => trim($prod_id),
-					'inve_precio_compra'  => trim($precio_compra),
-					'inve_precio_venta'  => trim($precio_venta),
+					// 'inve_precio_compra'  => trim($precio_compra),
+					// 'inve_precio_venta'  => trim($precio_venta),
 					'inve_cantidad'  => trim($cantidad_inicial),
 					'inve_cantidad_minima'  => trim($cantidad_minima),
 					'inve_fecha_modificacion'  => $fechaActual

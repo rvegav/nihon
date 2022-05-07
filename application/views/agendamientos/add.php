@@ -251,7 +251,6 @@
 
 	$("#frm_agendamiento").submit(function(event) {
 		event.preventDefault();
-		event.preventDefault();
 		// var tabla = $('#tablaPaciente').DataTable();
 		if (tablaPaciente) {
 

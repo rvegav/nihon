@@ -6,7 +6,7 @@ class Productos_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getProductos($id = false, $inventariable = false){
-		$this->db->select('p.prod_id, p.prod_descripcion, p.prod_estado, p.prod_marca, DATE_FORMAT(p.prod_fecha_creacion,"%d/%m/%Y")  prod_fecha_creacion, DATE_FORMAT(p.prod_fecha_modificacion,"%d/%m/%Y") prod_fecha_modificacion, pr.prov_descripcion, pr.prov_id, tp.tipr_id, tp.tipr_descripcion');
+		$this->db->select('p.prod_id, p.prod_descripcion, p.prod_estado, p.prod_marca, DATE_FORMAT(p.prod_fecha_creacion,"%d/%m/%Y")  prod_fecha_creacion, DATE_FORMAT(p.prod_fecha_modificacion,"%d/%m/%Y") prod_fecha_modificacion, pr.prov_descripcion, pr.prov_id, tp.tipr_id, tp.tipr_descripcion, p.prod_precio_venta, p.prod_precio_compra');
 		$this->db->from("productos p");
 		$this->db->join('proveedores pr', 'pr.prov_id = p.prod_prov_id', 'left');
 		$this->db->join('tipo_productos tp', 'tp.tipr_id = prod_tipr_id', 'left');

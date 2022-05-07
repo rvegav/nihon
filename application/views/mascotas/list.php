@@ -43,59 +43,63 @@
 	<br>
 	<div class="row">
 		<div class="col-12">
-			<table class="table table-bordered" id="tablaProveedores" width="100%">
-				<thead>
-					<tr>
-						<th class="text-center">Codigo</th>
-						<th class="text-center">Nombre</th>
-						<th class="text-center">Dueño</th>
-						<th class="text-center">Especie</th>
-						<th class="text-center">Raza</th>
-						<th class="text-center">Fecha de Nacimiento</th>
-						<th class="text-center">Fecha Creacion</th>
-						<th class="text-center">Fecha Modificacion</th>
-						<th class="text-center">Estado</th>
-						<th class="text-center">Operaciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if(!empty($mascotas)):?>
-						<?php
-						foreach($mascotas as $mascota):?>
-							<tr>
-								<td><?php echo $mascota->mas_id; ?></td>
-								<td><?php echo $mascota->mas_nombre;?></td>
-								<td><?php echo $mascota->mas_nombre_duenho;?></td>
-								<td><?php echo $mascota->mas_especie;?></td>
-								<td><?php echo $mascota->mas_raza;?></td>
-								<td><?php echo $mascota->mas_fecha_nacimiento;?></td>
-								<td><?php echo $mascota->mas_fecha_creacion;?></td>
-								<td><?php echo $mascota->mas_fecha_modificacion;?></td>
+			<div class="table-responsive">
+				
+				<table class="table table-bordered" id="tablaProveedores" width="100%">
+					<thead>
+						<tr>
+							<th class="text-center">Codigo</th>
+							<th class="text-center">Nombre</th>
+							<th class="text-center">Dueño</th>
+							<th class="text-center">Especie</th>
+							<th class="text-center">Raza</th>
+							<th class="text-center">Fecha de Nacimiento</th>
+							<th class="text-center">Fecha Creacion</th>
+							<th class="text-center">Fecha Modificacion</th>
+							<th class="text-center">Estado</th>
+							<th class="text-center">Operaciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(!empty($mascotas)):?>
+							<?php
+							foreach($mascotas as $mascota):?>
+								<tr>
+									<td><?php echo $mascota->mas_id; ?></td>
+									<td><?php echo $mascota->mas_nombre;?></td>
+									<td><?php echo $mascota->mas_nombre_duenho;?></td>
+									<td><?php echo $mascota->mas_especie;?></td>
+									<td><?php echo $mascota->mas_raza;?></td>
+									<td><?php echo $mascota->mas_fecha_nacimiento;?></td>
+									<td><?php echo $mascota->mas_fecha_creacion;?></td>
+									<td><?php echo $mascota->mas_fecha_modificacion;?></td>
 
-								<?php
-								$estado = $mascota->mas_estado;
-								if($estado == 1){
-									$estado2     = "Activo";$label_class = 'label-success';
-								}else{
-									if($estado == 2){
-										$estado2     = "Inactivo";$label_class = 'label-warning';
+									<?php
+									$estado = $mascota->mas_estado;
+									if($estado == 1){
+										$estado2     = "Activo";$label_class = 'label-success';
 									}else{
-										$estado2     = "Anulado";$label_class = 'label-danger';
+										if($estado == 2){
+											$estado2     = "Inactivo";$label_class = 'label-warning';
+										}else{
+											$estado2     = "Anulado";$label_class = 'label-danger';
+										}
 									}
-								}
-								;?>
-								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
-								<td>
-									<a href="<?php echo base_url();?>edit_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
-									<?php endif ?>
-								</td>
-							</tr>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</tbody>
-			</table>
+									;?>
+									<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
+									<td>
+										<a href="<?php echo base_url();?>view_historial/<?php echo $mascota->mas_id;?>" class="btn btn-success"><i class="fa fa-eye"></i></a>
+										<a href="<?php echo base_url();?>edit_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+										<?php if ($estado!=2): ?>
+											<a href="<?php echo base_url();?>delete_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-danger eliminar"><i class="fa fa-trash"></i></a>
+										<?php endif ?>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</div>
@@ -103,7 +107,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaProveedores").DataTable({
+	var tablaProveedores = $("#tablaProveedores").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
@@ -138,5 +142,6 @@
 		},
 		
 	});
+	tablaProveedores.columns.adjust().draw();
 </script>
 <?php $this->end()?>
