@@ -1,19 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clientes_model extends CI_Model {
+class Ventas_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getClientes($id = false, $estado = false){
-		$this->db->select('c.clie_id, CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, c.clie_per_id ,DATE_FORMAT(c.clie_fecha_incorporacion,"%d/%m/%Y") clie_fecha_incorporacion, c.clie_fecha_incorporacion fecha_incorporacion, c.clie_estado, DATE_FORMAT(c.clie_fecha_creacion,"%d/%m/%Y")  clie_fecha_creacion, DATE_FORMAT(c.clie_fecha_modificacion,"%d/%m/%Y") clie_fecha_modificacion');
-		$this->db->from("clientes c");
+	public function getVentas($id = false){
+		$this->db->select('CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, v.ven_fecha_creacion, sum(pr.prod_precio_venta) ven_total_venta, v.ven_forma_pago');
+		$this->db->from('ventas v');
+		$this->db->join('clientes c ', 'c.clie_id  = v.ven_clie_id');
 		$this->db->join('personas p', 'p.per_id = c.clie_per_id');
+		$this->db->join('venta_detalles vd', 'vd.vede_ven_id = v.ven_id');
+		$this->db->join('productos pr', 'pr.prod_id = vd.vede_prod_id', 'left');
+		$this->db->group_by('CONCAT(p.per_nombre, " ", p.per_apellido), v.ven_fecha_creacion, v.ven_forma_pago');
 		if ($id) {
-			$this->db->where('clie_id', $id);
-		}
-		if ($estado) {
-			$this->db->where('clie_estado', $estado);
+			$this->db->where('v.ven_id', $id);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

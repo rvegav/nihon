@@ -341,6 +341,7 @@ class Agendamientos extends CI_Controller
 				$array['ID'] = $producto->prod_id;
 				$array['DESCRIPCION'] = $producto->prod_descripcion;
 				$array['CANTIDAD'] = $producto->inve_cantidad;
+				$array['PRECIO'] = $producto->prod_precio_venta;
 				$datos[] = $array;
 				$data['data'] = $datos;
 			}
@@ -350,5 +351,18 @@ class Agendamientos extends CI_Controller
 		}
 		echo json_encode($data);
 
+	}
+	public function getDetallesAgendamientos(){
+		$age_id = $this->input->post('age_id');
+		$detalles = $this->Agendamientos_model->getDetalleAgendamiento($age_id);
+		foreach ($detalles as $detalle) {
+			$array = [];
+			$array['ID'] = $detalle->prod_id;
+			$array['DESCRIPCION'] = $detalle->prod_descripcion;
+			$array['CANTIDAD'] = $detalle->agde_cantidad;
+			$array['PRECIO'] = $detalle->prod_precio_venta;
+			$datos[] = $array;
+		}
+		echo json_encode($datos);
 	}
 }

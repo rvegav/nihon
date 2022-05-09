@@ -61,7 +61,7 @@ class Productos extends CI_Controller
 		$this->form_validation->set_rules("estado", "Estado", "required");
 		$this->form_validation->set_rules("tipr_id", "Tipo Producto", "required");
 		$this->form_validation->set_rules("precio_venta", "Tipo Producto", "required");
-		$this->form_validation->set_rules("precio_compra", "Tipo Producto", "required");
+		// $this->form_validation->set_rules("precio_compra", "Tipo Producto", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
@@ -126,7 +126,7 @@ class Productos extends CI_Controller
 		// $this->form_validation->set_rules("marcaProducto", "Marca", "required");
 		$this->form_validation->set_rules("tipr_id", "Tipo Producto", "required");
 		$this->form_validation->set_rules("precio_venta", "Precio de Venta", "required");
-		$this->form_validation->set_rules("precio_compra", "Precio de Compra", "required");
+		// $this->form_validation->set_rules("precio_compra", "Precio de Compra", "required");
 
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 

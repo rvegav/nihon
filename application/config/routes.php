@@ -179,6 +179,7 @@ $route['atencion'] = 'agendamientos/Agendamientos/atencion';
 $route['add_agendamiento'] = 'agendamientos/Agendamientos/add';
 $route['edit_agendamiento/(:num)'] = 'agendamientos/Agendamientos/edit/$1';
 $route['update_agendamiento'] = 'agendamientos/Agendamientos/update';
+
 $route['atender_agendamiento/(:num)'] = 'agendamientos/Agendamientos/atender/$1';
 $route['view_agendamiento/(:num)'] = 'agendamientos/Agendamientos/viewAgendamiento/$1';
 $route['edit_producto_stock/(:num)'] = 'edit/$1';
@@ -186,6 +187,13 @@ $route['store_agendamiento'] = 'agendamientos/Agendamientos/store';
 $route['atencion_expediente'] = 'agendamientos/Agendamientos/atencionExpediente';
 $route['get_servicio'] = 'agendamientos/Agendamientos/getServicio';
 $route['get_disponibilidad_producto'] = 'agendamientos/Agendamientos/getDisponibilidadProductos';
+$route['get_detalle_agendamientos'] = 'agendamientos/Agendamientos/getDetallesAgendamientos';
 
+$route['ventas'] = 'ventas/Ventas';
+$route['add_venta'] = 'ventas/Ventas/add';
+$route['edit_venta/(:num)'] = 'ventas/Ventas/edit/$1';
+$route['delete_venta/(:num)'] = 'ventas/Ventas/delete/$1';
+$route['update_venta'] = 'ventas/Ventas/update';
+$route['store_venta'] = 'ventas/Ventas/store';
 $route['get_mascotas'] = 'agendamientos/Agendamientos/getMascotasCliente';
 $route['get_disponibilidad'] = 'agendamientos/Agendamientos/getDisponibilidadTurno';

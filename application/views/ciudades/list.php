@@ -84,11 +84,11 @@
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
 									<?php if ($permiso->rol_det_actualizar == 1): ?>
-										<a href="<?php echo base_url();?>edit_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+										<a href="<?php echo base_url();?>edit_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Ciudad"><i class="fa fa-edit"></i></a>
 									<?php endif ?>
 									<?php if ($permiso->rol_det_borrar ==1): ?>
 										<?php if ($estado!=2): ?>
-											<a href="<?php echo base_url();?>delete_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+											<a href="<?php echo base_url();?>delete_ciudad/<?php echo $ciudad->ciu_id;?>" class="btn btn-danger btn-delete eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar Ciudad"><i class="fa fa-trash"></i></a>
 										<?php endif ?>
 										
 									<?php endif ?>

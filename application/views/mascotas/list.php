@@ -45,19 +45,19 @@
 		<div class="col-12">
 			<div class="table-responsive">
 				
-				<table class="table table-bordered" id="tablaProveedores" width="100%">
+				<table class="table table-bordered" id="tablaMascotas" width="100%">
 					<thead>
 						<tr>
-							<th class="text-center">Codigo</th>
-							<th class="text-center">Nombre</th>
-							<th class="text-center">Dueño</th>
-							<th class="text-center">Especie</th>
-							<th class="text-center">Raza</th>
-							<th class="text-center">Fecha de Nacimiento</th>
-							<th class="text-center">Fecha Creacion</th>
-							<th class="text-center">Fecha Modificacion</th>
-							<th class="text-center">Estado</th>
-							<th class="text-center">Operaciones</th>
+							<th >Codigo</th>
+							<th >Nombre</th>
+							<th >Dueño</th>
+							<th >Especie</th>
+							<th >Raza</th>
+							<th >Fecha de Nacimiento</th>
+							<th >Fecha Creacion</th>
+							<th >Fecha Modificacion</th>
+							<th >Estado</th>
+							<th  style="width:15%">Operaciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -88,10 +88,10 @@
 									;?>
 									<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 									<td>
-										<a href="<?php echo base_url();?>view_historial/<?php echo $mascota->mas_id;?>" class="btn btn-success"><i class="fa fa-eye"></i></a>
-										<a href="<?php echo base_url();?>edit_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+										<a href="<?php echo base_url();?>view_historial/<?php echo $mascota->mas_id;?>" class="btn btn-success" style="font-size: 12px;" data-toggle="tooltip" data-placement="top" title="Ver Historial"><i class="fa fa-eye"></i></a>
+										<a href="<?php echo base_url();?>edit_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-warning"  style="font-size: 12px;"data-toggle="tooltip" data-placement="top" title="Editar Mascota"><i class="fa fa-edit"></i></a>
 										<?php if ($estado!=2): ?>
-											<a href="<?php echo base_url();?>delete_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-danger eliminar"><i class="fa fa-trash"></i></a>
+											<a href="<?php echo base_url();?>delete_mascota/<?php echo $mascota->mas_id;?>" class="btn btn-danger eliminar" style="font-size: 12px;"data-toggle="tooltip" data-placement="top" title="Eliminar Mascota"><i class="fa fa-trash"></i></a>
 										<?php endif ?>
 									</td>
 								</tr>
@@ -107,12 +107,13 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tablaProveedores = $("#tablaProveedores").DataTable({
+	var tablaMascotas = $("#tablaMascotas").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
+		'ordering':true,
 		'info':true,
 		'filter':true,
-		'stateSave':true,
+		'stateSave':false,
 		'processing':true,
 		//'scrollX':true,
 		'searching':true,
@@ -140,8 +141,8 @@
 				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 			}
 		},
-		
+
 	});
-	tablaProveedores.columns.adjust().draw();
+	
 </script>
 <?php $this->end()?>

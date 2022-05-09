@@ -71,7 +71,7 @@
 											<td><?php echo $agendamiento->age_fecha_atencion ?></td>
 											<td><?php echo $agendamiento->empl_atencion ?></td>
 										</tr>
-
+										<?php $c++ ?>
 									<?php endforeach ?>
 								<?php endif ?>
 							</tbody>

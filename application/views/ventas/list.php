@@ -30,12 +30,12 @@
 			</div>
 		<?php endif; ?>
 	</div>
-	<h4>Listado de Clientes</h4>
+	<h4>Listado de Ventas</h4>
 	<br>
 	<div class="row">
 		<div class="col-md-2 offset-10">
-			<a href="<?php echo base_url()?>add_cliente" class="nav-link">
-				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Cliente"><i class="fa fa-plus"></i>Agregar Clientes</button>
+			<a href="<?php echo base_url()?>add_venta" class="nav-link">
+				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Nueva Venta"><i class="fa fa-plus"></i>Nueva Venta</button>
 			</a>
 		</div>
 
@@ -43,50 +43,27 @@
 	<br>
 	<div class="row">
 		<div class="col-12">
-			<table class="table table-bordered" id="tablaCliente" width="100%">
+			<table class="table table-bordered" id="tablaVentas" width="100%">
 				<thead>
 					<tr>
-						<th class="text-center">Codigo</th>
-						<th class="text-center">Nombre</th>
-						<th class="text-center">Fecha de Incorporacion</th>
-						<th class="text-center">Fecha de Creacion</th>
-						<th class="text-center">Ultima Modificacion</th>
-						<th class="text-center">Estado</th>
+						<th class="text-center">Cliente</th>
+						<th class="text-center">Fecha de Venta</th>
+						<th class="text-center">Forma de Pago</th>
+						<th class="text-center">Total en Gs.</th>
 						<th class="text-center">Operaciones</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php if(!empty($clientes)):?>
-						<?php
-						foreach($clientes as $cliente):?>
+					<?php if(!empty($ventas)):?>
+						<?php foreach ($ventas as $venta): ?>
 							<tr>
-								<td><?php echo $cliente->clie_id; ?></td>
-								<td><?php echo $cliente->clie_nombre;?></td>
-								<td><?php echo $cliente->clie_fecha_incorporacion;?></td>
-								<td><?php echo $cliente->clie_fecha_creacion;?></td>
-								<td><?php echo $cliente->clie_fecha_modificacion;?></td>
-
-								<?php
-								$estado = $cliente->clie_estado;
-								if($estado == 1){
-									$estado2     = "Activo";$label_class = 'label-success';
-								}else{
-									if($estado == 2){
-										$estado2     = "Inactivo";$label_class = 'label-warning';
-									}else{
-										$estado2     = "Anulado";$label_class = 'label-danger';
-									}
-								}
-								;?>
-								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
-								<td>
-									<a href="<?php echo base_url();?>edit_cliente/<?php echo $cliente->clie_id;?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Cliente"><i class="fa fa-edit"></i></a>
-									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_cliente/<?php echo $cliente->clie_id;?>" class="btn btn-danger btn-delete eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar Cliente"><i class="fa fa-trash"></i></a>
-									<?php endif ?>
-								</td>
+								<td><?php echo $venta->clie_nombre ?></td>
+								<td><?php echo $venta->ven_fecha_venta ?></td>
+								<td><?php echo $venta->ven_forma_pago?></td>
+								<td><?php echo $venta->ven_total_venta?></td>
+								<td><a href="" class="btn btn-success"><i class="fa fa-eye"></i></a></td>
 							</tr>
-						<?php endforeach; ?>
+						<?php endforeach ?>
 					<?php endif; ?>
 				</tbody>
 			</table>
@@ -97,7 +74,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-	var tabla = $("#tablaCliente").DataTable({
+	var tabla = $("#tablaVentas").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,

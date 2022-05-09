@@ -253,7 +253,7 @@
               <ul class="nav nav-treeview">
                 <?php foreach ($pantallas as $pantalla): ?>
 
-                  <?php if ($pantalla ==12): ?>
+     <!--              <?php if ($pantalla ==12): ?>
 
                     <li class="nav-item">
                       <a href="<?php echo base_url()?>load_regemb" class="nav-link">
@@ -261,7 +261,7 @@
                         <p>Cargar Remisiones</p>
                       </a>
                     </li>
-                  <?php endif ?>
+                  <?php endif ?> -->
                   <?php if ($pantalla ==13): ?>
 
                     <li class="nav-item">
@@ -397,7 +397,7 @@
                   <?php if ($pantalla ==19): ?>
 
                     <li class="nav-item">
-                      <a href="<?php echo base_url()?>atencion" class="nav-link">
+                      <a href="<?php echo base_url()?>ventas" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ventas</p>
                       </a>

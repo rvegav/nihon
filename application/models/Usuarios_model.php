@@ -14,8 +14,8 @@ class Usuarios_model extends CI_Model {
 		$this->db->join('pantallas pa', 'pa.pant_id = rd.rol_det_pant_id');
 		$this->db->join('modulos m', 'm.mod_id = pa.pant_mod_id');
 		$this->db->where("u.usua_name", $username);
-		$this->db->order_by('5', 'asc');
 		$this->db->order_by('6', 'asc');
+		$this->db->order_by('7', 'asc');
 		$results= $this->db->get();
 
 		if($results->num_rows()>0){

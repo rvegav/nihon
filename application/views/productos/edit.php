@@ -19,7 +19,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Descripcion <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="desProducto" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desProducto" class="form-control" value="<?php echo $producto->prov_descripcion ?>">
+						<input type="text" id="desProducto" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desProducto" class="form-control" value="<?php echo $producto->prod_descripcion ?>">
 					</div>
 				</div>
 			</div>

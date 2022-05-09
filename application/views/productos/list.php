@@ -84,9 +84,9 @@
 								;?>
 								<td><span class="label <?php echo $label_class;?>"><?php echo $estado2; ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_producto/<?php echo $producto->prod_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<a href="<?php echo base_url();?>edit_producto/<?php echo $producto->prod_id;?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Producto"><i class="fa fa-edit"></i></a>
 									<?php if ($estado!=2): ?>
-										<a href="<?php echo base_url();?>delete_producto/<?php echo $producto->prod_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
+										<a href="<?php echo base_url();?>delete_producto/<?php echo $producto->prod_id;?>" class="btn btn-danger btn-delete eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar Producto"><i class="fa fa-trash"></i></a>
 									<?php endif ?>
 								</td>
 							</tr>

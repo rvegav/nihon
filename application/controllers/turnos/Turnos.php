@@ -87,14 +87,14 @@ class Turnos extends CI_Controller
 				'tur_estado' => $estado
 			);
 			if($this->Turnos_model->validarExiste($desTurno)){
-				$mensajes['error']= 'Ya existe una ciudad con la misma descripcion';
+				$mensajes['error']= 'Ya exist un turno con la misma descripcion';
 			}else{
 				if($this->Turnos_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
-					$this->session->set_flashdata('success', 'Ciudad registrado correctamente!');
+					$this->session->set_flashdata('success', 'Turno registrado correctamente!');
 						// redirect(base_url()."turnos", "refresh");
 				}else{
-					$mensajes['error'] = 'Ciudad no registrado!';
+					$mensajes['error'] = 'Turno no registrado!';
 					$this->session->set_flashdata('error', 'Ciudad no registrado!');
 						// redirect(base_url()."add_ciudad", "refresh");
 				}
