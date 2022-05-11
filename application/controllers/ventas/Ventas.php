@@ -71,11 +71,11 @@
 					if (isset($producto['prod_id_nuevo'])) {
 						$prod_id = $producto['prod_id_nuevo'];
 						$cantidad = $producto['cantidad_nuevo'];
-						// $stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id_nuevo'] );
-						// $data = array(
-						// 	'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']-
-						// );
-						// $this->Control_Stock_model->update($stock_producto->inve_id, $data);
+						$stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id_nuevo'] );
+						$data = array(
+							'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']-
+						);
+						$this->Control_Stock_model->update($stock_producto->inve_id, $data);
 					}else{
 						$prod_id = $producto['prod_id'];
 						$cantidad = $producto['cantidad'];
