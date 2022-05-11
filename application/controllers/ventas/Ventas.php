@@ -73,7 +73,7 @@
 						$cantidad = $producto['cantidad_nuevo'];
 						$stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id_nuevo'] );
 						$data = array(
-							'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']-
+							'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']
 						);
 						$this->Control_Stock_model->update($stock_producto->inve_id, $data);
 					}else{
