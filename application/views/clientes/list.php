@@ -48,6 +48,8 @@
 					<tr>
 						<th class="text-center">Codigo</th>
 						<th class="text-center">Nombre</th>
+						<th class="text-center">Documento</th>
+						<th class="text-center" style="width:15%">Ruc</th>
 						<th class="text-center">Fecha de Incorporacion</th>
 						<th class="text-center">Fecha de Creacion</th>
 						<th class="text-center">Ultima Modificacion</th>
@@ -62,6 +64,8 @@
 							<tr>
 								<td><?php echo $cliente->clie_id; ?></td>
 								<td><?php echo $cliente->clie_nombre;?></td>
+								<td><?php echo $cliente->clie_cedula;?></td>
+								<td><?php echo $cliente->clie_ruc;?></td>
 								<td><?php echo $cliente->clie_fecha_incorporacion;?></td>
 								<td><?php echo $cliente->clie_fecha_creacion;?></td>
 								<td><?php echo $cliente->clie_fecha_modificacion;?></td>

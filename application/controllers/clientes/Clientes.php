@@ -56,12 +56,14 @@
 				$per_id = $this->input->post('per_id');
 				$fecha_incorporacion = $this->input->post("fecha_incorporacion");
 				$id_inventario = $this->Clientes_model->ObtenerCodigo();
+				$ruc = $this->input->post('ruc', TRUE);
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
 				$estado = $this->input->post('estado');
 				$data = array(
 					'clie_id'  => $id_inventario->MAXIMO,
 					'clie_per_id'  => trim($per_id),
+					'clie_ruc' => trim($ruc),
 					'clie_fecha_incorporacion'  => trim($fecha_incorporacion),
 					'clie_estado'  => trim($estado),
 					'clie_fecha_creacion' => $fechaActual,
@@ -85,6 +87,8 @@
 		{
 			$data = array(
 				'cliente'=> $this->Clientes_model->getClientes($id),
+				'personas'=> $this->Personas_model->getPersonas() 
+				
 			);
 			echo $this->templates->render('clientes::edit', $data);
 
@@ -104,11 +108,13 @@
 				$clie_id = $this->input->post('clie_id');
 				$id_inventario = $this->Clientes_model->ObtenerCodigo();
 				$estado = $this->input->post('estado');
+				$ruc = $this->input->post('ruc');
 				$time = time();
 				$fechaActual = date("Y-m-d H:i:s",$time);
 				$data = array(
 					'clie_per_id'  => trim($per_id),
 					'clie_estado'  => trim($estado),
+					'clie_ruc' => trim($ruc),
 					'clie_fecha_incorporacion'  => trim($fecha_incorporacion),
 					'clie_fecha_modificacion'  => $fechaActual
 				);

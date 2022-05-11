@@ -11,7 +11,7 @@ class Agendamientos_model extends CI_Model {
 	}
 	public function getAgendamiento($id = false, $empl_id = false, $mas_id = false, $estado = false){
 		$this->db->select('a.age_id, a.age_fecha_creacion age_agendamiento, CONCAT(p.per_nombre, " ", p.per_apellido) age_duenho,
-			m.mas_nombre age_mascota, CONCAT(pe.per_nombre, " ", pe.per_apellido) age_emp_atencion, a.age_estado, DATE_FORMAT(a.age_fecha_creacion,"%d/%m/%Y") age_fecha_creacion, DATE_FORMAT(a.age_fecha_atencion,"%d/%m/%Y") age_fecha_atencion, a.age_mas_id,c.clie_id, t.tude_fecha, pr.prod_descripcion, pr.prod_id, t.tude_id, e.empl_id age_emo_id_atencion, a.age_motivo_agendamiento, a.age_edad_paciente, a.age_diagnostico, a.age_observacion, a.age_peso, CONCAT(pe.per_nombre, " ", pe.per_apellido) empl_atencion');
+			m.mas_nombre age_mascota, CONCAT(pe.per_nombre, " ", pe.per_apellido) age_emp_atencion, a.age_estado, DATE_FORMAT(a.age_fecha_creacion,"%d/%m/%Y") age_fecha_creacion, DATE_FORMAT(a.age_fecha_atencion,"%d/%m/%Y") age_fecha_atencion, a.age_mas_id,c.clie_id, t.tude_fecha, pr.prod_descripcion, pr.prod_id, t.tude_id, e.empl_id age_emo_id_atencion, a.age_motivo_agendamiento, a.age_edad_paciente, a.age_diagnostico, a.age_observacion, a.age_peso, CONCAT(pe.per_nombre, " ", pe.per_apellido) empl_atencion, c.clie_ruc');
 		$this->db->from('agendamientos a');
 		$this->db->join('mascotas m', 'm.mas_id = a.age_mas_id');
 		$this->db->join('clientes c', 'c.clie_id = m.mas_clie_id');

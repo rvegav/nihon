@@ -33,7 +33,7 @@
 		public function index()
 		{		
 			$data = array(
-				'clientes'=> $this->Ventas_model->getVentas()
+				'ventas'=> $this->Ventas_model->getVentas()
 			);
 			echo $this->templates->render('ventas::list', $data);
 		}
@@ -46,35 +46,56 @@
 
 		}
 		public function store(){
+
 			$mensajes= $this->data;
-			$this->form_validation->set_rules("per_id", "Persona", "required");
-			$this->form_validation->set_rules("fecha_incorporacion", "Fecha de Incorporacion", "required");
+			$this->form_validation->set_rules("ruc", "RUC", "required");
+			$this->form_validation->set_rules("nombre_razon_social", "Nombre o Razon Social", "required");
 			if ($this->form_validation->run() == FALSE){
 				$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 			}else{
-				$per_id = $this->input->post('per_id');
-				$fecha_incorporacion = $this->input->post("fecha_incorporacion");
-				$id_inventario = $this->Clientes_model->ObtenerCodigo();
-				$time = time();
-				$fechaActual = date("Y-m-d H:i:s",$time);
-				$estado = $this->input->post('estado');
+				$clie_id = $this->input->post('clie_id');
+				$razon_social = $this->input->post('nombre_razon_social');
+				$productos = $this->input->post('productos');
+				$ruc = $this->input->post('ruc');
 				$data = array(
-					'clie_id'  => $id_inventario->MAXIMO,
-					'clie_per_id'  => trim($per_id),
-					'clie_fecha_incorporacion'  => trim($fecha_incorporacion),
-					'clie_estado'  => trim($estado),
-					'clie_fecha_creacion' => $fechaActual,
-					'clie_fecha_modificacion'  => $fechaActual
+					'ven_clie_id' => $clie_id,
+					'ven_ruc' => $ruc,
+					'ven_razon_social' => $razon_social,
+					'ven_forma_pago' => 'E'
+
 				);
-				if($this->Clientes_model->save($data)){
+				$this->Ventas_model->save($data);
+				$ultimo_id = $this->Ventas_model->getUltimoInsert($clie_id, $razon_social, $ruc);
+				foreach ($productos as $producto) {
+					if (isset($producto['prod_id_nuevo'])) {
+						$prod_id = $producto['prod_id_nuevo'];
+						$cantidad = $producto['cantidad_nuevo'];
+						// $stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id_nuevo'] );
+						// $data = array(
+						// 	'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']-
+						// );
+						// $this->Control_Stock_model->update($stock_producto->inve_id, $data);
+					}else{
+						$prod_id = $producto['prod_id'];
+						$cantidad = $producto['cantidad'];
+					}
+					$data = array(
+						'vede_prod_id' => $prod_id,
+						'vede_cantidad' => $cantidad,
+						'vede_ven_id' => $ultimo_id->ven_id
+					);
+					$this->Ventas_model->save_detalle($data);
+				}
+				$data = array(
+					'ven_estado'=>2
+				);
+				if($this->Ventas_model->update($ultimo_id->ven_id, $data)){
 					$mensajes['correcto'] = 'correcto';
-					$this->session->set_flashdata('success', 'Cliente registrado correctamente!');
-					// redirect(base_url()."ciudades/ciudades", "refresh");
+					$this->session->set_flashdata('success', 'Venta registrada correctamente!');
 				}else{
-					$mensajes['error'] = 'Cliente no registrado!';
-					$this->session->set_flashdata('error', 'Proveedor no registrado!');
-					// redirect(base_url()."ciudades/ciudades/add", "refresh");
+					$mensajes['error'] = 'Venta no registrada!';
+					$this->session->set_flashdata('error', 'Venta no registrada!');
 				}
 			}
 			echo json_encode($mensajes);

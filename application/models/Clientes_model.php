@@ -6,7 +6,7 @@ class Clientes_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getClientes($id = false, $estado = false){
-		$this->db->select('c.clie_id, CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, c.clie_per_id ,DATE_FORMAT(c.clie_fecha_incorporacion,"%d/%m/%Y") clie_fecha_incorporacion, c.clie_fecha_incorporacion fecha_incorporacion, c.clie_estado, DATE_FORMAT(c.clie_fecha_creacion,"%d/%m/%Y")  clie_fecha_creacion, DATE_FORMAT(c.clie_fecha_modificacion,"%d/%m/%Y") clie_fecha_modificacion');
+		$this->db->select('c.clie_id, CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, c.clie_per_id ,DATE_FORMAT(c.clie_fecha_incorporacion,"%d/%m/%Y") clie_fecha_incorporacion, c.clie_fecha_incorporacion fecha_incorporacion, c.clie_estado, DATE_FORMAT(c.clie_fecha_creacion,"%d/%m/%Y")  clie_fecha_creacion, DATE_FORMAT(c.clie_fecha_modificacion,"%d/%m/%Y") clie_fecha_modificacion, clie_ruc, p.per_nro_doc clie_cedula');
 		$this->db->from("clientes c");
 		$this->db->join('personas p', 'p.per_id = c.clie_per_id');
 		if ($id) {

@@ -9,10 +9,10 @@
 		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label for="clie_id">Código Cliente<span class="required">*</span></label>
+					<label for="clie_id">CÃ³digo Cliente<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="clie_id" name="clie_id" readonly value="<?php echo $cliente->clie_id;?>">
-					</div>	
+					</div>		
 				</div>
 			</div>
 			<div class="row">
@@ -32,6 +32,12 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">RUC<span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="ruc" id="ruc" value="<?php echo $cliente->clie_ruc ?>">	
+					</div>
+				</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<label for="fecha_incorporacion">Fecha de Incorporacion<span class="required">*</span></label>
@@ -133,7 +139,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -143,7 +149,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ãšltimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -179,7 +185,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃ³n!', 
 					html: wrapper,
 					// icon: "warning",
 					// columnClass: 'medium',
@@ -199,7 +205,7 @@
 				window.location = "<?php echo base_url()?>clientes";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 		});
 	})
 

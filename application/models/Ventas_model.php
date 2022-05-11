@@ -6,7 +6,7 @@ class Ventas_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getVentas($id = false){
-		$this->db->select('CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, v.ven_fecha_creacion, sum(pr.prod_precio_venta) ven_total_venta, v.ven_forma_pago');
+		$this->db->select('CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, DATE_FORMAT(v.ven_fecha_creacion,"%d/%m/%Y") ven_fecha_venta, sum(pr.prod_precio_venta * vd.vede_cantidad) ven_total_venta, (CASE WHEN  v.ven_forma_pago = "E" THEN "EFECTIVO" when v.ven_forma_pago = "T" then "TARJETA" END) as ven_forma_pago');
 		$this->db->from('ventas v');
 		$this->db->join('clientes c ', 'c.clie_id  = v.ven_clie_id');
 		$this->db->join('personas p', 'p.per_id = c.clie_per_id');
@@ -28,14 +28,30 @@ class Ventas_model extends CI_Model {
 	//esta es la parte para guardar en la bd
 	public function save($data)
 	{
-		return $this->db->insert("clientes", $data);
+		return $this->db->insert("ventas", $data);
+	}
+
+	public function save_detalle($data){
+		return $this->db->insert("venta_detalles", $data);
 	}
 	
 	//esto es para actualizar los empleado
 	public function update($id, $data){
-		$this->db->where("clie_id", $id);
-		return $this->db->update("clientes", $data);
+		$this->db->where("ven_id", $id);
+		return $this->db->update("ventas", $data);
 
+	}
+
+	public function getUltimoInsert($cliente, $razon_social, $ruc){
+		$this->db->select_max('ven_id', 'ven_id');
+		$this->db->from('ventas');
+		$this->db->where('ven_clie_id', $cliente);
+		$this->db->where('ven_razon_social', $razon_social);
+		$this->db->where('ven_ruc', $ruc);
+		$resultados= $this->db->get();
+		if ($resultados->num_rows()>0) {
+			return $resultados->row();
+		}
 	}
 
 	public function delete($id){

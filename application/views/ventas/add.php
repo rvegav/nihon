@@ -30,13 +30,13 @@
 			<div class="form-group row">
 				<label for="ruc" class="col-md-3 col-form-label">Ruc:</label>
 				<div class="col-md-9">
-					<input type="text" class="form-control" id="ruc" value="">
+					<input type="text" class="form-control" name="ruc" id="ruc" value="">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="nombre_razon_social" class="col-md-3 col-form-label">Nombre o Razon Social:</label>
 				<div class="col-md-9">
-					<input type="text" class="form-control" id="nombre_razon_social" value="">
+					<input type="text" class="form-control" name="nombre_razon_social" id="nombre_razon_social" value="">
 				</div>
 			</div>
 			<hr>
@@ -68,7 +68,7 @@
 								<tr>
 									<th colspan="3"></th>
 									<th >IVA: </th>
-									<th colspan="2">Total: </th>
+									<th colspan="2">Total: <span id="total"></span></th>
 								</tr>
 							</tfoot>
 						</table>
@@ -77,11 +77,11 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-6 col-sm-6 col-xs-12 offset-5">
-					<button type="reset" class="btn btn-primary">Resetear</button>
-					<button type="submit" class="btn btn-primary">Guardar</button>
+				<div class="col-md-6 col-sm-6 col-xs-12 offset-3">
+					<button type="submit" class="btn btn-primary btn-block">Guardar</button>
 				</div>
 			</div>
+			<input type="hidden" id="precio_total">
 		</form>
 	</div>
 
@@ -99,6 +99,7 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Cliente</th>
+							<th class="text-center">RUC</th>
 							<th class="text-center">Mascota</th>
 							<th class="text-center">Motivo Visita</th>
 							<th class="text-center">Accion</th>
@@ -111,9 +112,10 @@
 								<tr>
 									<td><?php echo $agendamiento->age_id; ?></td>
 									<td><?php echo $agendamiento->age_duenho;?></td>
+									<td><?php echo $agendamiento->clie_ruc;?></td>
 									<td><?php echo $agendamiento->age_mascota;?></td>
 									<td><?php echo $agendamiento->age_motivo_agendamiento;?></td>
-									<td><button class="btn btn-success btn-block select" data-toggle="tooltip" data-placement="top" title="Seleccionar Agendamiento"><i class="fa fa-check"></i></button></td>
+									<td><button class="btn btn-success btn-block select" value="<?php echo $agendamiento->clie_id ?>" data-toggle="tooltip" data-placement="top" title="Seleccionar Agendamiento"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif; ?>
@@ -144,6 +146,8 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Nombre</th>
+							<th class="text-center">CI</th>
+							<th class="text-center">RUC</th>
 							<th class="text-center">Accion</th>
 						</tr>
 					</thead>
@@ -154,6 +158,8 @@
 								<tr>
 									<td><?php echo $cliente->clie_id; ?></td>
 									<td><?php echo $cliente->clie_nombre;?></td>
+									<td><?php echo $cliente->clie_cedula;?></td>
+									<td><?php echo $cliente->clie_ruc;?></td>
 									<td><button class="btn btn-success btn-block select" data-toggle="tooltip" data-placement="top" title="Seleccionar Cliente"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -208,6 +214,8 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
+	$('#total').html('0');
+
 	var tablaCliente = $("#tablaCliente").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
@@ -244,11 +252,18 @@
 		
 	});
 
-	$('#tablaCliente tbody').on('click', 'tr', function (event) {
-		var data = tablaCliente.row(this).data();
+	$('#tablaCliente tbody').on('click', '.select', function (event) {
+		var registro = $(this).parents('tr');
+		var data = tablaCliente.row(registro).data();
 		$('#clie_id').val(data[0]);
 		$('#cliente').val(data[1]);
+		$('#nombre_razon_social').val(data[1]);
+		$('#ruc').val(data[3]);
 		$('#cliente_select').modal('hide');
+		precio_total = 0;
+		$('#total').html(precio_total);
+		tablaProductos.clear().draw();
+
 	} );
 	var tablaAgendamiento = $("#tablaAgendamiento").DataTable({
 		'lengthChange':false,
@@ -289,8 +304,14 @@
 	var complete = false;
 	$('#tablaAgendamiento tbody').on('click', '.select', function (event) {
 		registro = $(this).parents('tr');
+
+		$('#total').html('');
+		precio_total =0;
 		var data = tablaAgendamiento.row(registro).data();
-		$('#cliente').val(data[1]);
+		$('#cliente').val(data[1]);	
+		$('#clie_id').val($(this).val());
+		$('#nombre_razon_social').val(data[1]);
+		$('#ruc').val(data[2]);
 		$.ajax({
 			url: "<?php echo base_url()?>get_detalle_agendamientos",
 			type: 'POST',
@@ -313,31 +334,34 @@
 
 				precio_total = precio_total + (val.PRECIO * val.CANTIDAD);
 			});
-
+			// alert(precio_total);
+			// $('#total').html('');
+			$('#total').html(precio_total);
 			complete= true;
-		console.log('imprime antes');
+			
+
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");
 		});
 		$('#agendamiento_select').modal('hide');
 	} );
 	
-	(function runOnComplete(){
-		if( complete ){
-			$.each(tablaProductos.rows().data(), function(index, val) {
-				console.log(val);
-				precio_total = parseInt(val[4]) * parseInt(val[3]);
-			});
-			var total = 'Total: '+ precio_total;
-			alert(total);
-			$('#tablaProductos tfoot').children('tr').get(0).cells[2].innerHTML = total;
-			tablaProductos.draw();
-			console.log('imprime después');
-		}else{
-			console.log('imprime muchas veces');
-			setTimeout(runOnComplete,25);
-		}
-	})()
+	// (function runOnComplete(){
+	// 	if( complete ){
+	// 		$.each(tablaProductos.rows().data(), function(index, val) {
+	// 			console.log(val);
+	// 			precio_total = parseInt(val[4]) * parseInt(val[3]);
+	// 		});
+	// 		var total = 'Total: '+ precio_total;
+	// 		alert(total);
+	// 		$('#tablaProductos tfoot').children('tr').get(0).cells[2].innerHTML = total;
+	// 		tablaProductos.draw();
+	// 		console.log('imprime después');
+	// 	}else{
+	// 		console.log('imprime muchas veces');
+	// 		setTimeout(runOnComplete,25);
+	// 	}
+	// })()
 	var tablaProductos = $("#tablaProductos").DataTable({
 		'lengthChange':false,
 		'lengthMenu':[10],
@@ -376,14 +400,25 @@
 		'fixedHeader': {
 			header: true,
 			footer: true
-		}
-		
+		},
 	});
 	$("#frm_venta").submit(function(event) {
-		event.preventDefault();		
+		event.preventDefault();
+		html='';
+		$.each(tablaProductos.rows().data(), function(index, val) {
+			console.log(val[5]);
+			if (val[5]=='') {
+				html += '<input type="hidden" name="productos['+index+'][prod_id]" value="'+val[1]+'">';
+				html += '<input type="hidden" name="productos['+index+'][cantidad]" value="'+val[3]+'">';
+			}else{
+				html += '<input type="hidden" name="productos['+index+'][prod_id_nuevo]" value="'+val[1]+'">';
+				html += '<input type="hidden" name="productos['+index+'][cantidad_nuevo]" value="'+val[3]+'">';
+			}
+			$("#frm_venta").append(html);
+		});		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>store_cliente",
+			url: "<?php echo base_url()?>store_venta",
 			type: 'POST',
 			data: formDato
 		})
@@ -494,7 +529,7 @@
 		var total = 'Total: ' + precio_total;
 
 		tablaProductos.draw();
-		$('#tablaProductos tfoot').children('tr').get(0).cells[2].innerHTML = total;
+		$("#total").html(precio_total);
 
 		console.log(precio_total);
 	} );
@@ -513,7 +548,7 @@
 		}
 		var total = 'Total: ' + precio_total;
 		tablaProductos.draw();
-		$('#tablaProductos tfoot').children('tr').get(0).cells[2].innerHTML = total;
+		$("#total").html(precio_total);
 		// console.log(cantidad);
 	} );
 	$('#tablaProductos tbody').on('click', '.eliminar', function () {

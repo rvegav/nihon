@@ -34,6 +34,14 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
+					<label class="" for="desCiudad">RUC<span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="ruc" id="ruc">	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 offset-3">
 					<label for="fecha_incorporacion">Fecha de Incorporacion<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="date" class="form-control" id="fecha_incorporacion" name="fecha_incorporacion" value="">
@@ -65,6 +73,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Personas</h4>
+				<a href="<?php echo base_url()?>add_persona" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Persona"><i class="fa fa-plus"></i>Agregar Personas</button>
+					</a>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -74,6 +85,7 @@
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Nombre</th>
 							<th class="text-center">Apellido</th>
+							<th class="text-center">Cedula</th>
 							<th class="text-center">Direccion</th>
 							<th class="text-center">Accion</th>
 						</tr>
@@ -86,6 +98,7 @@
 									<td><?php echo $persona->per_id; ?></td>
 									<td><?php echo $persona->per_nombre;?></td>
 									<td><?php echo $persona->per_apellido;?></td>
+									<td><?php echo $persona->per_nro_doc;?></td>
 									<td><?php echo $persona->per_direccion;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
@@ -104,7 +117,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-		var tablaPersona = $("#tablaPersona").DataTable({
+	var tablaPersona = $("#tablaPersona").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,
@@ -141,7 +154,8 @@
 	});
 
 	$('#tablaPersona tbody').on('click', '.select', function (event) {
-		var data = tablaPersona.row(this).data();
+		var registro = $(this).parents('tr');
+		var data = tablaPersona.row(registro).data();
 		$('#per_id').val(data[0]);
 		$('#persona').val(data[1]+' '+data[2]);
 		$('#persona_select').modal('hide');

@@ -99,6 +99,7 @@ class Roles extends CI_Controller
 		// $this->comprobacionRoles();
 		// recibimos las variables
 		$this->form_validation->set_rules("desRol", "Descripcion", "required");
+		$this->form_validation->set_rules("modulo", "Modulos", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>');
 		}else{
