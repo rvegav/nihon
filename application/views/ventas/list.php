@@ -61,7 +61,7 @@
 								<td><?php echo $venta->ven_fecha_venta ?></td>
 								<td><?php echo $venta->ven_forma_pago?></td>
 								<td><?php echo $venta->ven_total_venta?></td>
-								<td><a href="" class="btn btn-success"><i class="fa fa-eye"></i></a></td>
+								<td><a href="<?php echo base_url();?>view_venta/<?php echo $venta->ven_id;?>" class="btn btn-success"><i class="fa fa-eye"></i></a></td>
 							</tr>
 						<?php endforeach ?>
 					<?php endif; ?>

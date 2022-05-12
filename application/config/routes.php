@@ -195,5 +195,6 @@ $route['edit_venta/(:num)'] = 'ventas/Ventas/edit/$1';
 $route['delete_venta/(:num)'] = 'ventas/Ventas/delete/$1';
 $route['update_venta'] = 'ventas/Ventas/update';
 $route['store_venta'] = 'ventas/Ventas/store';
+$route['view_venta/(:num)'] = 'ventas/Ventas/viewFactura/$1';
 $route['get_mascotas'] = 'agendamientos/Agendamientos/getMascotasCliente';
 $route['get_disponibilidad'] = 'agendamientos/Agendamientos/getDisponibilidadTurno';

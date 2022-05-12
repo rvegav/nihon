@@ -13,7 +13,11 @@
 			$this->templates->addFolder('ventas', APPPATH.'views/ventas');
 			$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
 			$this->load->model(array('Usuarios_model','Clientes_model', 'Personas_model', 'Ventas_model', 'Agendamientos_model'));
-
+			$this->load->library('pdf');
+			$options = new Dompdf\Options();
+			$options->setIsRemoteEnabled(true);
+			$options->setIsPhpEnabled(true);
+			$this->dompdf = new Dompdf\Dompdf($options);
 			$this->comprobacionRoles();
 		}
 		public function comprobacionRoles()
@@ -154,5 +158,26 @@
 				redirect(base_url()."clientes","refresh");
 			}
 
+		}
+
+		public function viewFactura($id_ventas){
+			$data = array(
+				'venta'=> $this->Ventas_model->getVentas($id_ventas),
+				'detalles' =>$this->Ventas_model->getDetalleVenta($id_ventas)
+			);
+			$cuerpo = $this->load->view('ventas/view',$data, true);
+			$this->load->view('ventas/view');
+			$this->dompdf->load_html($cuerpo);
+			$this->dompdf->set_paper('Legal','portrait');
+
+
+			$this->dompdf->render();
+
+			$this->dompdf->stream('factura',array("Attachment" => 0) );
+			// if ($stream=TRUE) {
+			// 	$this->dompdf->stream("$archivo", array("Attachment" => 0));
+			// } else {
+			// 	return $this->dompdf->output();
+			// }
 		}
 	}

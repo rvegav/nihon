@@ -427,7 +427,7 @@
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
-    <strong>Copyright &copy; <?php echo date('Y')?>.</strong>Desarrollado por Gabriel y Murilo.
+    <strong>Copyright &copy; <?php echo date('Y')?>.</strong> Desarrollado por CGdev.
   </footer>
 
   <!-- Control Sidebar -->

@@ -6,13 +6,13 @@ class Ventas_model extends CI_Model {
 	
 	//este metodo es para mostrar todos los empleado
 	public function getVentas($id = false){
-		$this->db->select('CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, DATE_FORMAT(v.ven_fecha_creacion,"%d/%m/%Y") ven_fecha_venta, sum(pr.prod_precio_venta * vd.vede_cantidad) ven_total_venta, (CASE WHEN  v.ven_forma_pago = "E" THEN "EFECTIVO" when v.ven_forma_pago = "T" then "TARJETA" END) as ven_forma_pago');
+		$this->db->select('CONCAT(p.per_nombre, " ", p.per_apellido) clie_nombre, DATE_FORMAT(v.ven_fecha_creacion,"%d/%m/%Y") ven_fecha_venta, sum(pr.prod_precio_venta * vd.vede_cantidad) ven_total_venta, (CASE WHEN  v.ven_forma_pago = "E" THEN "EFECTIVO" when v.ven_forma_pago = "T" then "TARJETA" END) as ven_forma_pago, ven_razon_social, ven_ruc, ven_id');
 		$this->db->from('ventas v');
 		$this->db->join('clientes c ', 'c.clie_id  = v.ven_clie_id');
 		$this->db->join('personas p', 'p.per_id = c.clie_per_id');
 		$this->db->join('venta_detalles vd', 'vd.vede_ven_id = v.ven_id');
 		$this->db->join('productos pr', 'pr.prod_id = vd.vede_prod_id', 'left');
-		$this->db->group_by('CONCAT(p.per_nombre, " ", p.per_apellido), v.ven_fecha_creacion, v.ven_forma_pago');
+		$this->db->group_by('CONCAT(p.per_nombre, " ", p.per_apellido), v.ven_fecha_creacion, v.ven_forma_pago, ven_razon_social, ven_ruc, ven_id');
 		if ($id) {
 			$this->db->where('v.ven_id', $id);
 		}
@@ -21,6 +21,16 @@ class Ventas_model extends CI_Model {
 			if ($id) {
 				return $resultados->row();
 			}
+			return $resultados->result();
+		}
+	}
+	public function getDetalleVenta($id_venta){
+		$this->db->select('p.prod_descripcion, vd.vede_cantidad, p.prod_id, p.prod_precio_venta', FALSE);
+		$this->db->from('venta_detalles vd');
+		$this->db->join('productos p', 'vd.vede_prod_id = p.prod_id');
+		$this->db->where('vede_ven_id', $id_venta);
+		$resultados= $this->db->get();
+		if ($resultados->num_rows()>0) {
 			return $resultados->result();
 		}
 	}
