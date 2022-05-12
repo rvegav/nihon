@@ -144,8 +144,8 @@ $route['store_turno'] = 'turnos/Turnos/store';
 
 $route['stock'] = 'control_stock/Control_Stock';
 $route['add_producto_stock'] = 'control_stock/Control_Stock/add';
-$route['edit_producto_stock/(:num)'] = 'control_stock/Control_Stock/edit/$1';
-$route['update_producto_stock'] = 'control_stock/Control_Stock/update';
+$route['edit_stock/(:num)'] = 'control_stock/Control_Stock/edit/$1';
+$route['update_stock'] = 'control_stock/Control_Stock/update';
 $route['store_producto_stock'] = 'control_stock/Control_Stock/store';
 
 //seguridad

@@ -45,7 +45,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
 					<div class="input-group">
-						<input value="<?php echo $inventario->inve_precio_venta ?>" type="text" id="marcaProducto" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
+						<input readonly value="<?php echo $inventario->prod_precio_venta ?>" type="text" id="marcaProducto" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
 					<div class="input-group">
-						<input value="<?php echo $inventario->inve_precio_compra ?>" type="text" id="marcaProducto" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
+						<input readonly value="<?php echo $inventario->prod_precio_compra ?>" type="text" id="marcaProducto" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -126,7 +126,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -136,7 +136,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ãšltimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -158,7 +158,7 @@
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({
-			url: "<?php echo base_url()?>update_producto_stock",
+			url: "<?php echo base_url()?>update_stock",
 			type: 'POST',
 			data: formDato
 		})
@@ -170,7 +170,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃ³n!', 
 					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
@@ -190,7 +190,7 @@
 				window.location = "<?php echo base_url()?>stock";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 		});
 	})
 

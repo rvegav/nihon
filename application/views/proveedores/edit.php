@@ -9,7 +9,7 @@
 		<form id="frm_proveedor" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-3">
-					<label for="NumCiudad">Código Proveedor<span class="required">*</span></label>
+					<label for="NumCiudad">CÃ³digo Proveedor<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="cod_proveedor" name="cod_proveedor" readonly value="<?php echo $proveedor->prov_id;?>">
 					</div>	
@@ -148,7 +148,7 @@
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sEmptyTable":     "NingÃºn dato disponible en esta tabla",
 			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -158,7 +158,7 @@
 			"sInfoThousands":  ",",
 			"oPaginate": {
 				"sFirst":    "Primero",
-				"sLast":     "Último",
+				"sLast":     "Ãšltimo",
 				"sNext":     "Siguiente",
 				"sPrevious": "Anterior"
 			},
@@ -191,7 +191,7 @@
 				var mensaje = r['alerta'];
 				wrapper.innerHTML = mensaje;
 				swal.fire({
-					title: 'Atención!', 
+					title: 'AtenciÃ³n!', 
 					html: wrapper,
 					icon: "warning",
 					columnClass: 'medium',
@@ -211,7 +211,7 @@
 				window.location = "<?php echo base_url()?>proveedores";
 			}
 		}).fail(function() {
-			alert("Se produjo un error, contacte con el soporte técnico");
+			alert("Se produjo un error, contacte con el soporte tÃ©cnico");
 		});
 	})
 

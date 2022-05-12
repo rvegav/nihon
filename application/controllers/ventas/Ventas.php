@@ -12,7 +12,7 @@
 			$this->templates = new League\Plates\Engine(APPPATH.'views');
 			$this->templates->addFolder('ventas', APPPATH.'views/ventas');
 			$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
-			$this->load->model(array('Usuarios_model','Clientes_model', 'Personas_model', 'Ventas_model', 'Agendamientos_model'));
+			$this->load->model(array('Usuarios_model','Clientes_model', 'Personas_model', 'Ventas_model', 'Agendamientos_model', 'Control_Stock_model'));
 			$this->load->library('pdf');
 			$options = new Dompdf\Options();
 			$options->setIsRemoteEnabled(true);
@@ -77,7 +77,7 @@
 						$cantidad = $producto['cantidad_nuevo'];
 						$stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id_nuevo'] );
 						$data = array(
-							'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']
+							'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad_nuevo']
 						);
 						$this->Control_Stock_model->update($stock_producto->inve_id, $data);
 					}else{

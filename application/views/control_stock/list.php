@@ -81,7 +81,7 @@
 									<td><?php echo $inventario->prod_precio_compra;?> </td>
 									<td><?php echo $inventario->inve_fecha_modificacion;?></td>
 									<td>
-										<a href="<?php echo base_url();?>edit_producto_stock/<?php echo $inventario->inve_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+										<a href="<?php echo base_url();?>edit_stock/<?php echo $inventario->inve_id;?>" class="btn btn-warning"  data-toggle="tooltip" data-placement="top" title="Reponer Stock"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

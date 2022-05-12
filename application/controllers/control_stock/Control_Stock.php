@@ -97,8 +97,6 @@
 			}else{
 				$cantidad_minima = $this->input->post("cantidad_minima");
 				$cantidad_inicial  = $this->input->post('cantidad_inicial');
-				$precio_venta = $this->input->post('precio_venta');
-				$precio_compra  = $this->input->post('precio_compra');
 				$prod_id = $this->input->post('prod_id');
 				$inve_id = $this->input->post('inve_id');
 				$time = time();
