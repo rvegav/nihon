@@ -12,13 +12,16 @@ class Auth extends CI_Controller {
 		$this->load->model(array('Usuarios_model'));
 		$this->load->library('Bcrypt');
 
+        $this->date = new Datetime();
+        setlocale(LC_TIME, 'es_ES');
+
 	}
 
 	public function index()
 	{
 
 		if ($this->session->userdata('sist_conex')!="A") {
-			$this->load->view('login_1');
+			$this->load->view('login_2');
 		}else {
 			redirect('inicio','refresh');
 		}
@@ -83,7 +86,11 @@ class Auth extends CI_Controller {
 	{
 		$this->ObtenerEstado();
 		if ($this->session->userdata('sist_conex')=="A") {
-			echo $this->templates->render('dashboard::inicio');
+			$fecha = strftime("%d de %B, %Y", $this->date->getTimestamp());
+			$data = array(
+				'fecha'=>$fecha
+			);
+			echo $this->templates->render('dashboard::inicio', $data);
 		}else {
 			redirect(base_url(),'refresh');
 		}

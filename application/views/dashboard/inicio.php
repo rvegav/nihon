@@ -1,15 +1,15 @@
 <?php $this->layout('v_master')?>
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance() ?>
+  <h4><?= $fecha ?></h4>
 <div class="row mt-4">
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box">
       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-friends"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Estetico</span>
-        9/10
-        <span class="info-box-number" id="id_cantcontratado">
+        <span class="info-box-text">Turnos Disponibles</span>
+        <span class="info-box-number" id="id_turnos_disponibles">
         </span>
       </div>
       <!-- /.info-box-content -->
@@ -25,8 +25,7 @@
 
       <div class="info-box-content">
         <span class="info-box-text">Consultorio</span>
-        8/8
-        <span class="info-box-number" id="id_contnombrados"></span>
+        <span class="info-box-number" id="id_consultorio"></span>
       </div>
       <!-- /.info-box-content -->
     </div>
@@ -38,8 +37,8 @@
       <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-signature"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">laborario</span>
-        <span class="info-box-number" id="id_contarvacantes">3/3</span>
+        <span class="info-box-text">Laborario</span>
+        <span class="info-box-number" id="id_laboratorio"></span>
       </div>
     </div>
   </div>
@@ -50,7 +49,7 @@
 
       <div class="info-box-content">
         <span class="info-box-text">Atencion Pendiente</span>
-        <span class="info-box-number" id="id_contjubilados"></span>
+        <span class="info-box-number" id="id_atencion_pendiente"></span>
       </div>
     </div>
   </div>
@@ -65,7 +64,7 @@
     consulcantijubilado();
   });
 
-  function consulcanticontra() {
+  function consulcantPendiente() {
     $.get("conta_contra",function(data){
       var val = JSON.parse(data);
 
