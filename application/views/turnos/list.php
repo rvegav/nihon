@@ -37,7 +37,7 @@
 
 		<?php if ($permiso->rol_det_insertar ==1): ?>
 			
-			<div class="col-md-2 offset-10">
+			<div class="col-md-2 offset-9">
 				<a href="<?php echo base_url()?>add_turno" class="nav-link">
 					<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Turno"><i class="fa fa-plus"></i>Agregar Turno</button>
 				</a>

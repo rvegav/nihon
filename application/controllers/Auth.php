@@ -9,11 +9,13 @@ class Auth extends CI_Controller {
 		parent::__construct();
 		$this->templates = new League\Plates\Engine(APPPATH.'views');
 		$this->templates->addFolder('dashboard', APPPATH.'views/dashboard');
-		$this->load->model(array('Usuarios_model'));
+		$this->load->model(array('Usuarios_model', 'Turnos_model', 'Agendamientos_model'));
 		$this->load->library('Bcrypt');
 
-        $this->date = new Datetime();
-        setlocale(LC_TIME, 'es_ES');
+		$this->date = new Datetime();
+		$time = time();
+		$this->fechaActual = date("Y-m-d H:i:s",$time);
+		setlocale(LC_TIME, 'es_ES');
 
 	}
 
@@ -87,8 +89,49 @@ class Auth extends CI_Controller {
 		$this->ObtenerEstado();
 		if ($this->session->userdata('sist_conex')=="A") {
 			$fecha = strftime("%d de %B, %Y", $this->date->getTimestamp());
+			$fecha_actual = date('Y-m-d');
+			$turnos = $this->Turnos_model->getTurnos();
+			if ($turnos) {
+				foreach ($turnos as $turno) {
+					$disponible=0;
+					$ocupado=0;
+					$turnosDisponibles = $this->Agendamientos_model->getDisponibilidadTurnos($fecha_actual, $turno->tur_prod_id);
+					if (!$turnosDisponibles) {
+						$cantidad_turnos = $this->Agendamientos_model->getCantTurnos($turno->tur_prod_id);
+						for ($i=0; $i < $cantidad_turnos->cantidad_disponible ; $i++) {
+							if ($i==0) {
+								$hora = date('H:i:s', strtotime($cantidad_turnos->tur_desde_hora));
+							}else{
+								$hora = date('H:i:s',strtotime($hora.'+'.$cantidad_turnos->tur_tiempo_aproximado.'minutes'));
+							}
+							$data = array(
+								'tude_tur_id'  => $cantidad_turnos->tur_id,
+								'tude_hora'  => trim($hora),
+								'tude_estado'=>'DISPONIBLE',
+								'tude_fecha'=>$fecha_actual,
+								'tude_fecha_creacion'=>$this->fechaActual,
+								'tude_fecha_modificacion'=>$this->fechaActual
+							);
+							$this->Turnos_model->insertDetalle($data);
+						}
+					}else{
+						foreach ($turnosDisponibles as $disponibilidad) {
+							if ($disponibilidad->tude_estado == 'DISPONIBLE') {
+								$disponible++;
+							}elseif ($disponibilidad->tude_estado == 'OCUPADO') {
+								$ocupado++;
+							}
+						}
+					}
+					$dato[$turno->prod_descripcion]['servicio'] = $turno->prod_descripcion;
+					$dato[$turno->prod_descripcion]['disponible'] = $disponible;
+					$dato[$turno->prod_descripcion]['ocupado'] = $ocupado;
+					
+				}
+			}
 			$data = array(
-				'fecha'=>$fecha
+				'fecha'=>$fecha, 
+				'turnos' =>$dato
 			);
 			echo $this->templates->render('dashboard::inicio', $data);
 		}else {

@@ -33,7 +33,7 @@
 	<h4>Listado de Clientes</h4>
 	<br>
 	<div class="row">
-		<div class="col-md-2 offset-10">
+		<div class="col-md-2 offset-9">
 			<a href="<?php echo base_url()?>add_cliente" class="nav-link">
 				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Cliente"><i class="fa fa-plus"></i>Agregar Clientes</button>
 			</a>

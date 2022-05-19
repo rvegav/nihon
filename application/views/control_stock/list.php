@@ -33,7 +33,7 @@
 	<h4>Inventario</h4>
 	<br>
 	<div class="row">
-		<div class="col-md-3 offset-7">
+		<div class="col-md-3 offset-6">
 			<?php if ($productos_revision>0): ?>
 				<div class="p-2 mb-2 mt-2 bg-danger text-white"><?php echo $productos_revision ?> Productos requieren revision</div>
 				

@@ -52,7 +52,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-xs-12 offset-3">
-					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
+					<button type="button" onclick="history.back()" class="btn btn-primary">Cancelar</button>
 					<button type="submit" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
@@ -65,6 +65,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Especies</h4>
+				<div class="offset-5">
+					<a href="<?php echo base_url()?>add_especie" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Especie"><i class="fa fa-plus"></i>Agregar Especies</button>
+					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -100,7 +105,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
-		var tablaEspecie = $("#tablaEspecie").DataTable({
+	var tablaEspecie = $("#tablaEspecie").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
 		'info':true,

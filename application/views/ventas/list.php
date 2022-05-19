@@ -33,7 +33,7 @@
 	<h4>Listado de Ventas</h4>
 	<br>
 	<div class="row">
-		<div class="col-md-2 offset-10">
+		<div class="col-md-2 offset-9">
 			<a href="<?php echo base_url()?>add_venta" class="nav-link">
 				<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Nueva Venta"><i class="fa fa-plus"></i>Nueva Venta</button>
 			</a>

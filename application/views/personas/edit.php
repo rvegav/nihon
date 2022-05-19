@@ -103,7 +103,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-3 offset-5">
-					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
+					<button type="button" onclick="history.back()" class="btn btn-primary">Cancelar</button>
 					<button type="submit" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>

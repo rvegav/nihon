@@ -60,7 +60,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-xs-12 offset-3">
-					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
+					<button type="button" onclick="history.back()" class="btn btn-primary">Cancelar</button>
 					<button type="submit" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
@@ -73,9 +73,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Personas</h4>
-				<a href="<?php echo base_url()?>add_persona" class="nav-link">
+				<div class="offset-4">
+					
+					<a href="<?php echo base_url()?>add_persona" class="nav-link">
 						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Persona"><i class="fa fa-plus"></i>Agregar Personas</button>
 					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">

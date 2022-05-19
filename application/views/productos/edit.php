@@ -111,7 +111,7 @@
 			<div class="row">
 
 				<div class="col-md-6 col-sm-6 col-xs-12 offset-3">
-					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
+					<button type="button" onclick="history.back()" class="btn btn-primary">Cancelar</button>
 					<button type="submit" class="btn btn-primary">Guardar</button>
 				</div>
 
@@ -160,6 +160,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Tipo de Producto</h4>
+				<div class="offset-4">
+					<a href="<?php echo base_url()?>add_tipo_producto" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Tipo Producto"><i class="fa fa-plus"></i>Agregar Tipo Producto</button>
+					</a>
+					
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">

@@ -26,7 +26,7 @@
 			<br>
 			<div class="row">
 				<div class="col-md-6 offset-3">
-					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
+					<button type="button" onclick="history.back()" class="btn btn-primary">Cancelar</button>
 					<button id="send" type="submit" class="btn btn-success">Guardar</button>
 				</div>
 			</div>
