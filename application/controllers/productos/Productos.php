@@ -114,6 +114,8 @@ class Productos extends CI_Controller
 	{
 		$data = array(
 			'producto'=> $this->Productos_model->getProductos($id),
+			'proveedores' => $this->Proveedores_model->getProveedores(),
+			'tipo_productos' => $this->Tipo_Productos_model->getTipoProductos()
 		);
 		echo $this->templates->render('productos::edit', $data);
 

@@ -66,20 +66,20 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-4 offset-3">
+						<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="text" id="precio_compra" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" id="precio_venta" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" id="precio_compra" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control">
 					</div>
 				</div>
 			</div>

@@ -23,37 +23,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Marca <span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control"  value="<?php echo $producto->prod_marca ?>">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Proveedor <span class="required">*</span></label>
-					<div id="custom-search-input">
-						<div class="input-group">
-							<input type="hidden" name="prov_id" id="prov_id" value="<?php echo $producto->prov_id ?>">	
-							<input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Buscar Proveedor" disabled="disabled" required="required" value="<?php echo $producto->prov_descripcion ?>">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#proveedor_select">
-									<span class="fa fa-search" aria-hidden="true">
-									</span>
-								</button>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
+						<div class="row">
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Tipo Producto<span class="required">*</span></label>
 					<div id="custom-search-input">
 						<div class="input-group">
-							<input type="hidden" name="tipr_id" id="tipr_id" value="<?php echo $producto->tipr_id ?>">	
+							<input type="hidden" name="tipr_id" id="tipr_id">	
 							<input type="text" name="tipo_producto" id="tipo_producto" class="form-control" placeholder="Buscar Tipo Producto" disabled="disabled" required="required" value="<?php echo $producto->tipr_descripcion ?>">
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo_producto_select">
@@ -65,19 +40,46 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
-					<div class="input-group">
-						<input type="text" id="precio_venta" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control" value="<?php echo $producto->prod_precio_venta ?>">
+			<div id="inventariable">
+				<div class="row">
+					<div class="col-md-4 offset-3">
+						<label class="" for="desCiudad">Marca <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="text" id="marcaProducto" placeholder="Marca" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="marcaProducto" class="form-control" value="<?php echo $producto->prod_marca ?>">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 offset-3">
+						<label class="" for="desCiudad">Proveedor <span class="required">*</span></label>
+						<div id="custom-search-input">
+							<div class="input-group">
+								<input type="hidden" name="prov_id" id="prov_id" value="<?php echo $producto->prov_id ?>">	
+								<input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Buscar Proveedor" disabled="disabled" required="required" value="<?php echo $producto->prov_descripcion ?>">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#proveedor_select">
+										<span class="fa fa-search" aria-hidden="true">
+										</span>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 offset-3">
+						<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="text" id="precio_compra" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control" value="<?php echo $producto->prod_precio_compra ?>">
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">Precio compra <span class="required">*</span></label>
+					<label class="" for="desCiudad">Precio venta <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="text" id="precio_compra" placeholder="Precio Compra" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_compra" class="form-control" value="<?php echo $producto->prod_precio_compra ?>">
+						<input type="text" id="precio_venta" placeholder="Precio Venta" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="precio_venta" class="form-control" value="<?php echo $producto->prod_precio_venta ?>">
 					</div>
 				</div>
 			</div>
@@ -166,6 +168,7 @@
 						<tr>
 							<th class="text-center">Codigo</th>
 							<th class="text-center">Descripcion</th>
+							<th class="text-center">Inventariable</th>
 							<th class="text-center">Operaciones</th>
 						</tr>
 					</thead>
@@ -176,6 +179,7 @@
 								<tr>
 									<td><?php echo $tipo_producto->tipr_id; ?></td>
 									<td><?php echo $tipo_producto->tipr_descripcion;?></td>
+									<td><?php echo $tipo_producto->tipr_inventariable;?></td>
 									<td><button class="btn btn-success btn-block select"><i class="fa fa-check"></i></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -192,6 +196,7 @@
 <?php $this->stop()?>
 <?php $this->push('scripts')?>
 <script type="text/javascript">
+	$('#inventariable').hide();
 	var tabla = $("#tablaProveedores").DataTable({
 		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
 		'paging':true,
@@ -227,7 +232,41 @@
 		},
 		
 	});
-
+	var tablaTipo = $("#tablaTipoProducto").DataTable({
+		'lengthMenu':[[10, 15, 20], [10, 15, 20]],
+		'paging':true,
+		'info':true,
+		'filter':true,
+		'stateSave':true,
+		'processing':true,
+		'scrollX':false,
+		'searching':true,
+		
+		'language':{
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		},
+		
+	});
 	$('#tablaProveedores tbody').on('click', 'tr', function (event) {
 		var data = tabla.row(this).data();
 		$('#prov_id').val(data[0]);
@@ -273,6 +312,17 @@
 			alert("Se produjo un error, contacte con el soporte técnico");
 		});
 	})
+	$('#tablaTipoProducto tbody').on('click', 'tr', function (event) {
+		var data = tablaTipo.row(this).data();
+		$('#tipr_id').val(data[0]);
+		$('#tipo_producto').val(data[1]);
+		if (data[2]=='S') {
+			$('#inventariable').show();
+		}else{
+			$('#inventariable').hide();
+		}
+		$('#tipo_producto_select').modal('hide');
+	} );
 
 </script>
 <?php $this->end()?>
