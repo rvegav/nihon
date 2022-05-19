@@ -39,7 +39,9 @@
 						<th class="text-center">Codigo</th>
 						<th class="text-center">Mascota</th>
 						<th class="text-center">Dueño</th>
-						<th class="text-center">Fecha de agendamiento</th>
+						<th class="text-center">Fecha de Agendamiento</th>
+						<th class="text-center">Fecha de Recepcion</th>
+						<th class="text-center">Fecha de Atencion</th>
 						<th class="text-center">Motivo</th>
 						<th class="text-center">Tipo Servicio</th>
 						<th class="text-center">Estado</th>
@@ -54,7 +56,9 @@
 								<td class="text-center"><?php echo $agendamiento->age_id; ?></td>
 								<td class="text-center"><?php echo $agendamiento->age_mascota;?></td>
 								<td class="text-center"><?php echo $agendamiento->age_duenho;?></td>
+								<td class="text-center"><?php echo $agendamiento->tude_fecha;?></td>
 								<td class="text-center"><?php echo $agendamiento->age_fecha_creacion;?></td>
+								<td class="text-center"><?php echo $agendamiento->age_fecha_atencion;?></td>
 								<td class="text-center"><?php echo $agendamiento->age_motivo_agendamiento;?></td>
 								<td class="text-center"><?php echo $agendamiento->prod_descripcion;?></td>
 

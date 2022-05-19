@@ -51,6 +51,7 @@
 						<th class="text-center">Tratante</th>
 						<th class="text-center">Atencion Requerida</th>
 						<th class="text-center">Fecha Agendamiento</th>
+						<th class="text-center">Fecha Recepcion</th>
 						<th class="text-center">Fecha Atencion</th>
 						<th class="text-center">Estado</th>
 						<th class="text-center">Operaciones</th>
@@ -65,6 +66,7 @@
 								<td><?php echo $agendamiento->age_duenho;?></td>
 								<td><?php echo $agendamiento->age_emp_atencion;?></td>
 								<td><?php echo $agendamiento->prod_descripcion;?></td>
+								<td><?php echo $agendamiento->tude_fecha;?></td>
 								<td><?php echo $agendamiento->age_fecha_creacion;?></td>
 								<td><?php echo $agendamiento->age_fecha_atencion;?></td>
 								<?php
