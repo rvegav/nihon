@@ -123,7 +123,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-									<button type="reset" class="btn btn-primary">Resetear</button>
+									<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
 									<button type="submit" class="btn btn-success">Guardar Usuario</button>
 								</div>
 							</div>

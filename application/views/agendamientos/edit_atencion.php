@@ -1,5 +1,6 @@
 <?php $this->layout('v_master')?>
 <?php $this->start('contenido')?>
+
 <?php $CI =& get_instance(); ?>
 <div class="card">
 	<div class="card-header">
@@ -7,7 +8,7 @@
 	</div>
 	<div class="card-body">
 		<h5>Detalles del agendamiento</h5>
-		<form id="frm_atencion" data-parsley-validate="" class="" action="" method="POST">
+		<form id="frm_atencion" data-parsley-validate="" class="" action="" method="POST"  enctype="multipart/form-data">
 			<table class="table table-striped">
 				<tbody>
 					<tr>
@@ -60,13 +61,33 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="image-popup"></div>
+				<div class="col-md-12 col-sm-12 col-xs-12 profile_left">
+					<div class="form-group">
+						<span class="btn btn-primary btn-file">
+							Subir archivo <input type="file" name="userfile" id="file-input">
+						</span>
+						<br>
+					</div>
+					<div class="images">
+						<a href="#">
+							<img  alt="" id="imgSalida" data-id="" data-title="" width="300" height="200">
+							<span></span>
+						</a>
+					</div>
+
+					<br>                     
+
+				</div>
+			</div>
 			<hr>
 			<div class="row">
 				<div class="col-md-10">
 					<h6>Agregar Producto</h6>
 				</div>
 				<div class="col-md-2">
-					<button type="button" id="Agregar" class="btn btn-primary"  data-placement="top" data-toggle="modal" data-target="#producto_select" title="Añadir Producto"><i class="fa fa-plus"></i>Buscar Producto</button>
+					<button type="button" id="Agregar" class="btn btn-primary"  data-placement="top" data-toggle="modal" data-target="#producto_select" title="Añadir Producto"><i class="fa fa-plus"></i> Buscar Producto</button>
 				</div>
 				<div class="col-md-12">
 					<br>
@@ -88,7 +109,7 @@
 					<h6>Agregar Servicio</h6>
 				</div>
 				<div class="col-md-2">
-					<button type="button" id="Agregar" class="btn btn-primary" data-toggle="modal" data-target="#servicio_select" title="Añadir Servicio"><i class="fa fa-plus"></i>Buscar Servicio</button>
+					<button type="button" id="Agregar" class="btn btn-primary" data-toggle="modal" data-target="#servicio_select" title="Añadir Servicio"><i class="fa fa-plus"></i> Buscar Servicio</button>
 				</div>
 				<div class="col-md-12">
 					<br>
@@ -105,7 +126,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-xs-12 offset-5">
-					<button type="reset" class="btn btn-primary">Resetear</button>
+					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
 					<button type="submit" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
@@ -448,12 +469,18 @@
 
 			});
 		}
-		var formDato = $(this).serialize();
+		// var formDato = $(this).serialize();
+		var formData = new FormData($(this)[0]);
 		// alert(datos);
+		var file = $("#file-input")[0].files[0];
+
+		formData.append('userfile', file);
 		$.ajax({
 			url: "<?php echo base_url()?>atencion_expediente",
 			type: 'POST',
-			data: formDato
+			data: formData,
+			processData: false,
+			contentType: false,
 		})
 		.done(function(result) {
 			var r = JSON.parse(result);
@@ -487,7 +514,57 @@
 		});
 		$('#frm_atencion').trigger("reset");
 	});
+	$('#file-input').change(function(e) {
+		addImage(e); 
+	});
+
+	function addImage(e){
+		var file = e.target.files[0],
+		imageType = /image.*/;
+
+		if (!file.type.match(imageType))
+			return;
+
+		var reader = new FileReader();
+		reader.onload = fileOnload;
+		reader.readAsDataURL(file);
+	}
+
+	function fileOnload(e) {
+		var result=e.target.result;
+		$('#imgSalida').attr("src",result);
+		$('#imgSalida').attr("height",'100%');
+	}
+// Container we'll use to output the image
+let image_popup = document.querySelector('.image-popup');
+// Iterate the images and apply the onclick event to each individual image
+document.querySelectorAll('.images a').forEach(img_link => {
+	img_link.onclick = e => {
+		e.preventDefault();
+		let img_meta = img_link.querySelector('img');
+		let img = new Image();
+		img.onload = () => {
+			// Create the pop out image
+			image_popup.innerHTML = `
+			<div class="con">
+			<h3>${img_meta.dataset.title}</h3>
+			<p>${img_meta.alt}</p>
+			<img src="${img.src}" width="" height="500px">
+			</div>
+			`;
+			// <a href="delete.php?id=${img_meta.dataset.id}" class="trash" title="Delete Image"><i class="fas fa-trash fa-xs"></i></a>
+			image_popup.style.display = 'flex';
+		};
+		img.src = img_meta.src;
+	};
+});
+// Hide the image popup container, but only if the user clicks outside the image
+image_popup.onclick = e => {
+	if (e.target.className == 'image-popup') {
+		image_popup.style.display = "none";
+	}
+};
 </script>
 <?php $this->end()?>
 
-<!-- /.modal -->
+

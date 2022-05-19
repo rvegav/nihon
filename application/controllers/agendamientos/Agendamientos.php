@@ -78,6 +78,7 @@ class Agendamientos extends CI_Controller
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
+
 			$turnos = $this->input->post('turnos');
 			$mascota = $this->input->post('mascota');
 			$empl_id_atencion = $this->input->post('empl_id');
@@ -208,26 +209,45 @@ class Agendamientos extends CI_Controller
 		$productos = $this->input->post('productos');
 		$servicios = $this->input->post('servicios');
 		$age_id = $this->input->post('age_id');
+		$config['upload_path']          = './uploads/';
+		$config['allowed_types']        = 'gif|jpg|png|csv|xlsx|xls';
+		$config['overwrite'] = true;
+		$config['file_name'] = $age_id;
+		$this->load->library('upload', $config);
+		if ( !$this->upload->do_upload('userfile')){
+			$error = array('error' => $this->upload->display_errors());
+			$image  ='';
+		}else{
+			$perfil = $this->upload->data();
+			$image = $perfil['file_name'];
+
+			// $data = file_get_contents('uploads/'.$perfil['file_name']);
+			// $base64 = base64_encode($data);
+			// $perfil = 'data:image/' . $perfil['image_type'] . ';base64,'.$base64;
+		}
 		$data = array(
 			'age_peso'  => $peso,
 			'age_diagnostico'  =>strtoupper( $diagnostico),
 			'age_observacion'=>strtoupper($observacion),
 			'age_fecha_atencion'=>$this->fechaActual,
-			'age_fecha_modificacion'=>$this->fechaActual
+			'age_fecha_modificacion'=>$this->fechaActual,
+			'age_imagen' =>$image
 		);
 		$this->Agendamientos_model->update($age_id, $data);
-		foreach ($productos as $producto) {
-			$data = array(
-				'agde_prod_id' => $producto['prod_id'],
-				'agde_cantidad' => $producto['cantidad'],
-				'agde_age_id' => $age_id
-			);
-			$this->Agendamientos_model->save_detalle($data);
-			$stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id'] );
-			$data = array(
-				'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']
-			);
-			$this->Control_Stock_model->update($stock_producto->inve_id, $data);
+		if ($productos) {
+			foreach ($productos as $producto) {
+				$data = array(
+					'agde_prod_id' => $producto['prod_id'],
+					'agde_cantidad' => $producto['cantidad'],
+					'agde_age_id' => $age_id
+				);
+				$this->Agendamientos_model->save_detalle($data);
+				$stock_producto = $this->Control_Stock_model->getInventarios(false, $producto['prod_id'] );
+				$data = array(
+					'inve_cantidad'=> $stock_producto->inve_cantidad - $producto['cantidad']
+				);
+				$this->Control_Stock_model->update($stock_producto->inve_id, $data);
+			}
 		}
 		foreach ($servicios as $servicio) {
 			$data = array(
@@ -287,22 +307,26 @@ class Agendamientos extends CI_Controller
 			$turnosDisponibles = $this->Agendamientos_model->getDisponibilidadTurnos($fecha, $servicio);
 			if (!$turnosDisponibles) {
 				$turno = $this->Agendamientos_model->getCantTurnos($servicio);
-				
-				for ($i=0; $i < $turno->cantidad_disponible ; $i++) {
-					if ($i==0) {
-						$hora = date('H:i:s', strtotime($turno->tur_desde_hora));
-					}else{
-						$hora = date('H:i:s',strtotime($hora.'+'.$turno->tur_tiempo_aproximado.'minutes'));
+				if ($turno) {
+					for ($i=0; $i < $turno->cantidad_disponible ; $i++) {
+						if ($i==0) {
+							$hora = date('H:i:s', strtotime($turno->tur_desde_hora));
+						}else{
+							$hora = date('H:i:s',strtotime($hora.'+'.$turno->tur_tiempo_aproximado.'minutes'));
+						}
+						$data = array(
+							'tude_tur_id'  => $turno->tur_id,
+							'tude_hora'  => trim($hora),
+							'tude_estado'=>'DISPONIBLE',
+							'tude_fecha'=>$fecha,
+							'tude_fecha_creacion'=>$this->fechaActual,
+							'tude_fecha_modificacion'=>$this->fechaActual
+						);
+						$this->Turnos_model->insertDetalle($data);
 					}
-					$data = array(
-						'tude_tur_id'  => $turno->tur_id,
-						'tude_hora'  => trim($hora),
-						'tude_estado'=>'DISPONIBLE',
-						'tude_fecha'=>$fecha,
-						'tude_fecha_creacion'=>$this->fechaActual,
-						'tude_fecha_modificacion'=>$this->fechaActual
-					);
-					$this->Turnos_model->insertDetalle($data);
+					
+				}else{
+					$data['error'] = 'No existe un Turno asociado al servicio seleccionado';
 				}
 			}
 			$item = 1;

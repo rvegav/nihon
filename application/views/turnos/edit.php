@@ -15,14 +15,14 @@
 					</div>	
 				</div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-md-4 offset-3">
 					<label class="" for="desTurno">Descripcion <span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" id="desTurno" placeholder="Descripcion" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="desTurno" class="form-control" value="<?php echo $turno->tur_descripcion ?>">
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<label class="" for="hora_desde">Hora Desde <span class="required">*</span></label>
@@ -88,7 +88,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-xs-12 offset-3">
-					<button type="reset" class="btn btn-primary">Resetear</button>
+					<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
 					<button type="submit" class="btn btn-success">Guardar</button>
 				</div>
 			</div>

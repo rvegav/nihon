@@ -22,6 +22,7 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/bootstrap-select/css/bootstrap-select.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/confirm/dist/jquery-confirm.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/sweetalert2.min.css">
+ <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/style_gallery.css">
 
   <!-- Bootstrap Table-->
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/bootstrap-table/bootstrap-table.min.css">

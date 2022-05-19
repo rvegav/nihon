@@ -51,7 +51,7 @@
 			<div class="row">
 				<!-- <div class="form-group"> -->
 					<div class="col-md-6 col-sm-6 col-xs-12 offset-3">
-						<button type="reset" class="btn btn-primary">Resetear</button>
+						<button type="button" onclick="location.href=document.referrer" class="btn btn-primary">Cancelar</button>
 						<button type="submit" class="btn btn-success">Guardar</button>
 					</div>
 					<!-- </div> -->

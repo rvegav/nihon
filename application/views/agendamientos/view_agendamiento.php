@@ -1,4 +1,4 @@
-<?php $this->layout('v_master')?>
+p<?php $this->layout('v_master')?>
 <?php $this->start('contenido')?>
 <?php $CI =& get_instance(); ?>
 <div class="card">
@@ -60,6 +60,20 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="image-popup"></div>
+				<div class="col-md-12 col-sm-12 col-xs-12 profile_left">
+					<div class="images">
+						<a href="#">
+							<img  src="<?php echo base_url() ?>uploads/<?php echo $agenda->age_imagen ?>" data-id="" data-title="" width="300" height="200">
+							<span></span>
+						</a>
+					</div>
+
+					<br>                     
+
+				</div>
+			</div>
 			<hr>
 			<div class="row">
 				<div class="col-md-12">
@@ -75,13 +89,16 @@
 								<th>Cantidad</th>
 							</thead>
 							<tbody>
-								<?php foreach ($productos as $producto): ?>
-									<tr>
-										<td><?php echo $producto->prod_id ?></td>
-										<td><?php echo $producto->prod_descripcion; ?></td>
-										<td><?php echo $producto->agde_cantidad; ?></td>
-									</tr>
-								<?php endforeach ?>
+								<?php if ($productos): ?>
+									
+									<?php foreach ($productos as $producto): ?>
+										<tr>
+											<td><?php echo $producto->prod_id ?></td>
+											<td><?php echo $producto->prod_descripcion; ?></td>
+											<td><?php echo $producto->agde_cantidad; ?></td>
+										</tr>
+									<?php endforeach ?>
+								<?php endif ?>
 							</tbody>
 						</table>
 					</div>
@@ -129,6 +146,31 @@
 		window.location = prevUrl;
 
 	})
-	
+	let image_popup = document.querySelector('.image-popup');
+	document.querySelectorAll('.images a').forEach(img_link => {
+		img_link.onclick = e => {
+			e.preventDefault();
+			let img_meta = img_link.querySelector('img');
+			let img = new Image();
+			img.onload = () => {
+				
+				image_popup.innerHTML = `
+				<div class="con">
+				<h3>${img_meta.dataset.title}</h3>
+				<p>${img_meta.alt}</p>
+				<img src="${img.src}" width="" height="500px">
+				</div>
+				`;
+				image_popup.style.display = 'flex';
+			};
+			img.src = img_meta.src;
+		};
+	});
+	image_popup.onclick = e => {
+		if (e.target.className == 'image-popup') {
+			image_popup.style.display = "none";
+		}
+	};
+
 </script>
 <?php $this->end()?>
