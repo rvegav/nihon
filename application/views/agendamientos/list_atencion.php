@@ -69,8 +69,10 @@
 								}else{
 									if($estado == 2){
 										$estado2     = "Atendido";$label_class = 'label-warning';
-									}else{
+									}elseif($estado==3){
 										$estado2     = "Anulado";$label_class = 'label-danger';
+									}else{
+										$estado2     = "Expirado";$label_class = 'label-danger';
 									}
 								}
 								;?>

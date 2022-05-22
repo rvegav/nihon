@@ -6,7 +6,7 @@
 		<h4>Agregar Rol</h4>
 	</div>
 	<div class="card-body">
-		<form id="rol" data-parsley-validate="" class="form-horizontal form-label-left" action="<?php echo base_url()?>store_rol" method="POST" novalidate="">
+		<form id="frm_rol" data-parsley-validate="" class="form-horizontal form-label-left" action="<?php echo base_url()?>store_rol" method="POST" novalidate="">
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<label for="NumRol">Código Rol<span class="required">*</span></label>
@@ -54,7 +54,7 @@
 				<div class="form-group col-md-1">
 					<div class="">
 						<label for="insert">Insertar</label>
-						<input type="checkbox" class="flat" id="Insert" value="" name="insert_detalle[]">
+						<input type="checkbox" class="flat" id="Insert" value="">
 					</div>
 				</div>
 				<div class="form-group col-md-1">
@@ -175,7 +175,7 @@
 		html += '<td>';
 		html += '<table class="table table-responsive"> <thead>';
 		html += '<td>';
-		html += '<input type="checkbox" class="flat" disabled id="insert_detalle" name="modulo['+pantalla+'][insert]"';
+		html += '<input type="checkbox" class="permisos" disabled id="insert_detalle" name="modulo['+pantalla+'][insert]"';
 		if ($('#Insert').is(':checked')) {
 			html += "checked > Insertar";
 		}else{
@@ -183,8 +183,8 @@
 		};
 		html += '</td>';
 		html += '<td>';
-		html += '<input type="checkbox" class="flat" disabled id="update_detalle" name="modulo['+pantalla+'][update]"';
-		// html += '<input type="checkbox" class="flat" disabled id="update_detalle" name="permiso['+$("#pantalla option:selected").val()+']["update"]"';
+		html += '<input type="checkbox" class="permisos" disabled id="update_detalle" name="modulo['+pantalla+'][update]"';
+		// html += '<input type="checkbox" class="permisos" disabled id="update_detalle" name="permiso['+$("#pantalla option:selected").val()+']["update"]"';
 		if ($('#Update').is(':checked')) {
 			html += " checked > Actualizar";
 		}else{	
@@ -192,7 +192,7 @@
 		};
 		html += '</td>';
 		html += '<td>';
-		html += '<input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo['+pantalla+'][delete]"';
+		html += '<input type="checkbox" class="permisos" disabled id="delete_detalle" name="modulo['+pantalla+'][delete]"';
 		if ($('#Delete').is(':checked')) {
 			html += " checked > Eliminar";
 		}else{
@@ -200,7 +200,7 @@
 		};
 		html += '</td>';
 		html += '<td>';
-		html += '<input type="checkbox" class="flat" disabled id="select_detalle" name="modulo['+pantalla+'][select]"';
+		html += '<input type="checkbox" class="permisos" disabled id="select_detalle" name="modulo['+pantalla+'][select]"';
 		if ($('#select').is(':checked')) {
 			html += " checked > Visualizar";
 		}else{
@@ -245,26 +245,47 @@
 			}
 		});
 
-		$('#send').click(function(){    	
-			
-			var inputValue = $('#desRol').val();        
-			$('.flat').prop('disabled', false);		
-			// $('#update_detalle').prop('disabled', false);		
-			// $('#delete_detalle').prop('disabled', false);		
-			// $('#select_detalle').prop('disabled', false);		
-			if ($.trim(inputValue).length < 1) 
-			{
-				swal.fire( "Debe introducir descripcion del Rol" ) ;
-				return false;
-			}
+		$("#frm_rol").submit(function(event) {
+			event.preventDefault();		
+			$('.permisos').prop('disabled', false);
+			var formDato = $(this).serialize();
+			$('.permisos').prop('disabled', 'disabled');
+			$.ajax({
+				url: "<?php echo base_url()?>store_rol",
+				type: 'POST',
+				data: formDato
+			})
+			.done(function(result) {
+				var r = JSON.parse(result);
+				const wrapper = document.createElement('div');
+				if (r['alerta']!="") {
+					var mensaje = r['alerta'];
+					wrapper.innerHTML = mensaje;
+					swal.fire({
+						title: 'Atención!', 
+						html: wrapper,
+						icon: "warning",
+						columnClass: 'medium',
+					});
+				}
+				if (r['error']!="") {
+					wrapper.innerHTML = r['error'];
+					swal.fire({
+						icon: "error",
+						columnClass: 'medium',
+						theme: 'modern',
+						title: 'Error!',
+						html: wrapper,
+					});
+				}
+				if (r['correcto']!="") {
+					window.location = "<?php echo base_url()?>roles";
+				}
 
-			if ($.trim('#table').length < 1) 
-			{
-				swal ( "Debe introducir pantalla" ) ;
-				return false;
-			}
-
-		});
+			}).fail(function() {
+				alert("Se produjo un error, contacte con el soporte técnico");
+			});
+		})
 
 	});
 

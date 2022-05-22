@@ -109,6 +109,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Proveedores</h4>
+				<div class="col-md-2 offset-5">
+					<a href="<?php echo base_url()?>add_proveedor" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Proveedor">Agregar Proveedor</button>
+					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">

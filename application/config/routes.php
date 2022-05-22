@@ -168,7 +168,7 @@ $route['view_rol_usuario'] = 'usuarios/Usuarios/view';
 $route['generar_pass'] = 'usuarios/Usuarios/generarContrasena';
 
 $route['procesar_login'] = 'Auth/ProcesoLogin';
-$route['inicio'] = 'Auth/Inicio';
+$route['inicio'] = 'Auth/inicio';
 $route['cerrar_sesion'] = 'Auth/cerrarSesion';
 
 

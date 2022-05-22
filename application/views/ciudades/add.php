@@ -80,7 +80,7 @@
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>ciudades";
+				window.location = document.referrer;
 			}
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");

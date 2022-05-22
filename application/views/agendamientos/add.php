@@ -382,7 +382,7 @@
 	} );
 	var tablaDisponibilidad = $("#tablaDisponibilidad").DataTable({
 		'lengthChange':false,
-		'lengthMenu':[3],
+		'lengthMenu':[6],
 		'paging':true,
 		'info':false,
 		'filter':true,
@@ -473,17 +473,12 @@
 			data: {servicio_consulta:servicio, fecha_consulta:fecha}
 		})
 		.done(function(result) {
-			if (result['error']!='') {
-				Swal.fire({
-					type:'error',
-					title:'Error!',
-					text:'No se puede seleccionar un turno ocupado!',
-				});
-			}
+			console.log(result);
 			if (result['data'] !='') {
 				tablaDisponibilidad.ajax.reload();
 			}
-		}).fail(function() {
+		}).fail(function(data) {
+			console.log(data);
 			alert("Se produjo un error, contacte con el soporte técnico");
 		});
 	});

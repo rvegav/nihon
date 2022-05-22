@@ -89,6 +89,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Personas</h4>
+				<div class="col-md-2 offset-5">
+					<a href="<?php echo base_url()?>add_persona" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Persona"><i class="fa fa-plus"></i>Agregar Persona</button>
+					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -129,6 +134,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Ocupaciones</h4>
+				<div class="col-md-2 offset-5">
+					<a href="<?php echo base_url()?>add_ocupacion" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Ocupacion"><i class="fa fa-plus"></i>Agregar Ocupacion</button>
+					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">

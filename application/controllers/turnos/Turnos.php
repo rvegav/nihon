@@ -55,7 +55,7 @@ class Turnos extends CI_Controller
 	public function store()
 	{
 		$mensajes= $this->data;
-		$this->form_validation->set_rules("desTurno", "Descripcion", "required");
+		// $this->form_validation->set_rules("desTurno", "Descripcion", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
 		$this->form_validation->set_rules("hora_desde", "Hora Desde", "required");
 		$this->form_validation->set_rules("hora_hasta", "Hora Hasta", "required");
@@ -66,7 +66,7 @@ class Turnos extends CI_Controller
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
-			$desTurno   = $this->input->post("desTurno");
+			// $desTurno   = $this->input->post("desTurno");
 			$estado = $this->input->post('estado');
 			$hora_desde = $this->input->post('hora_desde');
 			$hora_hasta = $this->input->post('hora_hasta');
@@ -78,7 +78,7 @@ class Turnos extends CI_Controller
 			$data = array(
 				'tur_id'  => $idTurno->MAXIMO,
 				'tur_prod_id' =>$prod_id,
-				'tur_descripcion'  => trim($desTurno),
+				// 'tur_descripcion'  => trim($desTurno),
 				'tur_desde_hora'  => trim($hora_desde),
 				'tur_hasta_hora'  => trim($hora_hasta),
 				'tur_tiempo_aproximado'  => trim($tiempo_aproximado),
@@ -86,8 +86,8 @@ class Turnos extends CI_Controller
 				'tur_fecha_modificacion'  => $fechaActual,
 				'tur_estado' => $estado
 			);
-			if($this->Turnos_model->validarExiste($desTurno)){
-				$mensajes['error']= 'Ya exist un turno con la misma descripcion';
+			if($this->Turnos_model->validarExiste($prod_id)){
+				$mensajes['error']= 'Ya existe un turno con la misma descripcion';
 			}else{
 				if($this->Turnos_model->save($data)){
 					$mensajes['correcto'] = 'correcto';
@@ -118,7 +118,7 @@ class Turnos extends CI_Controller
 	{
 		$mensajes = $this->data;
 		$idTurno= $this->input->post("NumTurno");
-		$this->form_validation->set_rules("desTurno", "Descripcion", "required");
+		// $this->form_validation->set_rules("desTurno", "Descripcion", "required");
 		$this->form_validation->set_rules("estado", "Estado", "required");
 		$this->form_validation->set_rules("hora_desde", "Hora Desde", "required");
 		$this->form_validation->set_rules("hora_hasta", "Hora Hasta", "required");
@@ -129,7 +129,7 @@ class Turnos extends CI_Controller
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>'); 
 
 		}else{
-			$desTurno   = $this->input->post("desTurno");
+			// $desTurno   = $this->input->post("desTurno");
 			$estado = $this->input->post('estado');
 			$hora_desde = $this->input->post('hora_desde');
 			$hora_hasta = $this->input->post('hora_hasta');
@@ -139,7 +139,7 @@ class Turnos extends CI_Controller
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$data = array(
-				'tur_descripcion'  => trim($desTurno),
+				// 'tur_descripcion'  => trim($desTurno),
 				'tur_prod_id' =>$prod_id,
 				'tur_desde_hora'  => trim($hora_desde),
 				'tur_hasta_hora'  => trim($hora_hasta),

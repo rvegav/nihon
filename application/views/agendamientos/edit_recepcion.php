@@ -27,7 +27,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-
+					<input type="hidden" name="mascota" value="<?php echo $agenda->age_mas_id ?>">
 					<div class="table-responsive">
 						<table class="table table-striped" id="tablaPaciente" width="100%">
 							<thead>
@@ -54,7 +54,7 @@
 				<div class="col-md-6">
 					<label for="fecha_agendamiento">Fecha de Agendamiento<span class="required">*</span></label>
 					<div class="input-group">
-						<input type="date" class="form-control" id="fecha_agendamiento" name="fecha_agendamiento" value="<?php echo $agenda->tude_fecha ?>">
+						<input type="date" class="form-control" id="fecha_agendamiento" name="fecha_agendamiento" value="<?php echo $agenda->tude_fecha_sin_formato ?>">
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-primary" id="consulta_disponibilidad">
 								<span class="fa fa-search" aria-hidden="true">
@@ -95,8 +95,10 @@
 					}else{
 						if($estado == 2){
 							$estado2     = "Atendido";$label_class = 'label-warning';
-						}else{
+						}elseif($estado == 3){
 							$estado2     = "Anulado";$label_class = 'label-danger';
+						}else{
+							$estado2     = "Expirado";$label_class = 'label-danger';
 						}
 					}
 					;?>
@@ -270,7 +272,6 @@
 
 	$("#frm_agendamiento").submit(function(event) {
 		event.preventDefault();
-		event.preventDefault();
 		// var tabla = $('#tablaPaciente').DataTable();
 		if (tablaPaciente) {
 
@@ -347,6 +348,13 @@
 			"type":"POST",
 			"data":function(data){
 				data.clie_id=$('#clie_id').val();
+			}
+		},
+		"createdRow": function(row, data, index){
+			var mascota = "<?php echo $agenda->age_mas_id ?>";
+			
+			if (mascota == data.MAS_ID) {
+				$(row).addClass("selected");
 			}
 		},
 		'columns':[

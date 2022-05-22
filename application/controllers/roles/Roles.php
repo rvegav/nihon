@@ -95,50 +95,58 @@ class Roles extends CI_Controller
 	public function store()
 	{
 		$mensajes= $this->data;
-
 		// $this->comprobacionRoles();
 		// recibimos las variables
 		$this->form_validation->set_rules("desRol", "Descripcion", "required");
-		$this->form_validation->set_rules("modulo", "Modulos", "required");
+		// $this->form_validation->set_rules("modulo", "Modulo", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>');
 		}else{
 			$modulos = $this->input->post('modulo');
-			$NumRol   = $this->input->post("NumRol");
-			$descripcion   = $this->input->post("desRol");
-			$idRol = $this->Rol_model->ultimoNumero();
-			$time = time();
-			$fechaActual = date("Y-m-d H:i:s",$time);
-			$data = array(
-				'rol_id'  => $idRol->MAXIMO,
-				'rol_descripcion'  => $descripcion,
-				'rol_fecha_creacion'  => $fechaActual,
-				'rol_fecha_modificacion' => $fechaActual
-			);
-			if($this->Rol_model->save($data))
-			{
-				//si todo esta bien, emitimos mensaje
-				$this->session->set_flashdata('success', 'Rol registrado correctamente!');
-				$rol_id = $this->Rol_model->ultimoInsert();
-				foreach ($modulos as $modulo) {
-					$data = array(
-						'rol_det_rol_id'=>$rol_id->rol_id,
-						'rol_det_pant_id' => $modulo['pantalla'], 
-						'rol_det_insertar' => isset($modulo['insert']),
-						'rol_det_actualizar'=>isset($modulo['update']),
-						'rol_det_borrar'=>isset($modulo['delete']),
-						'rol_det_visualizar'=>isset($modulo['select']),
-						'rol_det_fecha_creacion'=> $fechaActual,
-						'rol_det_fecha_modificacion' => $fechaActual
-					);
-					$this->Rol_model->save_detalle($data);
+			if (count($modulos)>0) {
+				$NumRol   = $this->input->post("NumRol");
+				$descripcion   = $this->input->post("desRol");
+				$idRol = $this->Rol_model->ultimoNumero();
+				$time = time();
+				$fechaActual = date("Y-m-d H:i:s",$time);
+				$data = array(
+					'rol_id'  => $idRol->MAXIMO,
+					'rol_descripcion'  => $descripcion,
+					'rol_fecha_creacion'  => $fechaActual,
+					'rol_fecha_modificacion' => $fechaActual
+				);
+				if($this->Rol_model->save($data))
+				{
+					//si todo esta bien, emitimos mensaje
+					$this->session->set_flashdata('success', 'Rol registrado correctamente!');
+					$rol_id = $this->Rol_model->ultimoInsert();
+					foreach ($modulos as $modulo) {
+						$data = array(
+							'rol_det_rol_id'=>$rol_id->rol_id,
+							'rol_det_pant_id' => $modulo['pantalla'], 
+							'rol_det_insertar' => isset($modulo['insert']),
+							'rol_det_actualizar'=>isset($modulo['update']),
+							'rol_det_borrar'=>isset($modulo['delete']),
+							'rol_det_visualizar'=>isset($modulo['select']),
+							'rol_det_fecha_creacion'=> $fechaActual,
+							'rol_det_fecha_modificacion' => $fechaActual
+						);
+						$this->Rol_model->save_detalle($data);
+					}
+					$mensajes['correcto'] = 'correcto';
+
+					// redirect(base_url()."roles/roles", "refresh");
+				}else{
+					$this->session->set_flashdata('error', 'Rol no registrado!');
+					$mensajes['error'] = 'Rol no registrado!';
+
+					// redirect(base_url()."roles/roles/add", "refresh");
 				}
-				redirect(base_url()."roles/roles", "refresh");
 			}else{
-				$this->session->set_flashdata('error', 'Rol no registrado!');
-				redirect(base_url()."roles/roles/add", "refresh");
+				$mensajes['alerta'] ='<b style="color:red"><ul><li>Es necesario que elija al menos un modulo</li></ul>';
 			}
 		}
+		echo json_encode($mensajes);
 	}
 
 	//metodo para editar

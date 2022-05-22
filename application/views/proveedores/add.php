@@ -84,6 +84,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Ciudades</h4>
+				<div class="col-md-2 offset-5">
+				<a href="<?php echo base_url()?>add_ciudad" class="nav-link">
+					<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Ciudad"><i class="fa fa-plus"></i>Agregar Ciudad</button>
+				</a>
+			</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -193,7 +198,7 @@
 				});
 			}
 			if (r['correcto']!="") {
-				window.location = "<?php echo base_url()?>proveedores";
+				window.location = document.referrer;
 			}
 		}).fail(function() {
 			alert("Se produjo un error, contacte con el soporte técnico");

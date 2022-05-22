@@ -44,7 +44,7 @@
 				<div class="col-md-4 offset-3">
 					<label class="" for="desCiudad">Fecha de Nacimiento <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="date" id="fecha_nacimiento" placeholder="Fecha de Nacimiento" font style="text-transform: uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase ();"   name="fecha_nacimiento" class="form-control">
+						<input type="date" id="fecha_nacimiento" placeholder="Fecha de Nacimiento"  name="fecha_nacimiento" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -91,6 +91,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Raza</h4>
+				<div class="col-md-2 offset-5">
+					<a href="<?php echo base_url()?>add_raza" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Raza"><i class="fa fa-plus"></i>Agregar Razas</button>
+					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -129,6 +134,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Lista de Clientes</h4>
+				<div class="col-md-2 offset-5">
+					<a href="<?php echo base_url()?>add_cliente" class="nav-link">
+						<button type="button" id="Agregar" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Cliente"><i class="fa fa-plus"></i>Agregar Clientes</button>
+					</a>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">

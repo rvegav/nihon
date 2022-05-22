@@ -11,7 +11,7 @@ class Agendamientos_model extends CI_Model {
 	}
 	public function getAgendamiento($id = false, $empl_id = false, $mas_id = false, $estado = false){
 		$this->db->select('a.age_id, a.age_fecha_creacion age_agendamiento, CONCAT(p.per_nombre, " ", p.per_apellido) age_duenho,
-			m.mas_nombre age_mascota, CONCAT(pe.per_nombre, " ", pe.per_apellido) age_emp_atencion, a.age_estado, DATE_FORMAT(a.age_fecha_creacion,"%d/%m/%Y") age_fecha_creacion, DATE_FORMAT(a.age_fecha_atencion,"%d/%m/%Y") age_fecha_atencion, a.age_mas_id,c.clie_id, DATE_FORMAT(t.tude_fecha,"%d/%m/%Y") tude_fecha, pr.prod_descripcion, pr.prod_id, t.tude_id, e.empl_id age_emo_id_atencion, a.age_motivo_agendamiento, a.age_edad_paciente, a.age_diagnostico, a.age_observacion, a.age_peso, CONCAT(pe.per_nombre, " ", pe.per_apellido) empl_atencion, c.clie_ruc, a.age_imagen');
+			m.mas_nombre age_mascota, CONCAT(pe.per_nombre, " ", pe.per_apellido) age_emp_atencion, a.age_estado, DATE_FORMAT(a.age_fecha_creacion,"%d/%m/%Y") age_fecha_creacion, DATE_FORMAT(a.age_fecha_atencion,"%d/%m/%Y") age_fecha_atencion, a.age_mas_id,c.clie_id, DATE_FORMAT(t.tude_fecha,"%d/%m/%Y") tude_fecha, t.tude_fecha tude_fecha_sin_formato, pr.prod_descripcion, pr.prod_id, t.tude_id, e.empl_id age_emo_id_atencion, a.age_motivo_agendamiento, a.age_edad_paciente, a.age_diagnostico, a.age_observacion, a.age_peso, CONCAT(pe.per_nombre, " ", pe.per_apellido) empl_atencion, c.clie_ruc, a.age_imagen, a.age_mas_id');
 		$this->db->from('agendamientos a');
 		$this->db->join('mascotas m', 'm.mas_id = a.age_mas_id');
 		$this->db->join('clientes c', 'c.clie_id = m.mas_clie_id');
@@ -108,6 +108,26 @@ class Agendamientos_model extends CI_Model {
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {
 			return $resultados->result();
+		}else{
+			return false;
+		}
+	}
+	public function modificaEstado(){
+		$this->db->where('tude_fecha <', 'sysdate()', false);
+		$this->db->where('age_estado', 1);
+		$this->db->select('age_id');
+		$this->db->from('agendamientos');
+		$this->db->join('turno_detalles', 'age_tude_id = tude_id');
+		$consulta = $this->db->get();
+		$array=array();
+		foreach ($consulta->result() as $resultado) {
+			$array[]=$resultado->age_id;
+		}
+		if (count($array)>0 ) {
+			$this->db->where_in('age_id', $array );
+			$this->db->set('age_estado', 4);
+			return $this->db->update('agendamientos');
+			
 		}else{
 			return false;
 		}

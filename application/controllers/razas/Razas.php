@@ -77,7 +77,7 @@ class Razas extends CI_Controller
 			);
 			$desRaza = trim($desRaza);
 			if($this->Razas_model->validarExiste($desRaza)){
-				$mensajes['error']= 'Ya existe una ciudad con la misma descripcion';
+				$mensajes['error']= 'Ya existe una Raza con la misma descripcion';
 			}else{
 				if($this->Razas_model->save($data)){
 					$mensajes['correcto'] = 'correcto';

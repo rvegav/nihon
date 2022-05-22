@@ -6,7 +6,7 @@
 		<h4>Agregar Cliente</h4>
 	</div>
 	<div class="card-body">
-		<form id="frm_ciudad" data-parsley-validate="" class="" action="" method="POST">
+		<form id="frm_cliente" data-parsley-validate="" class="" action="" method="POST">
 			<div class="row">
 				<div class="col-md-4 offset-3">
 					<label for="num_cliente">Código Cliente<span class="required">*</span></label>
@@ -34,7 +34,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 offset-3">
-					<label class="" for="desCiudad">RUC<span class="required">*</span></label>
+					<label class="" for="RUC">RUC<span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" name="ruc" id="ruc">	
 					</div>
@@ -160,12 +160,13 @@
 		var registro = $(this).parents('tr');
 		var data = tablaPersona.row(registro).data();
 		$('#per_id').val(data[0]);
+		$('#ruc').val(data[3]);
 		$('#persona').val(data[1]+' '+data[2]);
 		$('#persona_select').modal('hide');
 	} );
 
 
-	$("#frm_ciudad").submit(function(event) {
+	$("#frm_cliente").submit(function(event) {
 		event.preventDefault();		
 		var formDato = $(this).serialize();
 		$.ajax({

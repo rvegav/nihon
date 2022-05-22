@@ -76,16 +76,20 @@
 								}else{
 									if($estado == 2){
 										$estado2     = "Atendido";$label_class = 'label-warning';
-									}else{
+									}elseif($estado == 3){
 										$estado2     = "Anulado";$label_class = 'label-danger';
+									}else{
+										$estado2     = "Expirado";$label_class = 'label-danger';
 									}
 								}
 								;?>
 								<td><?php echo $estado2 ?></span></td>
 								<td>
-									<a href="<?php echo base_url();?>edit_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<?php if ($estado == 1 or $estado ==4): ?>
+										<a href="<?php echo base_url();?>edit_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+									<?php endif ?>
 									<?php if ($estado ==2): ?>
-										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-cash"></i></a>
+										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-success btn-delete eliminar"><i class="fa fa-money-bill"></i></a>
 									<?php else: ?>
 										<a href="<?php echo base_url();?>delete_agendamiento/<?php echo $agendamiento->age_id;?>" class="btn btn-danger btn-delete eliminar"><i class="fa fa-trash"></i></a>
 

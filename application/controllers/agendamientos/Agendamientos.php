@@ -17,6 +17,8 @@ class Agendamientos extends CI_Controller
 		$this->comprobacionRoles();
 		$time = time();
 		$this->fechaActual = date("Y-m-d H:i:s",$time);
+		$this->Agendamientos_model->modificaEstado();
+
 	}
 	public function comprobacionRoles()
 	{
@@ -131,6 +133,10 @@ class Agendamientos extends CI_Controller
 	public function update()
 	{
 		$mensajes= $this->data;
+			// echo "<pre>";
+			// print_r ($_POST);
+			// echo "</pre>";
+			// die();
 		$this->form_validation->set_rules("mascota", "Paciente", "required");
 		$this->form_validation->set_rules("empl_id", "Empleado", "required");
 		if ($this->form_validation->run() == FALSE){
@@ -139,6 +145,7 @@ class Agendamientos extends CI_Controller
 		}else{
 			$turnos = $this->input->post('turnos');
 			$mascota = $this->input->post('mascota');
+			$age_id = $this->input->post('age_id');
 			$empl_id_atencion = $this->input->post('empl_id');
 			$razon = $this->input->post('razon');
 			$estado = $this->input->post('estado');
@@ -302,7 +309,6 @@ class Agendamientos extends CI_Controller
 		$fecha = $this->input->post('fecha_consulta');
 		$servicio = $this->input->post('servicio_consulta');
 		$turno = $this->Agendamientos_model->getCantTurnos(4);
-
 		if ($fecha and $servicio) {
 			$turnosDisponibles = $this->Agendamientos_model->getDisponibilidadTurnos($fecha, $servicio);
 			if (!$turnosDisponibles) {
@@ -330,12 +336,15 @@ class Agendamientos extends CI_Controller
 				}
 			}
 			$item = 1;
+			$datos = array();
+			$turnosDisponibles = $this->Agendamientos_model->getDisponibilidadTurnos($fecha, $servicio);
+			
 			foreach ($turnosDisponibles as $turno) {
 				$array = [];
 				$array['ITEM'] = $item;
 				setlocale(LC_ALL, 'Spanish_Paraguay');
 				$dia = strftime('%A', strtotime($turno->tude_fecha));
-				$array['DIA'] = strtoupper($dia);
+				$array['DIA'] = utf8_encode(strtoupper($dia));
 				$array['HORA'] = $turno->tude_hora;
 				$array['ESTADO'] = $turno->tude_estado;
 				$array['ID'] = $turno->tude_id;
@@ -346,7 +355,9 @@ class Agendamientos extends CI_Controller
 		}else{
 			$data['data'] =[];
 		}
-		echo json_encode($data);
+		// header("Content-Type: application/json; charset=utf-8", true);
+		echo json_encode($data, JSON_UNESCAPED_UNICODE);
+		// return $this->output->set_output(json_encode($data, JSON_UNESCAPED_UNICODE));
 	}
 	public function getServicio(){
 		$age_id = $this->input->post('age_id');

@@ -40,10 +40,10 @@ class Turnos_model extends CI_Model {
 		return $this->db->update("turnos");
 	}
 
-	public function validarExiste($descripcion){
+	public function validarExiste($prod_id){
 	    $this->db->select("tur_id");
 		$this->db->from("turnos");
-		$this->db->where("tur_descripcion", $descripcion);
+		$this->db->where("tur_prod_id", $prod_id);
 		$resultados= $this->db->get();
 		if($resultados->num_rows()>0){
 			return true;
