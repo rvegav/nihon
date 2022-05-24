@@ -14,17 +14,17 @@ class Agendamientos extends CI_Controller
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
 		$this->load->model(array('Usuarios_model','Agendamientos_model', 'Turnos_model','Clientes_model', 'Razas_model', 'Empleados_model', 'Mascotas_model', 'Productos_model', 'Control_Stock_model'));
 
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 		$time = time();
 		$this->fechaActual = date("Y-m-d H:i:s",$time);
 		$this->Agendamientos_model->modificaEstado();
 
 	}
-	public function comprobacionRoles()
+	public function comprobacionRoles($pantalla)
 	{
 		$usuario = $this->session->userdata("sist_usuname");
 		$idmodulo = 2;
-		$pantalla = 2;
+		$pantalla = $pantalla;
 		if ($this->session->userdata('sist_conex')=='A') {
 			if (!$this->Usuarios_model->getPermisosRol($usuario, $pantalla,$idmodulo)) {
 				redirect(base_url());
@@ -44,6 +44,8 @@ class Agendamientos extends CI_Controller
 		echo $this->templates->render('agendamientos::list', $data);
 	}
 	public function recepcion(){
+		$this->comprobacionRoles(17);
+
 		$data = array(
 			'agendamientos'=> $this->Agendamientos_model->getAgendamiento()
 		);
@@ -51,6 +53,8 @@ class Agendamientos extends CI_Controller
 	}
 
 	public function atencion(){	
+		$this->comprobacionRoles(18);
+
 		$empl_id = $this->session->userdata('sist_empl_id');	
 		$data = array(
 			'agendamientos'=> $this->Agendamientos_model->getAgendamiento(false, $empl_id)
@@ -72,6 +76,7 @@ class Agendamientos extends CI_Controller
 	//funcion vista
 	public function store()
 	{
+		$this->comprobacionRoles(17);
 
 		$mensajes= $this->data;
 		$this->form_validation->set_rules("mascota", "Paciente", "required");
@@ -119,6 +124,7 @@ class Agendamientos extends CI_Controller
 	}
 	public function edit($id)
 	{
+		$this->comprobacionRoles(17);
 		$data = array(
 
 			'agenda'=> $this->Agendamientos_model->getAgendamiento($id),
@@ -132,6 +138,8 @@ class Agendamientos extends CI_Controller
 	}
 	public function update()
 	{
+		$this->comprobacionRoles(17);
+
 		$mensajes= $this->data;
 			// echo "<pre>";
 			// print_r ($_POST);
@@ -177,15 +185,17 @@ class Agendamientos extends CI_Controller
 	{
 		if($this->Agendamientos_model->delete($id)){
 			$this->session->set_flashdata('success', 'Eliminado correctamente!');
-			redirect(base_url()."productos", "refresh");
+			// redirect(base_url()."productos", "refresh");
 		}else{
 			$this->session->set_flashdata('error', 'Errores al Intentar Actualizar!');
-			redirect(base_url()."productos","refresh");
+			// redirect(base_url()."productos","refresh");
 		}
 
 	}
 
 	public function atender($id){
+		$this->comprobacionRoles(18);
+
 		$agenda = $this->Agendamientos_model->getAgendamiento($id);
 		$data = array(
 
@@ -198,6 +208,8 @@ class Agendamientos extends CI_Controller
 		echo $this->templates->render('agendamientos::edit_atencion', $data);
 	}
 	public function viewAgendamiento($id){
+		$this->comprobacionRoles(18);
+
 		$agenda = $this->Agendamientos_model->getAgendamiento($id);
 		$data = array(
 			'agenda'=> $agenda, 
@@ -208,7 +220,7 @@ class Agendamientos extends CI_Controller
 		echo $this->templates->render('agendamientos::view_agendamiento', $data);
 	}
 	public function atencionExpediente(){
-
+		$this->comprobacionRoles(18);
 		$mensajes= $this->data;
 		$peso = $this->input->post('peso');
 		$diagnostico = $this->input->post('diagnostico');
