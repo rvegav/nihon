@@ -23,7 +23,7 @@
 
 					<div class="form-group">
 						<div class="row">
-							<div class="col-md-2" >
+							<!-- <div class="col-md-2" >
 								<div class="col-md-10 col-md-offset-1">
 									<h3>Perfil de Usuario</h3>
 									<input type="hidden" name="usua_id" value="<?php echo $usuario->usua_id ?>">
@@ -34,7 +34,7 @@
 										<img class="card-img-top imagenredonda" id="imgSalida" src="<?php echo base_url();?>assets/perfil.png">
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="col-md-9">
 								<div class="row">
 									<div class="col-md-6">
