@@ -5,11 +5,14 @@ class Ocupacion_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getOcupaciones($id = false){
+	public function getOcupaciones($id = false, $estado = false){
 		$this->db->select('o.ocu_id, o.ocu_descripcion, o.ocu_estado, DATE_FORMAT(o.ocu_fecha_creacion,"%d/%m/%Y")  ocu_fecha_creacion, DATE_FORMAT(o.ocu_fecha_modificacion,"%d/%m/%Y") ocu_fecha_modificacion');
 		$this->db->from("ocupaciones o");
 		if ($id) {
 			$this->db->where('ocu_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('ocu_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

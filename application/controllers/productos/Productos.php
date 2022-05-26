@@ -45,8 +45,8 @@ class Productos extends CI_Controller
 	{
 		$data = array(			
 			'maximo' => $this->Productos_model->ObtenerCodigo(),
-			'proveedores' => $this->Proveedores_model->getProveedores(),
-			'tipo_productos' => $this->Tipo_Productos_model->getTipoProductos()
+			'proveedores' => $this->Proveedores_model->getProveedores(false, 1),
+			'tipo_productos' => $this->Tipo_Productos_model->getTipoProductos(false, 1)
 		);
 		echo $this->templates->render('productos::add', $data);
 
@@ -114,8 +114,8 @@ class Productos extends CI_Controller
 	{
 		$data = array(
 			'producto'=> $this->Productos_model->getProductos($id),
-			'proveedores' => $this->Proveedores_model->getProveedores(),
-			'tipo_productos' => $this->Tipo_Productos_model->getTipoProductos()
+			'proveedores' => $this->Proveedores_model->getProveedores(false, 1),
+			'tipo_productos' => $this->Tipo_Productos_model->getTipoProductos(false, 1)
 		);
 		echo $this->templates->render('productos::edit', $data);
 

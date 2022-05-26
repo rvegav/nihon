@@ -5,11 +5,14 @@ class Ciudad_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getCiudades($id = false){
+	public function getCiudades($id = false, $estado = false){
 		$this->db->select('c.ciu_id, c.ciu_descripcion, c.ciu_estado, DATE_FORMAT(c.ciu_fecha_creacion,"%d/%m/%Y")  ciu_fecha_creacion, DATE_FORMAT(c.ciu_fecha_modificacion,"%d/%m/%Y") ciu_fecha_modificacion');
 		$this->db->from("ciudades c");
 		if ($id) {
 			$this->db->where('ciu_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('ciu_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

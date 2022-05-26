@@ -5,11 +5,14 @@ class Especies_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getEspecies($id = false){
+	public function getEspecies($id = false, $estado = false){
 		$this->db->select('c.esp_id, c.esp_descripcion, c.esp_estado, DATE_FORMAT(c.esp_fecha_creacion,"%d/%m/%Y")  esp_fecha_creacion, DATE_FORMAT(c.esp_fecha_modificacion,"%d/%m/%Y") esp_fecha_modificacion');
 		$this->db->from("especies c");
 		if ($id) {
 			$this->db->where('esp_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('c.esp_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

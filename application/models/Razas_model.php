@@ -5,12 +5,15 @@ class Razas_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getRazas($id = false){
+	public function getRazas($id = false, $estado = false){
 		$this->db->select('r.raz_id, r.raz_descripcion, r.raz_estado, DATE_FORMAT(r.raz_fecha_creacion,"%d/%m/%Y") raz_fecha_creacion, DATE_FORMAT(r.raz_fecha_modificacion,"%d/%m/%Y") raz_fecha_modificacion, e.esp_descripcion raz_especie, raz_esp_id');
 		$this->db->from("razas r");
 		$this->db->join('especies e', 'e.esp_id = r.raz_esp_id');
 		if ($id) {
 			$this->db->where('raz_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('raz_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

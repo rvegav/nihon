@@ -5,12 +5,15 @@ class Personas_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getPersonas($id = false){
+	public function getPersonas($id = false, $estado = false){
 		$this->db->select('p.per_id, p.per_nombre, p.per_apellido, p.per_nro_doc,p.per_fecha_nacimiento,  p.per_tipo_doc, p.per_direccion, p.per_telefono, p.per_correo, c.ciu_id,c.ciu_descripcion, p.per_estado, DATE_FORMAT(p.per_fecha_creacion,"%d/%m/%Y") per_fecha_creacion, DATE_FORMAT(p.per_fecha_modificacion,"%d/%m/%Y") per_fecha_modificacion');
 		$this->db->from("personas p");
 		$this->db->join('ciudades c', 'p.per_ciu_id = c.ciu_id', 'left');
 		if ($id) {
 			$this->db->where('per_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('p.per_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

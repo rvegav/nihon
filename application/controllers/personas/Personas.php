@@ -40,7 +40,7 @@
 		public function add(){
 			$data = array(			
 				'maximo' => $this->Personas_model->ObtenerCodigo(), 
-				'ciudades'=> $this->Ciudad_model->getCiudades() 
+				'ciudades'=> $this->Ciudad_model->getCiudades(false, 1) 
 			);
 			echo $this->templates->render('personas::add', $data);
 
@@ -102,6 +102,8 @@
 		{
 			$data = array(
 				'persona'=> $this->Personas_model->getPersonas($id),
+				'ciudades'=> $this->Ciudad_model->getCiudades(false, 1) 
+				
 			);
 			echo $this->templates->render('personas::edit', $data);
 

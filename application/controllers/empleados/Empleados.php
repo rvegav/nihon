@@ -25,8 +25,8 @@
 		public function add(){
 			$data = array(			
 				'maximo' => $this->Empleados_model->ObtenerCodigo(), 
-				'personas'=> $this->Personas_model->getPersonas(),
-				'ocupaciones' => $this->Ocupacion_model->getOcupaciones() 
+				'personas'=> $this->Personas_model->getPersonas(false, 1),
+				'ocupaciones' => $this->Ocupacion_model->getOcupaciones(false, 1) 
 			);
 			echo $this->templates->render('empleados::add', $data);
 
@@ -71,8 +71,8 @@
 		{
 			$data = array(
 				'empleado'=> $this->Empleados_model->getEmpleados($id),
-				'personas'=> $this->Personas_model->getPersonas(),
-				'ocupaciones' => $this->Ocupacion_model->getOcupaciones() 
+				'personas'=> $this->Personas_model->getPersonas(false, 1),
+				'ocupaciones' => $this->Ocupacion_model->getOcupaciones(false, 1) 
 			);
 			echo $this->templates->render('empleados::edit', $data);
 

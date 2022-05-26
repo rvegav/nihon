@@ -48,7 +48,7 @@ class Mascotas extends CI_Controller
 		$data = array(			
 			'maximo' => $this->Mascotas_model->ObtenerCodigo(),
 			'clientes' => $this->Clientes_model->getClientes(),
-			'razas' => $this->Razas_model->getRazas()
+			'razas' => $this->Razas_model->getRazas(false, 1)
 		);
 		echo $this->templates->render('mascotas::add', $data);
 
@@ -108,7 +108,7 @@ class Mascotas extends CI_Controller
 		$data = array(
 			'mascota'=> $this->Mascotas_model->getMascotas($id),
 			'clientes' => $this->Clientes_model->getClientes(),
-			'razas' => $this->Razas_model->getRazas()
+			'razas' => $this->Razas_model->getRazas(false, 1)
 		);
 		echo $this->templates->render('mascotas::edit', $data);
 

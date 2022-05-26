@@ -5,11 +5,14 @@ class Tipo_Productos_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getTipoProductos($id = false){
+	public function getTipoProductos($id = false, $estado= false){
 		$this->db->select('tp.tipr_id, tp.tipr_descripcion, tp.tipr_estado, tp.tipr_inventariable,DATE_FORMAT(tp.tipr_fecha_creacion,"%d/%m/%Y")  tipr_fecha_creacion, DATE_FORMAT(tp.tipr_fecha_modificacion,"%d/%m/%Y") tipr_fecha_modificacion');
 		$this->db->from("tipo_productos tp");
 		if ($id) {
 			$this->db->where('tp.tipr_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('tipr_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

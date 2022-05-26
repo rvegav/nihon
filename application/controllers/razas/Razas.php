@@ -45,7 +45,7 @@ class Razas extends CI_Controller
 	{
 		$data = array(			
 			'maximo' => $this->Razas_model->ObtenerCodigo(),
-			'especies' => $this->Especies_model->getEspecies()
+			'especies' => $this->Especies_model->getEspecies(false, 1)
 		);
 		echo $this->templates->render('razas::add', $data);
 
@@ -98,7 +98,7 @@ class Razas extends CI_Controller
 	{
 		$data = array(
 			'raza'=> $this->Razas_model->getrazas($id),
-			'especies' => $this->Especies_model->getEspecies()
+			'especies' => $this->Especies_model->getEspecies(false, 1)
 		);
 		echo $this->templates->render('razas::edit', $data);
 

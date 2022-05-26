@@ -40,7 +40,7 @@
 		public function add(){
 			$data = array(			
 				'maximo' => $this->Clientes_model->ObtenerCodigo(), 
-				'personas'=> $this->Personas_model->getPersonas() 
+				'personas'=> $this->Personas_model->getPersonas(false, 1) 
 			);
 			echo $this->templates->render('clientes::add', $data);
 
@@ -87,7 +87,7 @@
 		{
 			$data = array(
 				'cliente'=> $this->Clientes_model->getClientes($id),
-				'personas'=> $this->Personas_model->getPersonas() 
+				'personas'=> $this->Personas_model->getPersonas(false, 1) 
 				
 			);
 			echo $this->templates->render('clientes::edit', $data);

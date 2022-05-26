@@ -5,12 +5,15 @@ class Proveedores_model extends CI_Model {
 	//estos son metodos q tienen q ver con bd
 	
 	//este metodo es para mostrar todos los empleado
-	public function getProveedores($id = false){
+	public function getProveedores($id = false, $estado = false){
 		$this->db->select('p.prov_id, p.prov_descripcion, p.prov_documento, p.prov_telefono, p.prov_correo, prov_direccion, c.ciu_descripcion prov_ciudad, p.prov_ciu_id, DATE_FORMAT(p.prov_fecha_creacion,"%d/%m/%Y") prov_fecha_creacion, DATE_FORMAT(p.prov_fecha_modificacion,"%d/%m/%Y") prov_fecha_modificacion, p.prov_estado');
 		$this->db->from("proveedores p");
 		$this->db->join('ciudades c', 'c.ciu_id = p.prov_ciu_id', 'left');
 		if ($id) {
 			$this->db->where('prov_id', $id);
+		}
+		if ($estado) {
+			$this->db->where('prov_estado', $estado);
 		}
 		$resultados= $this->db->get();
 		if ($resultados->num_rows()>0) {

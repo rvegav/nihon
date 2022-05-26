@@ -40,7 +40,7 @@
 		public function add(){
 			$data = array(			
 				'maximo' => $this->Proveedores_model->ObtenerCodigo(), 
-				'ciudades'=> $this->Ciudad_model->getCiudades() 
+				'ciudades'=> $this->Ciudad_model->getCiudades(false, 1) 
 			);
 			echo $this->templates->render('proveedores::add', $data);
 
@@ -93,6 +93,8 @@
 		{
 			$data = array(
 				'proveedor'=> $this->Proveedores_model->getProveedores($id),
+				'ciudades'=> $this->Ciudad_model->getCiudades(false, 1) 
+				
 			);
 			echo $this->templates->render('proveedores::edit', $data);
 
