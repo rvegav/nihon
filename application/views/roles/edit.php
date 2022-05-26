@@ -104,6 +104,7 @@
 													<td><input type="checkbox" class="flat" disabled id="delete_detalle" name="modulo[<?php echo str_replace(' ','',$detalle->pant_descripcion)?>][select]" <?php if ($detalle->visualizacion =='SI'): ?> checked <?php endif ?>>Visualizar</td>
 												</thead>
 											</table></td>
+										<td><button type="button" class="btn btn-danger eliminar" ><i class="fa fa-trash"></i></button></td>
 										
 									</tr>
 								<?php endforeach ?>
@@ -226,7 +227,7 @@
 		html += '</td>';
 		html += '</thead></table>';
 		html += '<td>';
-		html += '<button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>';
+		html += '<button type="button" class="btn btn-danger eliminar"><i class="fa fa-trash"></i></button>';
 		html += '</td>';
 
 		html += '</tr>';
@@ -284,6 +285,9 @@
 		});
 
 	});
+	$('#table tbody').on('click', '.eliminar', function(){
+		$(this).parents('tr').remove();
+	})
 
 </script>
 <?php $this->end()?>

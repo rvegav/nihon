@@ -51,6 +51,7 @@
 						<th class="text-center">Marca</th>
 						<th class="text-center">Tipo Producto</th>
 						<th class="text-center">Proveedor</th>
+						<th class="text-center">Precio</th>
 						<th class="text-center">Fecha de Creacion</th>
 						<th class="text-center">Ultima Modificacion</th>
 						<th class="text-center">Estado</th>
@@ -67,6 +68,7 @@
 								<td><?php echo $producto->prod_marca;?></td>
 								<td><?php echo $producto->tipr_descripcion;?></td>
 								<td><?php echo $producto->prov_descripcion;?></td>
+								<td><?php echo $producto->prod_precio_venta;?></td>
 								<td><?php echo $producto->prod_fecha_creacion;?></td>
 								<td><?php echo $producto->prod_fecha_modificacion;?></td>
 

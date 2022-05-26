@@ -13,7 +13,7 @@ class Roles extends CI_Controller
 		$this->data = array('correcto'=>'','alerta'=>'','error'=>'', 'datos'=>'');
 		$this->load->model("Usuarios_model");
 
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 	}
 	public function comprobacionRoles()
 	{
@@ -33,7 +33,7 @@ class Roles extends CI_Controller
 	public function index()
 	{
 		$username = $this->session->userdata('sist_usuname');
-		$this->comprobacionRoles();	
+		// $this->comprobacionRoles();	
 		//cargamos un array usando el modelo
 		$roles = $this->Rol_model->getRoles();
 		$data = array(
@@ -45,7 +45,7 @@ class Roles extends CI_Controller
 	//funcion add para mostrar vistas
 	public function add()
 	{
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 		$data = array(			
 			'maximo' => $this->Rol_model->ObtenerCodigo(),
 			'modulos'=> $this->Rol_model->getModulos(),
@@ -55,7 +55,7 @@ class Roles extends CI_Controller
 	}
 	public function view()
 	{
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 		$id_rol = $this->input->post('id', TRUE);
 		$detalles = $this->Rol_model->getDetalleRol($id_rol);
 		if ($detalles) {
@@ -78,7 +78,7 @@ class Roles extends CI_Controller
 	}
 	public function GetPantalla($id)
 	{
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 		$data = array (
 			'pantalla'=> $this->Rol_model->getPantallaModulo($id)
 		);
@@ -95,7 +95,7 @@ class Roles extends CI_Controller
 	public function store()
 	{
 		$mensajes= $this->data;
-		// $this->comprobacionRoles();
+		$this->comprobacionRoles();
 		// recibimos las variables
 		$this->form_validation->set_rules("desRol", "Descripcion", "required");
 		// $this->form_validation->set_rules("modulo", "Modulo", "required");
@@ -152,7 +152,7 @@ class Roles extends CI_Controller
 	//metodo para editar
 	public function edit($id)
 	{
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 
 
 		$data = array(			
@@ -166,9 +166,12 @@ class Roles extends CI_Controller
 
 	//actualizamos 
 
-	public function update()
-	{
-		$this->comprobacionRoles();
+	public function update(){
+		// echo "<pre>";
+		// print_r ($_POST);
+		// echo "</pre>";
+		// die();
+		// $this->comprobacionRoles();
 		$this->form_validation->set_rules("desRol", "Descripcion", "required");
 		if ($this->form_validation->run() == FALSE){
 			$mensajes['alerta'] = validation_errors('<b style="color:red"><ul><li>', '</ul></li></b>');
@@ -185,11 +188,12 @@ class Roles extends CI_Controller
 			if($this->Rol_model->update($id,$data))
 			{
 				//si todo esta bien, emitimos mensaje
-				$this->session->set_flashdata('success', 'Rol registrado correctamente!');
-				$rol_id = $this->Rol_model->ultimoInsert();
+				$this->session->set_flashdata('success', 'Rol Actualizado correctamente!');
+				// $rol_id = $this->Rol_model->ultimoInsert();
+				$array='';
 				foreach ($modulos as $modulo) {
 					$data = array(
-						'rol_det_rol_id'=>$rol_id->rol_id,
+						'rol_det_rol_id'=>$id,
 						'rol_det_pant_id' => $modulo['pantalla'], 
 						'rol_det_insertar' => isset($modulo['insert']),
 						'rol_det_actualizar'=>isset($modulo['update']),
@@ -197,7 +201,15 @@ class Roles extends CI_Controller
 						'rol_det_visualizar'=>isset($modulo['select']),
 						'rol_det_fecha_modificacion' => $fechaActual
 					);
-					$this->Rol_model->save_detalle($data);
+					$resultado = $this->Rol_model->save_detalle($data);
+					if (isset($resultado->rol_det_id)) {
+						$array = $array.'\''.$resultado->rol_det_id.'\',';
+					}
+				}
+				// var_dump(substr_replace($array, '',-1));
+				// die();
+				if ($array!='') {
+					$resultado = $this->Rol_model->delete_detalle(substr_replace($array, '',-1), $id);
 				}
 				redirect(base_url()."roles/roles", "refresh");
 			}else{
@@ -209,7 +221,7 @@ class Roles extends CI_Controller
 
 	public function delete($id)
 	{
-		$this->comprobacionRoles();
+		// $this->comprobacionRoles();
 
 		if($this->Rol_model->delete($id)){
 			$this->session->set_flashdata('success', 'Registro eliminado correctamente!');					

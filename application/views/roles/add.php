@@ -209,15 +209,15 @@
 		html += '</td>';
 		html += '</thead></table>';
 		html += '<td>';
-		html += '<button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>';
+		html += '<button type="button" class="btn btn-danger eliminar" ><i class="fa fa-trash"></i></button>';
 		html += '</td>';
 
 		html += '</tr>';
 		$("#table tbody").append(html);
-		$('input.flat').iCheck({
-			checkboxClass: 'icheckbox_flat-green',
-			radioClass: 'iradio_flat-green'
-		});
+		// $('input.flat').iCheck({
+		// 	checkboxClass: 'icheckbox_flat-green',
+		// 	radioClass: 'iradio_flat-green'
+		// });
 		// $('#moduloDef').prop('selected',true);
 		$("#modulo").val('');
 		console.log(pantalla);
@@ -285,9 +285,12 @@
 			}).fail(function() {
 				alert("Se produjo un error, contacte con el soporte técnico");
 			});
-		})
+		});
 
 	});
+	$('#table tbody').on('click', '.eliminar', function(){
+		$(this).parents('tr').remove();
+	})
 
 </script>
 <?php $this->end()?>

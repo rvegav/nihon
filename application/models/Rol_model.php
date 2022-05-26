@@ -94,13 +94,22 @@ class Rol_model extends CI_Model {
 			$this->db->where('rol_det_rol_id', $rol_id);
 			$this->db->where('rol_det_pant_id', $pant_id);
 			$this->db->update('rol_detalles', $data);
+			$this->db->select('rol_det_id');
+			$this->db->where('rol_det_rol_id', $rol_id);
+			$this->db->where('rol_det_pant_id', $pant_id);
+			$resultado = $this->db->get('rol_detalles');
+			return $resultado->row();
 		}else{
 			$time = time();
 			$fechaActual = date("Y-m-d H:i:s",$time);
 			$this->db->set('rol_det_fecha_creacion', $fechaActual);
 			return $this->db->insert("rol_detalles", $data);
-
 		}
+	}
+	public function delete_detalle($array_det, $rol_id){
+		$this->db->where('rol_det_rol_id', $rol_id);
+		$this->db->where_not_in('rol_det_id', $array_det, false);
+		return $this->db->delete('rol_detalles');
 	}
 	public function getDetalleRol($id_rol){
 		$this->db->select('p.pant_descripcion,p.pant_id, (CASE WHEN  rd.rol_det_insertar = 0 THEN "NO" ELSE "SI" END) insercion, (CASE WHEN  rd.rol_det_actualizar = 0 THEN "NO" ELSE "SI" END) actualizacion , (CASE WHEN  rd.rol_det_borrar = 0 THEN "NO" ELSE "SI" END) borrado,(CASE WHEN  rd.rol_det_visualizar = 0 THEN "NO" ELSE "SI" END) visualizacion, m.mod_descripcion');

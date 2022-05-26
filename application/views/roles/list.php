@@ -64,7 +64,7 @@
 								<td><?php echo $rol->rol_fecha_creacion;?></td>
 								<td><?php echo $rol->rol_fecha_modificacion;?></td>
 								<td>
-									<button type="button" class="btn btn-primary btn-view" data-toggle="modal" data-target="#modal-view" value="<?php echo $rol->rol_id;?>">
+									<button type="button" class="btn btn-primary btn-view" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-view" value="<?php echo $rol->rol_id;?>">
 										<i class="fa fa-eye"></i>
 									</button>
 									<a href="<?php echo base_url();?>edit_rol/<?php echo $rol->rol_id;?>" class="btn btn-warning">
@@ -150,6 +150,8 @@
 	$('#cerrar').on('click', function(){
 		$('#table_detalle').DataTable().destroy();
 	});
-
+	$('#myModalLabel').on('hidden.bs.modal', function () {
+	  
+	})
 </script>|
 <?php $this->end()?>
