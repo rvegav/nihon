@@ -129,7 +129,7 @@ class Agendamientos extends CI_Controller
 
 			'agenda'=> $this->Agendamientos_model->getAgendamiento($id),
 			'clientes' => $this->Clientes_model->getClientes(),
-			'empleados' => $this->Empleados_model->getempleados(), 
+			'empleados' => $this->Empleados_model->getempleados(false, false, 'PROFESIONAL'), 
 			'servicios' => $this->Productos_model->getProductos(false, 'N'),
 		);
 		echo $this->templates->render('agendamientos::edit_recepcion', $data);
