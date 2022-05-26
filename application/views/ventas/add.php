@@ -457,7 +457,7 @@
 	})
 	var tablaInventario = $("#tablaInventario").DataTable({
 		'lengthChange':false,
-		'lengthMenu':[3],
+		'lengthMenu':[6],
 		'paging':true,
 		'info':false,
 		'filter':true,

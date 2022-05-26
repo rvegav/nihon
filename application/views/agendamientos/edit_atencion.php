@@ -250,7 +250,7 @@
 	});
 	var tablaServicios = $("#tablaServicios").DataTable({
 		'lengthChange':false,
-		'lengthMenu':[5],
+		'lengthMenu':[6],
 		'paging':true,
 		'info':false,
 		'filter':true,
@@ -286,7 +286,7 @@
 	});
 	var tablaServicio = $("#tablaServicio").DataTable({
 		'lengthChange':false,
-		'lengthMenu':[3],
+		'lengthMenu':[6],
 		'paging':true,
 		'info':false,
 		'filter':true,
@@ -342,7 +342,7 @@
 	});
 	var tablaInventario = $("#tablaInventario").DataTable({
 		'lengthChange':false,
-		'lengthMenu':[3],
+		'lengthMenu':[6],
 		'paging':true,
 		'info':false,
 		'filter':true,
